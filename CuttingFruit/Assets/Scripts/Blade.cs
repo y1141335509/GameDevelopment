@@ -5,7 +5,7 @@ using UnityEngine;
 public class Blade : MonoBehaviour
 {
     public GameObject bladeTrailPrefab;     // define the blade trail prefab
-    public float minCuttingVelocity = .00001f;        // min cutitng velocity
+    public float minCuttingVelocity = .000001f;        // min cutitng velocity
 
     private bool isCutting = false;
     Vector2 previousPosition;

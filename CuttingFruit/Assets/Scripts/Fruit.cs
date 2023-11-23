@@ -15,11 +15,12 @@ public class Fruit : MonoBehaviour
         if (col.gameObject.CompareTag("Blade"))
         {
 
-            Vector3 direction = col.transform.position - transform.position;
+            Vector3 direction = (col.transform.position - transform.position).normalized;
 
+            Quaternion rotation = Quaternion.LookRotation(direction);
             
             Debug.Log("WE HIT A WATERMELON");
-            Instantiate(fruitSlicedPrefab, transform.position, transform.rotation);
+            Instantiate(fruitSlicedPrefab, transform.position, rotation);
             Destroy(gameObject);
         }
     }

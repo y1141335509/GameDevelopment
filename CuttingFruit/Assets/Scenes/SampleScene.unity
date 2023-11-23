@@ -166,7 +166,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 524576646}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bladeTrailPrefab: {fileID: 471783195842364680, guid: 38828ccf720fc485189da894b28b4f5b, type: 3}
-  minCuttingVelocity: 0.00001
+  minCuttingVelocity: 0.000001
 --- !u!4 &648243496
 Transform:
   m_ObjectHideFlags: 0
