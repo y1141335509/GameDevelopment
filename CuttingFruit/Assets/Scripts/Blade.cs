@@ -5,7 +5,7 @@ using UnityEngine;
 public class Blade : MonoBehaviour
 {
     public GameObject bladeTrailPrefab;     // define the blade trail prefab
-    public float minCuttingVelocity = .01f;        // min cutitng velocity
+    public float minCuttingVelocity = .00001f;        // min cutitng velocity
 
     private bool isCutting = false;
     Vector2 previousPosition;
@@ -63,6 +63,7 @@ public class Blade : MonoBehaviour
         isCutting = true;
         currentBladeTrail = Instantiate(bladeTrailPrefab, transform);
         circleCollider.enabled = true;
+        Debug.Log("CIRCLE COLLIDER IS TRUE" + circleCollider.enabled);
     }
 
     void StopCutting()
@@ -71,6 +72,7 @@ public class Blade : MonoBehaviour
         currentBladeTrail.transform.SetParent(null);    // 
         Destroy(currentBladeTrail, 2f);                  // destroy the trails after 2 seconds
         circleCollider.enabled = false;
+        Debug.Log("CIRCLE COLLIDER IS FALSE:" + circleCollider.enabled);
     }
 
 }
