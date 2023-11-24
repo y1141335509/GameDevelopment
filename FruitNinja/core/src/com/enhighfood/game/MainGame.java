@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class MainGame extends ApplicationAdapter {
 	ShapeRenderer shape;
 	int x = 50, y = 50;
+	int xSpeed = 5;		// speed on the x-axis
 
 	@Override
 	public void create() {
@@ -25,8 +26,6 @@ public class MainGame extends ApplicationAdapter {
 		// Every frame, the UI gets rendered. At the start of each frame, make sure the UI is black
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		x += 5;
-
 		// initialize the "shape" as filled
 		shape.begin(ShapeRenderer.ShapeType.Filled);
 
@@ -36,6 +35,13 @@ public class MainGame extends ApplicationAdapter {
 		// end initialize the "shape"
 		shape.end();
 
+		x += xSpeed;		// move the circle toward right by xSpeed pixel
+		if (x > Gdx.graphics.getWidth()) {		// if the circle hit UI boundary
+			xSpeed = -5;
+		}
+		if (x < 0) {
+			xSpeed = 5;
+		}
 	}
 
 
