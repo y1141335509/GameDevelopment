@@ -131,7 +131,7 @@ public class GameScreen implements Screen {
         /// Update the progress bar
         long currentTime = System.currentTimeMillis();
         float elapsedTimeInSeconds = (currentTime - this.startTime) / 1000f;
-        progressBar.setValue(Math.max(0, 120 - elapsedTimeInSeconds)); // Decrease the progress bar value
+        progressBar.setValue(Math.min(elapsedTimeInSeconds, 120)); // Decrease the progress bar value
 
         stage.act(Math.min(delta, 1 / 30f));
         stage.draw();
