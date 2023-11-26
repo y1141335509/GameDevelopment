@@ -19,6 +19,7 @@ public class MyGame extends Game {
     @Override
     public void render() {
         super.render(); // Important! This will render the active game screen.
+
     }
 
     @Override

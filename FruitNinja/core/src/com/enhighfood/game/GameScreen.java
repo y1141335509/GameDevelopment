@@ -66,7 +66,7 @@ public class GameScreen implements Screen {
         skin.add("white", new Texture(pixmap));
 
         progressBarStyle = new ProgressBar.ProgressBarStyle(
-                skin.newDrawable("white", Color.DARK_GRAY),
+                skin.newDrawable("white", Color.BLACK),
                 skin.newDrawable("white", Color.GREEN)
         );
         progressBarStyle.knobBefore = progressBarStyle.knob;
@@ -128,20 +128,29 @@ public class GameScreen implements Screen {
         }
         game.batch.end();
 
-        // Update the progress bar value
-        float timeElapsed = 120f;   // Calculate elapsed time since the game started
-        progressBar.setValue(120f - timeElapsed); // Decrease the value to reflect remaining time
-        // Update and draw the stage
+        /// Update the progress bar
+        long currentTime = System.currentTimeMillis();
+        float elapsedTimeInSeconds = (currentTime - this.startTime) / 1000f;
+        progressBar.setValue(Math.max(0, 120 - elapsedTimeInSeconds)); // Decrease the progress bar value
+
+
         stage.act(Math.min(delta, 1 / 30f));
         stage.draw();
+
+        // Check for game end
+        if (elapsedTimeInSeconds >= 120) {
+            // Time's up, end the game
+            Gdx.app.exit();
+        }
 
         ///////////// GAME LOGIC ENDS /////////////
 
         // Check for game end
         if (TimeUtils.timeSinceMillis(startTime) > 120000) {
             // Time's up, end the game
-            Gdx.app.exit();     // quit the current game
+            Gdx.app.exit(); // quit the current game
         }
+
     }
 
     private void spawnFoodText() {
