@@ -13,15 +13,16 @@ public class MyInputProcessor extends InputAdapter {
         this.font = font;
     }
 
+
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         for (FoodText foodText : foodTexts) {
             if (foodText.intersects(screenX, screenY, font)) {
                 foodText.startFading();
-                break; // Assuming you want to fade out only one text per tap
+                return true; // Event was handled
             }
         }
-        return true;
+        return false; // Event not handled, pass it to the next processor
     }
 }
 
