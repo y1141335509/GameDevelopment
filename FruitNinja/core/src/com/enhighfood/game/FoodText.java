@@ -13,7 +13,7 @@ public class FoodText {
     float speed;
     private float alpha = 1.0f; // Opacity of the text
     private boolean fading = false;
-    private float fadeDuration = 0.5f; // Duration for fade-out
+    private float fadeDuration = 0.2f; // Duration for fade-out
     private float fadeTimer = 0;
     private GlyphLayout layout; // Used to calculate text dimensions
 

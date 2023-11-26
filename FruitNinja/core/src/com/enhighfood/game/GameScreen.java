@@ -74,9 +74,10 @@ public class GameScreen implements Screen {
 
     private void spawnFoodText() {
         String foodName = "Hello"; // Implement this method to get random food names
-        Vector2 position = new Vector2(MathUtils.random(0, Gdx.graphics.getWidth()), MathUtils.random(0, Gdx.graphics.getHeight()));
-        float size = MathUtils.random(0.5f, 2.0f); // Random size between 0.5 and 2.0 times the original size
-        float speed = MathUtils.random(50, 200); // Random speed in units per second
+        Vector2 position = new Vector2(MathUtils.random(0, Gdx.graphics.getWidth()) / 2f,
+                MathUtils.random(0, Gdx.graphics.getHeight()));
+        float size = MathUtils.random(5f, 10f); // Random size between 0.5 and 2.0 times the original size
+        float speed = MathUtils.random(100, 200); // Random speed in units per second
 
         FoodText foodText = new FoodText(foodName, position, size, speed);
         foodTexts.add(foodText); // Add foodText to the array
