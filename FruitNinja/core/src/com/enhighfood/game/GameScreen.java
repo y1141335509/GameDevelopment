@@ -2,6 +2,7 @@ package com.enhighfood.game;
 
 import static com.badlogic.gdx.graphics.g3d.particles.ParticleShader.Setters.screenWidth;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -20,6 +21,12 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
 public class GameScreen implements Screen {
     private MyGame game;
     public long startTime;
@@ -32,6 +39,7 @@ public class GameScreen implements Screen {
     private ProgressBar progressBar;
     private ProgressBar.ProgressBarStyle progressBarStyle; // Add this line
     private Skin skin;
+    private String[] foodNames = {"Banana", "Apple", "Cilantro", "Bok Choy"};
 
 
     public GameScreen(MyGame game) {
@@ -40,6 +48,7 @@ public class GameScreen implements Screen {
         this.batch = new SpriteBatch();
         this.foodTexts = new Array<>();
         this.spawnTimer = 0;
+        this.startTime = System.currentTimeMillis();
         // In your GameScreen class constructor
         Gdx.input.setInputProcessor(new MyInputProcessor(foodTexts, font));
         // Create and configure the skin and progress bar style
@@ -56,7 +65,10 @@ public class GameScreen implements Screen {
         pixmap.fill();
         skin.add("white", new Texture(pixmap));
 
-        progressBarStyle = new ProgressBar.ProgressBarStyle(skin.newDrawable("white", Color.DARK_GRAY), skin.newDrawable("white", Color.GREEN));
+        progressBarStyle = new ProgressBar.ProgressBarStyle(
+                skin.newDrawable("white", Color.DARK_GRAY),
+                skin.newDrawable("white", Color.GREEN)
+        );
         progressBarStyle.knobBefore = progressBarStyle.knob;
 
         pixmap.dispose();
@@ -68,16 +80,17 @@ public class GameScreen implements Screen {
         float step = 1;
         progressBar = new ProgressBar(min, max, step, false, progressBarStyle);
         progressBar.setValue(max); // Initialize with the maximum value
-        progressBar.setBounds(10, Gdx.graphics.getHeight() - 30, Gdx.graphics.getWidth() - 20, 20); // Position and size
+        progressBar.setBounds(10, Gdx.graphics.getHeight() - 30,
+                Gdx.graphics.getWidth() - 20, 20); // Position and size
 
 
         stage = new Stage(new ScreenViewport());
         stage.addActor(progressBar);
 
-
         // If you have an existing input processor, you might need to combine it with the stage's input processor
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(stage);
+
         // Add other input processors if necessary
         inputMultiplexer.addProcessor(new MyInputProcessor(foodTexts, font));
         Gdx.input.setInputProcessor(inputMultiplexer);
@@ -122,19 +135,24 @@ public class GameScreen implements Screen {
         stage.act(Math.min(delta, 1 / 30f));
         stage.draw();
 
-
         ///////////// GAME LOGIC ENDS /////////////
 
         // Check for game end
         if (TimeUtils.timeSinceMillis(startTime) > 120000) {
             // Time's up, end the game
+            Gdx.app.exit();     // quit the current game
         }
     }
 
     private void spawnFoodText() {
-        String foodName = "Hello"; // Implement this method to get random food names
-        Vector2 position = new Vector2(MathUtils.random(0, Gdx.graphics.getWidth()) / 2f,
-                MathUtils.random(0, Gdx.graphics.getHeight()));
+        List<String> foodNameArray = new ArrayList<>(Arrays.asList(this.foodNames));
+        int randInx = new Random().nextInt(foodNameArray.size());
+        String foodName = foodNameArray.get(randInx);
+
+
+        // set the area where the food texts are generated
+        Vector2 position = new Vector2(MathUtils.random(50, Gdx.graphics.getWidth()) / 2f - 50,
+                MathUtils.random(50, Gdx.graphics.getHeight() - 50));
         float size = MathUtils.random(5f, 10f); // Random size between 0.5 and 2.0 times the original size
         float speed = MathUtils.random(100, 200); // Random speed in units per second
 
