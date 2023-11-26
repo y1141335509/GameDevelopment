@@ -22,6 +22,11 @@ public class MyGame extends Game {
 
     }
 
+    public void update() {
+
+    }
+
+
     @Override
     public void dispose() {
         batch.dispose();
