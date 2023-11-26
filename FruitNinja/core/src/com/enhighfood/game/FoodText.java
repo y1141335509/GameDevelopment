@@ -16,6 +16,7 @@ public class FoodText {
     private float fadeDuration = 0.2f; // Duration for fade-out
     private float fadeTimer = 0;
     private GlyphLayout layout; // Used to calculate text dimensions
+    private boolean shouldBeRemoved = false;
 
 
     public FoodText(String name, Vector2 position, float size, float speed) {
@@ -33,9 +34,15 @@ public class FoodText {
         if (fading) {
             fadeTimer += deltaTime;
             alpha = Math.max(0, 1 - fadeTimer / fadeDuration);
-            // Add a log statement to check alpha value
-            System.out.println("Fading alpha: " + alpha);
+
+            if (alpha == 0) {
+                shouldBeRemoved = true;
+            }
         }
+    }
+
+    public boolean shouldBeRemoved() {
+        return shouldBeRemoved;
     }
 
     // Render the text

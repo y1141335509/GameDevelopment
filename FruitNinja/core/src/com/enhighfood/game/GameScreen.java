@@ -128,6 +128,15 @@ public class GameScreen implements Screen {
         }
         game.batch.end();
 
+        // Update each food text
+        for (int i = foodTexts.size - 1; i >= 0; i--) {
+            FoodText foodText = foodTexts.get(i);
+            foodText.update(Gdx.graphics.getDeltaTime());
+            if (foodText.shouldBeRemoved()) {
+                foodTexts.removeIndex(i);
+            }
+        }
+
         /// Update the progress bar
         long currentTime = System.currentTimeMillis();
         float elapsedTimeInSeconds = (currentTime - this.startTime) / 1000f;
