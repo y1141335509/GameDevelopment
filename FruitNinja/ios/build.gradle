@@ -17,3 +17,18 @@ robovm {
 }
 
 eclipse.project.name = appName + "-ios"
+
+
+project(":ios") {
+	apply plugin: "java"
+	apply plugin: "robovm"
+
+	dependencies {
+		implementation project(":core")
+		implementation "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
+		implementation "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"
+		implementation "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
+		implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
+		// ... other dependencies ...
+	}
+}
