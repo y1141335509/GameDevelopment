@@ -5,7 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class MyGame extends Game {
+public class MainGame extends Game {
     SpriteBatch batch;
     BitmapFont font;
 

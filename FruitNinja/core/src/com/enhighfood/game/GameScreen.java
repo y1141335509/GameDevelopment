@@ -1,7 +1,5 @@
 package com.enhighfood.game;
 
-import static com.badlogic.gdx.graphics.g3d.particles.ParticleShader.Setters.screenWidth;
-
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -19,17 +17,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class GameScreen implements Screen {
-    private MyGame game;
+    private MainGame game;
     public long startTime;
     private BitmapFont font;
     private SpriteBatch batch;
@@ -44,7 +40,7 @@ public class GameScreen implements Screen {
     private Label timeLabel;
 
 
-    public GameScreen(MyGame game) {
+    public GameScreen(MainGame game) {
         this.game = game;
         this.font = new BitmapFont(); // Use a custom font if you have one
         this.batch = new SpriteBatch();
