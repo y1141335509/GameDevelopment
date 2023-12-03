@@ -3,6 +3,11 @@ from flask_cors import CORS
 import openai
 import os
 
+
+# terminal: source backend-env/bin/activate (activate python environment)
+# terminal: python3 app.py
+
+
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app=app)
