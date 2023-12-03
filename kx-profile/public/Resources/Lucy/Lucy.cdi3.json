@@ -1,0 +1,247 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "PARAM_ANGLE_X",
+			"GroupId": "",
+			"Name": "Angle X"
+		},
+		{
+			"Id": "PARAM_ANGLE_Y",
+			"GroupId": "",
+			"Name": "Angle Y"
+		},
+		{
+			"Id": "PARAM_ANGLE_Z",
+			"GroupId": "",
+			"Name": "Angle Z"
+		},
+		{
+			"Id": "PARAM_EYE_L_OPEN",
+			"GroupId": "",
+			"Name": "EyeL Open"
+		},
+		{
+			"Id": "PARAM_EYE_R_OPEN",
+			"GroupId": "",
+			"Name": "EyeR Open"
+		},
+		{
+			"Id": "PARAM_EYE_BALL_X",
+			"GroupId": "",
+			"Name": "Eyeball X"
+		},
+		{
+			"Id": "PARAM_EYE_BALL_Y",
+			"GroupId": "",
+			"Name": "Eyeball Y"
+		},
+		{
+			"Id": "PARAM_BROW_L_Y",
+			"GroupId": "",
+			"Name": "BrowL Y"
+		},
+		{
+			"Id": "PARAM_BROW_R_Y",
+			"GroupId": "",
+			"Name": "BrowR Y"
+		},
+		{
+			"Id": "PARAM_BROW_L_X",
+			"GroupId": "",
+			"Name": "BrowL X"
+		},
+		{
+			"Id": "PARAM_BROW_R_X",
+			"GroupId": "",
+			"Name": "BrowR X"
+		},
+		{
+			"Id": "PARAM_BROW_L_ANGLE",
+			"GroupId": "",
+			"Name": "BrowL Angle"
+		},
+		{
+			"Id": "PARAM_BROW_R_ANGLE",
+			"GroupId": "",
+			"Name": "BrowR Angle"
+		},
+		{
+			"Id": "PARAM_BROW_L_FORM",
+			"GroupId": "",
+			"Name": "BrowL Deform"
+		},
+		{
+			"Id": "PARAM_BROW_R_FORM",
+			"GroupId": "",
+			"Name": "BrowR Deform"
+		},
+		{
+			"Id": "PARAM_MOUTH_FORM",
+			"GroupId": "",
+			"Name": "Mouth Deform"
+		},
+		{
+			"Id": "PARAM_MOUTH_OPEN_Y",
+			"GroupId": "",
+			"Name": "Mouth Open"
+		},
+		{
+			"Id": "PARAM_BODY_ANGLE_X",
+			"GroupId": "",
+			"Name": "Body X"
+		},
+		{
+			"Id": "PARAM_BODY_ANGLE_Z",
+			"GroupId": "",
+			"Name": "Body Z"
+		},
+		{
+			"Id": "PARAM_BREATH",
+			"GroupId": "",
+			"Name": "Breath"
+		},
+		{
+			"Id": "PARAM_CLOSE",
+			"GroupId": "",
+			"Name": "Wings Close (Unfixable)"
+		},
+		{
+			"Id": "PARAM_EAREMOTION",
+			"GroupId": "ParamGroup2",
+			"Name": "Ear Rotate"
+		},
+		{
+			"Id": "ParamSH1",
+			"GroupId": "ParamGroup2",
+			"Name": "Side Hair 1"
+		},
+		{
+			"Id": "ParamSH2",
+			"GroupId": "ParamGroup2",
+			"Name": "Side Hair 2"
+		},
+		{
+			"Id": "ParamBH1",
+			"GroupId": "ParamGroup2",
+			"Name": "Back Hair 1"
+		},
+		{
+			"Id": "ParamBreastPHYSX",
+			"GroupId": "ParamGroup2",
+			"Name": "Breasts"
+		},
+		{
+			"Id": "PARAM_SWEAT",
+			"GroupId": "ParamGroup",
+			"Name": "Sweat Drop"
+		},
+		{
+			"Id": "PARAM_ARM",
+			"GroupId": "ParamGroup",
+			"Name": "Arm Thing"
+		},
+		{
+			"Id": "PARAM_SURPRISE",
+			"GroupId": "ParamGroup",
+			"Name": "Wow!"
+		},
+		{
+			"Id": "PARAM_SCARE",
+			"GroupId": "ParamGroup",
+			"Name": "Surprise"
+		}
+	],
+	"ParameterGroups": [
+		{
+			"Id": "ParamGroup2",
+			"GroupId": "",
+			"Name": "PHYSX"
+		},
+		{
+			"Id": "ParamGroup",
+			"GroupId": "",
+			"Name": "Hotkeys"
+		}
+	],
+	"Parts": [
+		{
+			"Id": "PARTS_01_SKETCH",
+			"Name": "[ Guide Image]"
+		},
+		{
+			"Id": "PARTS_01_BACKGROUND",
+			"Name": "Background"
+		},
+		{
+			"Id": "PARTS_01_BODY",
+			"Name": "Body"
+		},
+		{
+			"Id": "PARTS_01_NECK",
+			"Name": "Neck"
+		},
+		{
+			"Id": "PARTS_01_HAIR_BACK_001",
+			"Name": "Hair Back"
+		},
+		{
+			"Id": "PARTS_01_HAIR_SIDE_001",
+			"Name": "Hair Side"
+		},
+		{
+			"Id": "PARTS_01_HAIR_FRONT_001",
+			"Name": "Bangs"
+		},
+		{
+			"Id": "PARTS_01_EAR_001",
+			"Name": "Ear"
+		},
+		{
+			"Id": "PARTS_01_NOSE_001",
+			"Name": "Nose"
+		},
+		{
+			"Id": "PARTS_01_MOUTH_001",
+			"Name": "Mouth"
+		},
+		{
+			"Id": "PARTS_01_BROW_001",
+			"Name": "Brows"
+		},
+		{
+			"Id": "PARTS_01_EYE_BALL_001",
+			"Name": "Eyeball"
+		},
+		{
+			"Id": "PARTS_01_EYE_001",
+			"Name": "Eye"
+		},
+		{
+			"Id": "PARTS_01_FACE_001",
+			"Name": "Face"
+		},
+		{
+			"Id": "ROUGH",
+			"Name": "Rough"
+		},
+		{
+			"Id": "PSD",
+			"Name": "PSD"
+		}
+	],
+	"CombinedParameters": [
+		[
+			"PARAM_ANGLE_X",
+			"PARAM_ANGLE_Y"
+		],
+		[
+			"PARAM_EYE_BALL_X",
+			"PARAM_EYE_BALL_Y"
+		],
+		[
+			"PARAM_MOUTH_FORM",
+			"PARAM_MOUTH_OPEN_Y"
+		]
+	]
+}

@@ -1,0 +1,45 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "Lucy.moc3",
+		"Textures": [
+			"Lucy.2048/texture_00.png"
+		],
+		"Physics": "Lucy.physics3.json",
+		"DisplayInfo": "Lucy.cdi3.json",
+		"Expressions": [
+			{
+				"Name": "Sweat",
+				"File": "sweat.exp3.json"
+			},
+			{
+				"Name": "Arm Up",
+				"File": "armup.exp3.json"
+			},
+			{
+				"Name": "Wow",
+				"File": "wow.exp3.json"
+			},
+			{
+				"Name": "Surprise",
+				"File": "surprise.exp3.json"
+			}
+		]
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		},
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": [
+				"PARAM_EYE_L_OPEN",
+				"PARAM_EYE_R_OPEN"
+			]
+		}
+	],
+	"HitAreas": []
+}

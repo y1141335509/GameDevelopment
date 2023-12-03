@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
-import Hiyori from './components/live2d-models/Hiyori';
-
+// import Hiyori from './components/live2d-models/Hiyori';
 import './App.css';
+
+
+
+let modelPath = '../public/Resources/hiyori_free_en/runtime/hiyori_free_t08.model3.json';
+// let modelPath = 'shizuku.model.json';
+
 
 function App() {
   const [userInput, setUserInput] = useState('');
@@ -37,9 +42,11 @@ function App() {
 
   return (
     <div className="App">
-      <div className='live2d'>
-        <Hiyori />
-      </div>
+
+      {/* <Hiyori modelPath={modelPath}/> */}
+
+      {/* <Hiyori /> */}
+
       <header className="App-header">
         <input 
           type="text" 

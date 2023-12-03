@@ -1,28 +1,67 @@
-import React, { useRef, useEffect } from 'react';
+// /hiyori_free_t08.model3.json
 
-function Live2DModel() {
-    const canvasRef = useRef(null);
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        // Assuming you have an initialization function for Live2D setup
-        // This function should handle the loading of the model and setting up the rendering loop
-        initializeLive2DModel(canvas);
+import React, { useEffect, useRef } from 'react';
+import * as PIXI from 'pixi.js';
+import { Live2DModel } from 'pixi-live2d-display';
 
-        // Cleanup function when the component unmounts
-        return () => {
-            // Any necessary cleanup for the Live2D model
-        };
-    }, []);
+function Live2DComponent({ modelPath }) {
+  const canvasRef = useRef(null);
 
-    // Placeholder function for initializing Live2D model (replace with actual implementation)
-    const initializeLive2DModel = (canvas) => {
-        // Your Live2D initialization code here
-        // This should include loading the .model3.json file, setting up animations, etc.
-        console.log('Initializing Live2D model on canvas', canvas);
+  useEffect(() => {
+    if (!canvasRef.current) return;
+
+    // Expose PIXI to window for Live2D models
+    window.PIXI = PIXI;
+
+    // Initialize PIXI Application
+    const app = new PIXI.Application({
+      view: document.getElementById('canvas'),
+    });
+
+    // Load and add Live2D model
+    let model;
+    Live2DModel.from(modelPath).then(loadedModel => {
+      model = loadedModel;
+      app.stage.addChild(model);
+
+      // Set transforms
+      model.x = 100;
+      model.y = 100;
+      model.rotation = Math.PI;
+      model.skew.x = Math.PI;
+      model.scale.set(2, 2);
+      model.anchor.set(0.5, 0.5);
+
+      // Handle interaction
+      model.on('hit', (hitAreas) => {
+        if (hitAreas.includes('body')) {
+          model.motion('tap_body');
+        }
+      });
+    });
+
+    // Cleanup
+    return () => {
+      if (model) {
+        app.stage.removeChild(model);
+        model.destroy();
+      }
+      app.destroy(true, { children: true, texture: true, baseTexture: true });
     };
+  }, [modelPath]);
 
-    return <canvas ref={canvasRef} width="600" height="600"></canvas>;
+  return <canvas ref={canvasRef} />;
 }
 
-export default Live2DModel;
+export default Live2DComponent;
+
+
+
+
+
+
+
+
+
+
