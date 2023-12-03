@@ -11,6 +11,7 @@ CORS(app=app)
 # Load OpenAI API key from environment variable
 print("hello: ", os.getenv('OPENAI_API_KEY'))
 # openai.api_key = os.getenv('OPENAI_API_KEY')
+openai.api_key = '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'
 
 # Initialize a dictionary to store conversations by user session
 conversations = {}
