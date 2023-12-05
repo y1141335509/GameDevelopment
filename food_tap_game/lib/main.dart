@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight, DeviceOrientation.landscapeLeft])
+  SystemChrome.setPreferredOrientations(
+          [DeviceOrientation.landscapeRight, DeviceOrientation.landscapeLeft])
       .then((_) {
     runApp(MyApp());
   });
@@ -33,14 +33,19 @@ class _GameHomePageState extends State<GameHomePage> {
   Timer? countdownTimer;
   double get progress => currentTime / maxTime;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   startTimer();
-  // }
+  List<String> foods = [
+    "Cilantro",
+    "Banana",
+    "Apple",
+    'Orange',
+    'Hello'
+  ]; // Add more food items here
+  Map<String, Offset> foodPositions = {};
+  Map<String, Offset> foodMovements = {};
 
   void startTimer() {
-    countdownTimer = Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
+    countdownTimer =
+        Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
   }
 
   void setCountDown() {
@@ -49,24 +54,32 @@ class _GameHomePageState extends State<GameHomePage> {
         currentTime--;
       } else {
         countdownTimer!.cancel();
+        foodGenerationTimer?.cancel();
         // Handle game over logic here
+        _showGameOverDialog();
       }
     });
   }
 
-  // @override
-  // void dispose() {
-  //   countdownTimer?.cancel();
-  //   super.dispose();
-  // }
-
-
-
-  ///////////////////////////////////
-  List<String> foods = ["Cilantro", "Banana", "Apple", 'Orange']; // Add more food items here
-  Map<String, Offset> foodPositions = {};
-
-
+  void _showGameOverDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Game Over'),
+        content: Text('Your time is up!!'),
+        actions: <Widget>[
+          TextButton(
+            child: Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+              Navigator.of(context)
+                  .pop(); // Optionally, navigate back to a previous screen
+            },
+          )
+        ],
+      ),
+    );
+  }
 
   ///////////////////////////////////
 
@@ -83,26 +96,15 @@ class _GameHomePageState extends State<GameHomePage> {
             child: LinearProgressIndicator(
               value: progress,
               backgroundColor: Colors.grey[200],
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              valueColor: AlwaysStoppedAnimation<Color>(
+                  Colors.blue), // Fixed color assignment
             ),
           ),
-          ...foodPositions.keys.map((food) => _buildMovingFoodText(food)).toList(),
+          ...foodPositions.keys
+              .map((food) => _buildMovingFoodText(food))
+              .toList(),
           // Add other game elements here
         ],
-      ),
-    );
-  }
-
-
-  Widget _buildMovingFoodText(String food) {
-    return AnimatedPositioned(
-      duration: Duration(seconds: Random().nextInt(5) + 3), // Random duration for movement
-      curve: Curves.linear,
-      top: foodPositions[food]!.dy,
-      left: foodPositions[food]!.dx,
-      child: GestureDetector(
-        onTap: () => _handleFoodTap(food),
-        child: Text(food),
       ),
     );
   }
@@ -114,62 +116,81 @@ class _GameHomePageState extends State<GameHomePage> {
     });
   }
 
+  //////////////
+  Timer? foodGenerationTimer;
+  //////////////
 
+  int foodCounter =
+      0; // a counter to generate unique identifiers for each food text
   @override
   void initState() {
     super.initState();
     startTimer();
 
-    // Schedule the generation of food positions after the build phase
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _generateRandomFoodPositions();
+    // Start a timer to generate new food texts continuously
+    foodGenerationTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (currentTime > 0) {
+        _generateRandomFoodPositionAndMovement();
+      } else {
+        timer.cancel();
+      }
     });
   }
 
+  void _generateRandomFoodPositionAndMovement() {
+    final random = Random();
+    final foodIndex = random.nextInt(foods.length);
+    final food = "${foods[foodIndex]}_${foodCounter++}";
 
-  void _generateRandomFoodPositions() {
-    for (var food in foods) {
-      foodPositions[food] = Offset(
-        Random().nextDouble() * MediaQuery.of(context).size.width,
-        Random().nextDouble() * MediaQuery.of(context).size.height,
-      );
-    }
+    final startPosition = Offset(
+      random.nextDouble() * MediaQuery.of(context).size.width,
+      random.nextDouble() * MediaQuery.of(context).size.height,
+    );
+
+    final targetPosition = Offset(
+      random.nextDouble() * MediaQuery.of(context).size.width,
+      random.nextDouble() * MediaQuery.of(context).size.height,
+    );
+
+    setState(() {
+      foodPositions[food] = startPosition;
+      foodMovements[food] = targetPosition;
+    });
+
+    // Start a timer for each food text to update its position continuously
+    Timer.periodic(Duration(seconds: random.nextInt(5) + 3), (timer) {
+      if (!foodPositions.containsKey(food)) {
+        timer.cancel();
+      } else {
+        setState(() {
+          foodPositions[food] = foodMovements[food]!;
+          // Update target position for the next movement
+          foodMovements[food] = Offset(
+            random.nextDouble() * MediaQuery.of(context).size.width,
+            random.nextDouble() * MediaQuery.of(context).size.height,
+          );
+        });
+      }
+    });
   }
 
+  Widget _buildMovingFoodText(String food) {
+    return AnimatedPositioned(
+      duration: Duration(seconds: 3), // Duration of movement
+      curve: Curves.linear,
+      top: foodPositions[food]!.dy,
+      left: foodPositions[food]!.dx,
+      child: GestureDetector(
+        onTap: () => _handleFoodTap(food),
+        child: Text(food.split('_')[0]),
+      ),
+    );
+  }
 
   @override
   void dispose() {
     countdownTimer?.cancel();
+    foodGenerationTimer?.cancel();
     super.dispose();
   }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
