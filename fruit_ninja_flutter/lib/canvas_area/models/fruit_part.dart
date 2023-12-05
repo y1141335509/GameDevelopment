@@ -8,6 +8,7 @@ class FruitPart extends GravitationalObject {
     required this.height,
     required this.isLeft,
     required super.position,
+    required this.fruitName,
     super.gravitySpeed = 0.0,
     super.additionalForce = const Offset(0, 0),
     super.rotation = 0.0,
@@ -16,4 +17,5 @@ class FruitPart extends GravitationalObject {
   final double width;
   final double height;
   final bool isLeft;
+  final String fruitName;
 }

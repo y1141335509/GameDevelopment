@@ -10,11 +10,11 @@
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.bin</key>
 		<data>
-		/gLAPjERMADBpEqg9Drp3xWSELE=
+		+5RzqTMYRmHke5nRq6QpyhCvhDk=
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<data>
-		QsjI4mc9ZkjqziTBslxQ/8HKHA4=
+		BDIjoPy+W0BXD3DqmXYp6sVntzE=
 		</data>
 		<key>Resources/flutter_assets/FontManifest.json</key>
 		<data>
@@ -36,9 +36,9 @@
 		<data>
 		s0XMsyU/rAmxfT/A9QHQqHghwLY=
 		</data>
-		<key>Resources/flutter_assets/assets/banana_cut_left.jpeg</key>
+		<key>Resources/flutter_assets/assets/banana_cut_left.png</key>
 		<data>
-		7F5VCU0dh6uPcsbsO29Xgb84H0E=
+		I9zvYGi54NeS89QzFCIjFQm/Abs=
 		</data>
 		<key>Resources/flutter_assets/assets/banana_cut_right.png</key>
 		<data>
@@ -48,7 +48,7 @@
 		<data>
 		mWyga7KHqEODmbSNKsRiRB8XRbw=
 		</data>
-		<key>Resources/flutter_assets/assets/melon_cut.png</key>
+		<key>Resources/flutter_assets/assets/melon_cut_left.png</key>
 		<data>
 		YmiTwKmfEX6p1XTgPpxHkq7DePM=
 		</data>
@@ -74,7 +74,7 @@
 		</data>
 		<key>Resources/flutter_assets/kernel_blob.bin</key>
 		<data>
-		qtbhBq9tGd47XRepykAF8kw7Jqs=
+		S5GMr+3VCeRW0+2+HwXIp1+xuOc=
 		</data>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -102,14 +102,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			DLBBC3FGzV8u9aZAPZ8w04ODyp1OS6m05LWIj7B6J5k=
+			RnF+jC0CLpjN1wU7SyB3EE+CDkMBYkicchbh9M2VAS0=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Nr51V9s92Ex40rds7b0r0hPdwq7S6iilKxun5zZc2So=
+			o3l5Vj4hFv8N8dYnTUIGWqwbZLXbpo58SPjM5MRXJpA=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/FontManifest.json</key>
@@ -147,11 +147,11 @@
 			jZpGPLYRrlrtxhl9Tpggb6cxvDcKdv8nMrjoxXF9gFY=
 			</data>
 		</dict>
-		<key>Resources/flutter_assets/assets/banana_cut_left.jpeg</key>
+		<key>Resources/flutter_assets/assets/banana_cut_left.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			K0qZH9KZuk+FsM32yNPToXhbrpdlul+61lp+S9S5xrs=
+			bpXryfvvkwc3Ebndqvc/TbEGFDgRa4XFzmFh1pLpkQo=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/assets/banana_cut_right.png</key>
@@ -168,7 +168,7 @@
 			p+ESqHyWUr6xdCpS3psCdaxIG7H3TrT6MElyfZA+agY=
 			</data>
 		</dict>
-		<key>Resources/flutter_assets/assets/melon_cut.png</key>
+		<key>Resources/flutter_assets/assets/melon_cut_left.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
@@ -214,7 +214,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			KL87RXmSfnD7g16caoPz6YRvVpa1hKDvnVkuWAqfVVg=
+			mwx0afBc2kHTu15Il/g6ZG21ECm9FH3IYLbGt7lcX3Y=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
