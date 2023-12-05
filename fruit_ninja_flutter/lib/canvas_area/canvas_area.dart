@@ -28,7 +28,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     // Initialize the countdown controller
     _countdownController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 12),
+      duration: const Duration(seconds: 120),
     )..addListener(() {
         setState(() {});
       });
@@ -39,7 +39,10 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     // add status listener:
     _countdownController.addStatusListener((status) {
       if (status == AnimationStatus.dismissed) {
-        SystemNavigator.pop();
+        // if run times up, then quit the game
+        // SystemNavigator.pop();
+        Navigator.of(context).pop(); // Navigate back to the game menu
+
       }
     });
 
@@ -147,6 +150,21 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
             SizedBox(width: 10),
             Text(countdownText, style: TextStyle(fontSize: 20)),
           ],
+        ),
+      ),
+    );
+
+
+    // Add Exit button
+    widgetsOnStack.add(
+      Positioned(
+        top: 16,
+        right: 16,
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop(); // Navigate back to the game menu
+          },
+          child: Text("Exit"),
         ),
       ),
     );
