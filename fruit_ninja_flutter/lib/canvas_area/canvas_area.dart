@@ -69,27 +69,34 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 ////////////////////////////////////
 
   void _spawnRandomFruit() {
-    final random = Random();
-    List<String> fruitNames = ['melon', 'apple', 'banana'];
-    String name = fruitNames[random.nextInt(fruitNames.length)];
+  final random = Random();
+  List<String> fruitNames = ['melon', 'apple', 'banana'];
+  String name = fruitNames[random.nextInt(fruitNames.length)];
 
-    _fruits.add(
-      Fruit(
-        position: Offset(
-          random.nextDouble() * MediaQuery.of(context).size.width,
-          random.nextDouble() * MediaQuery.of(context).size.height,
-        ),
-        width: 80,
-        height: 80,
-        name: name,
-        additionalForce: Offset(
-          5 + Random().nextDouble() * 5,
-          Random().nextDouble() * -10,
-        ),
-        rotation: Random().nextDouble() / 3 - 0.16,
-      ),
-    );
-  }
+  // Set the initial position at the bottom of the screen
+  double initialXPosition = random.nextDouble() * MediaQuery.of(context).size.width;
+  double initialYPosition = MediaQuery.of(context).size.height - 80; // Assuming 80 is the fruit size
+
+  // Adjust the force to throw the fruit upwards
+  // Tweak these values as needed to get the desired effect
+  Offset additionalForce = Offset(
+    random.nextDouble() * 5 - 2.5, // Horizontal force
+    -15 - random.nextDouble() * 10, // Vertical force, negative to go upwards
+  );
+
+  _fruits.add(
+    Fruit(
+      position: Offset(initialXPosition, initialYPosition),
+      width: 80,
+      height: 80,
+      name: name,
+      additionalForce: additionalForce,
+      rotation: random.nextDouble() / 3 - 0.16,
+    ),
+  );
+}
+
+
 
   void _tick() {
     setState(() {
@@ -124,7 +131,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     widgetsOnStack.add(
       Positioned(
         right: 16,
-        top: 16,
+        top: 200,
         child: Text(
           'Score: $_score',
           style: TextStyle(fontSize: 24),
@@ -139,16 +146,18 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         left: 16,
         right: 16,
         child: Row(
-          children: [
-            Expanded(
-              child: LinearProgressIndicator(
-                value: _countdownController.value,
-                backgroundColor: Colors.grey[150],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-              ),
+        children: [
+          // Wrap the progress bar with a SizedBox or Container
+          SizedBox(
+            width: 400, // Set the width as per your requirement
+            child: LinearProgressIndicator(
+              value: _countdownController.value,
+              backgroundColor: Colors.grey[150],
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
             ),
-            SizedBox(width: 10),
-            Text(countdownText, style: TextStyle(fontSize: 20)),
+          ),
+          SizedBox(width: 10),
+          Text(countdownText, style: TextStyle(fontSize: 20)),
           ],
         ),
       ),
