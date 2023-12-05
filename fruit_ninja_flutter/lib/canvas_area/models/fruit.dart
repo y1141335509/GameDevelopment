@@ -7,6 +7,7 @@ class Fruit extends GravitationalObject {
     required this.width,
     required this.height,
     required super.position,
+    required this.name,
     super.gravitySpeed = 0.0,
     super.additionalForce = const Offset(0, 0),
     super.rotation = 0.25,
@@ -14,6 +15,7 @@ class Fruit extends GravitationalObject {
 
   final double width;
   final double height;
+  final String name;
 
   bool isPointInside(Offset point) {
     if (point.dx < position.dx) {
