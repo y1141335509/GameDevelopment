@@ -22,17 +22,27 @@ class _CanvasAreaState<CanvasArea> extends State {
 
   @override
   void initState() {
-    _spawnRandomFruit();
-    _tick();
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _spawnRandomFruit();
+    });
+    _tick();
   }
 
   void _spawnRandomFruit() {
+    final random = Random();
+    List<String> fruitNames = ['melon', 'apple', 'banana', 'cilantro'];
+    String name = fruitNames[random.nextInt(fruitNames.length)];
+
     _fruits.add(
       Fruit(
-        position: Offset(0, 200),
+        position: Offset(
+          random.nextDouble() * MediaQuery.of(context).size.width,
+          random.nextDouble() * MediaQuery.of(context).size.height,
+        ),
         width: 80,
         height: 80,
+        name: name,
         additionalForce: Offset(
           5 + Random().nextDouble() * 5,
           Random().nextDouble() * -10,
@@ -120,13 +130,24 @@ class _CanvasAreaState<CanvasArea> extends State {
           left: fruit.position.dx,
           child: Transform.rotate(
             angle: fruit.rotation * pi * 2,
-            child: _getMelon(fruit),
+            child: _getFruitWidget(fruit),
           ),
         ),
       );
     }
 
     return list;
+  }
+
+  Widget _getFruitWidget(Fruit fruit) {
+    switch (fruit.name) {
+      case 'apple':
+        return _getApple(fruit);
+      case 'banana':
+        return _getBanana(fruit);
+      default: // 'melon'
+        return _getMelon(fruit);
+    }
   }
 
   List<Widget> _getFruitParts() {
@@ -161,6 +182,22 @@ class _CanvasAreaState<CanvasArea> extends State {
   Widget _getMelon(Fruit fruit) {
     return Image.asset(
       'assets/melon_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getBanana(Fruit fruit) {
+    return Image.asset(
+      'assets/banana_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getApple(Fruit fruit) {
+    return Image.asset(
+      'assets/apple_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
