@@ -111,31 +111,41 @@ class _GameHomePageState extends State<GameHomePage>
     });
   }
 
-
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Nutrition Game')),
-      body: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: LinearProgressIndicator(
-              value: progressController.value,
-              backgroundColor: Colors.grey[200],
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-            ),
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(title: Text('Nutrition Game')),
+    body: Stack(
+      children: <Widget>[
+        ...foodPositions.keys.map((food) => _buildMovingFoodText(food)).toList(),
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              LinearProgressIndicator(
+                value: progressController.value,
+                backgroundColor: Colors.grey[200],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              ),
+              SizedBox(height: 10), // Spacing between progress bar and button
+              ElevatedButton(
+                onPressed: togglePauseResumeGame,
+                child: Text(isGamePaused ? 'Resume' : 'Pause'),
+              ),
+            ],
           ),
-          ...foodPositions.keys
-              .map((food) => _buildMovingFoodText(food))
-              .toList(),
-          // Add other game elements here
-        ],
-      ),
-    );
-  }
+        ),
+        // Add other game elements here
+      ],
+    ),
+  );
+}
+
+
+
 
   void _handleFoodTap(String food) {
     setState(() {
