@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 import 'models/fruit.dart';
@@ -14,7 +13,7 @@ class CanvasArea extends StatefulWidget {
   }
 }
 
-class _CanvasAreaState<CanvasArea> extends State {
+class _CanvasAreaState extends State<CanvasArea> {
   int _score = 0;
   TouchSlice? _touchSlice;
   final List<Fruit> _fruits = <Fruit>[];
@@ -31,7 +30,7 @@ class _CanvasAreaState<CanvasArea> extends State {
 
   void _spawnRandomFruit() {
     final random = Random();
-    List<String> fruitNames = ['melon', 'apple', 'banana', 'cilantro'];
+    List<String> fruitNames = ['melon', 'apple', 'banana'];
     String name = fruitNames[random.nextInt(fruitNames.length)];
 
     _fruits.add(
@@ -158,7 +157,8 @@ class _CanvasAreaState<CanvasArea> extends State {
         Positioned(
           top: fruitPart.position.dy,
           left: fruitPart.position.dx,
-          child: _getMelonCut(fruitPart),
+          // child: _getMelonCut(fruitPart),
+          child: _getCutFruit(fruitPart),
         ),
       );
     }
@@ -166,18 +166,48 @@ class _CanvasAreaState<CanvasArea> extends State {
     return list;
   }
 
-  Widget _getMelonCut(FruitPart fruitPart) {
+  Widget _getCutFruit(FruitPart fruitPart) {
+    String assetName;
+    switch (fruitPart.fruitName) {
+      // Assuming fruitType is a property of FruitPart
+      case 'apple':
+        assetName = fruitPart.isLeft
+            ? 'assets/apple_cut_left.png'
+            : 'assets/apple_cut_right.png';
+        break;
+      case 'banana':
+        assetName = fruitPart.isLeft
+            ? 'assets/banana_cut_left.png'
+            : 'assets/banana_cut_right.png';
+        break;
+      default: // 'melon'
+        assetName = fruitPart.isLeft
+            ? 'assets/melon_cut_left.png'
+            : 'assets/melon_cut_right.png';
+        break;
+    }
+
     return Transform.rotate(
-      angle: fruitPart.rotation * pi * 2,
-      child: Image.asset(
-        fruitPart.isLeft
-            ? 'assets/melon_cut.png'
-            : 'assets/melon_cut_right.png',
-        height: 80,
-        fit: BoxFit.fitHeight,
-      ),
-    );
+        angle: fruitPart.rotation * pi * 2,
+        child: Image.asset(
+          assetName,
+          height: 80,
+          fit: BoxFit.fitHeight,
+        ));
   }
+
+  // Widget _getMelonCut(FruitPart fruitPart) {
+  //   return Transform.rotate(
+  //     angle: fruitPart.rotation * pi * 2,
+  //     child: Image.asset(
+  //       fruitPart.isLeft
+  //           ? 'assets/melon_cut.png'
+  //           : 'assets/melon_cut_right.png',
+  //       height: 80,
+  //       fit: BoxFit.fitHeight,
+  //     ),
+  //   );
+  // }
 
   Widget _getMelon(Fruit fruit) {
     return Image.asset(
@@ -261,6 +291,7 @@ class _CanvasAreaState<CanvasArea> extends State {
       width: hit.width / 2,
       height: hit.height,
       isLeft: true,
+      fruitName: hit.name,
       gravitySpeed: hit.gravitySpeed,
       additionalForce: Offset(
         hit.additionalForce.dx - 1,
@@ -277,6 +308,7 @@ class _CanvasAreaState<CanvasArea> extends State {
       width: hit.width / 2,
       height: hit.height,
       isLeft: false,
+      fruitName: hit.name,
       gravitySpeed: hit.gravitySpeed,
       additionalForce: Offset(
         hit.additionalForce.dx + 1,
