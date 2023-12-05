@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'models/fruit.dart';
 import 'models/fruit_part.dart';
@@ -13,20 +14,56 @@ class CanvasArea extends StatefulWidget {
   }
 }
 
-class _CanvasAreaState extends State<CanvasArea> {
+class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   int _score = 0;
   TouchSlice? _touchSlice;
   final List<Fruit> _fruits = <Fruit>[];
   final List<FruitPart> _fruitParts = <FruitPart>[];
+  late AnimationController _countdownController;
 
   @override
   void initState() {
     super.initState();
+
+    // Initialize the countdown controller
+    _countdownController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 12),
+    )..addListener(() {
+        setState(() {});
+      });
+
+    // Start the countdown
+    _countdownController.reverse(from: 1.0);
+
+    // add status listener:
+    _countdownController.addStatusListener((status) {
+      if (status == AnimationStatus.dismissed) {
+        SystemNavigator.pop();
+      }
+    });
+
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _spawnRandomFruit();
     });
+
     _tick();
   }
+
+  @override
+  void dispose() {
+    _countdownController.dispose();
+    super.dispose();
+  }
+
+  String get countdownText {
+    Duration duration =
+        _countdownController.duration! * _countdownController.value;
+    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+  }
+
+////////////////////////////////////
 
   void _spawnRandomFruit() {
     final random = Random();
@@ -88,6 +125,28 @@ class _CanvasAreaState extends State<CanvasArea> {
         child: Text(
           'Score: $_score',
           style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+
+    // add progress bar to the canvas area
+    widgetsOnStack.add(
+      Positioned(
+        top: 16,
+        left: 16,
+        right: 16,
+        child: Row(
+          children: [
+            Expanded(
+              child: LinearProgressIndicator(
+                value: _countdownController.value,
+                backgroundColor: Colors.grey[150],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              ),
+            ),
+            SizedBox(width: 10),
+            Text(countdownText, style: TextStyle(fontSize: 20)),
+          ],
         ),
       ),
     );
