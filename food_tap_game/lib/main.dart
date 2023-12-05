@@ -27,11 +27,15 @@ class GameHomePage extends StatefulWidget {
   _GameHomePageState createState() => _GameHomePageState();
 }
 
-class _GameHomePageState extends State<GameHomePage> {
+class _GameHomePageState extends State<GameHomePage>
+    with TickerProviderStateMixin {
   static const maxTime = 120;
   int currentTime = maxTime;
   Timer? countdownTimer;
   double get progress => currentTime / maxTime;
+  late AnimationController progressController;
+  bool isGamePaused = false;
+
 
   List<String> foods = [
     "Cilantro",
@@ -82,6 +86,31 @@ class _GameHomePageState extends State<GameHomePage> {
   }
 
   ///////////////////////////////////
+  void togglePauseResumeGame() {
+    if (isGamePaused) {
+      // Resume the game
+      countdownTimer?.cancel();
+      countdownTimer = Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
+      foodGenerationTimer?.cancel();
+      foodGenerationTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+        if (currentTime > 0) {
+          _generateRandomFoodPositionAndMovement();
+        } else {
+          timer.cancel();
+        }
+      });
+      progressController.forward(from: progressController.value);
+    } else {
+      // Pause the game
+      countdownTimer?.cancel();
+      foodGenerationTimer?.cancel();
+      progressController.stop();
+    }
+    setState(() {
+      isGamePaused = !isGamePaused;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -94,10 +123,9 @@ class _GameHomePageState extends State<GameHomePage> {
             left: 0,
             right: 0,
             child: LinearProgressIndicator(
-              value: progress,
+              value: progressController.value,
               backgroundColor: Colors.grey[200],
-              valueColor: AlwaysStoppedAnimation<Color>(
-                  Colors.blue), // Fixed color assignment
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
             ),
           ),
           ...foodPositions.keys
@@ -120,12 +148,20 @@ class _GameHomePageState extends State<GameHomePage> {
   Timer? foodGenerationTimer;
   //////////////
 
-  int foodCounter =
-      0; // a counter to generate unique identifiers for each food text
+  int foodCounter = 0; // a counter to generate unique identifiers for each food
   @override
   void initState() {
     super.initState();
     startTimer();
+
+    // Initialize the progress controller
+    progressController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: maxTime),
+    )..addListener(() {
+        setState(() {});
+      });
+    progressController.forward();
 
     // Start a timer to generate new food texts continuously
     foodGenerationTimer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -191,6 +227,7 @@ class _GameHomePageState extends State<GameHomePage> {
   void dispose() {
     countdownTimer?.cancel();
     foodGenerationTimer?.cancel();
+    progressController.dispose();
     super.dispose();
   }
 }
