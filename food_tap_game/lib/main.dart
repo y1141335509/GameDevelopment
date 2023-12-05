@@ -36,6 +36,34 @@ class _GameHomePageState extends State<GameHomePage>
   late AnimationController progressController;
   bool isGamePaused = false;
 
+  void togglePauseResumeGame() {
+    if (isGamePaused) {
+      // Resume the game
+      startTimer();
+      startFoodGeneration();
+    } else {
+      // Pause the game
+      pauseGame();
+    }
+    setState(() {
+      isGamePaused = !isGamePaused;
+    });
+  }
+
+  void pauseGame() {
+    countdownTimer?.cancel();
+    foodGenerationTimer?.cancel();
+  }
+
+  void startFoodGeneration() {
+    foodGenerationTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (currentTime > 0) {
+        _generateRandomFoodPositionAndMovement();
+      } else {
+        timer.cancel();
+      }
+    });
+  }
 
   List<String> foods = [
     "Cilantro",
@@ -85,67 +113,39 @@ class _GameHomePageState extends State<GameHomePage>
     );
   }
 
-  ///////////////////////////////////
-  void togglePauseResumeGame() {
-    if (isGamePaused) {
-      // Resume the game
-      countdownTimer?.cancel();
-      countdownTimer = Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
-      foodGenerationTimer?.cancel();
-      foodGenerationTimer = Timer.periodic(Duration(seconds: 1), (timer) {
-        if (currentTime > 0) {
-          _generateRandomFoodPositionAndMovement();
-        } else {
-          timer.cancel();
-        }
-      });
-      progressController.forward(from: progressController.value);
-    } else {
-      // Pause the game
-      countdownTimer?.cancel();
-      foodGenerationTimer?.cancel();
-      progressController.stop();
-    }
-    setState(() {
-      isGamePaused = !isGamePaused;
-    });
-  }
 
   @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: Text('Nutrition Game')),
-    body: Stack(
-      children: <Widget>[
-        ...foodPositions.keys.map((food) => _buildMovingFoodText(food)).toList(),
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              LinearProgressIndicator(
-                value: progressController.value,
-                backgroundColor: Colors.grey[200],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-              ),
-              SizedBox(height: 10), // Spacing between progress bar and button
-              ElevatedButton(
-                onPressed: togglePauseResumeGame,
-                child: Text(isGamePaused ? 'Resume' : 'Pause'),
-              ),
-            ],
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Nutrition Game')),
+      body: Stack(
+        children: <Widget>[
+          ...foodPositions.keys.map((food) => _buildMovingFoodText(food)).toList(),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                LinearProgressIndicator(
+                  value: progressController.value,
+                  backgroundColor: Colors.grey[200],
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                ),
+                SizedBox(height: 10), // Spacing between progress bar and button
+                ElevatedButton(
+                  onPressed: togglePauseResumeGame,
+                  child: Text(isGamePaused ? 'Resume' : 'Pause'),
+                ),
+              ],
+            ),
           ),
-        ),
-        // Add other game elements here
-      ],
-    ),
-  );
-}
-
-
-
+          // Add other game elements here
+        ],
+      ),
+    );
+  }
 
   void _handleFoodTap(String food) {
     setState(() {
