@@ -134,13 +134,13 @@
       "languageVersion": "3.2"
     },
     {
-      "name": "flutter_fruit_ninja_clone",
+      "name": "vege_vs_zombie",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-12-05T05:31:30.552258Z",
+  "generated": "2023-12-06T00:02:51.583191Z",
   "generator": "pub",
   "generatorVersion": "3.2.2"
 }

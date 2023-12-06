@@ -130,8 +130,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     widgetsOnStack.add(_getGestureDetector());
     widgetsOnStack.add(
       Positioned(
-        right: 16,
-        top: 200,
+        right: 200,
+        top: 16,
         child: Text(
           'Score: $_score',
           style: TextStyle(fontSize: 24),
