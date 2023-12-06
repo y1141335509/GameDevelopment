@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +7,12 @@ import 'models/fruit.dart';
 import 'models/fruit_part.dart';
 import 'models/touch_slice.dart';
 import 'slice_painter.dart';
+
+List<String> fruitNames = ['melon', 'apple', 'banana'];
+
+// fruitsCut defines the number of each fruit type is cut after game play.
+Map<String, int> fruitsCut = {'melon': 0, 'apple': 0, 'banana': 0};
+
 
 class CanvasArea extends StatefulWidget {
   @override
@@ -42,10 +49,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         // if run times up, then quit the game
         // SystemNavigator.pop();
         Navigator.of(context).pop(); // Navigate back to the game menu
-
       }
     });
-
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _spawnRandomFruit();
@@ -69,34 +74,33 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 ////////////////////////////////////
 
   void _spawnRandomFruit() {
-  final random = Random();
-  List<String> fruitNames = ['melon', 'apple', 'banana'];
-  String name = fruitNames[random.nextInt(fruitNames.length)];
+    final random = Random();
+    String name = fruitNames[random.nextInt(fruitNames.length)];
 
-  // Set the initial position at the bottom of the screen
-  double initialXPosition = random.nextDouble() * MediaQuery.of(context).size.width;
-  double initialYPosition = MediaQuery.of(context).size.height - 80; // Assuming 80 is the fruit size
+    // Set the initial position at the bottom of the screen
+    double initialXPosition =
+        random.nextDouble() * MediaQuery.of(context).size.width;
+    double initialYPosition = MediaQuery.of(context).size.height -
+        80; // Assuming 80 is the fruit size
 
-  // Adjust the force to throw the fruit upwards
-  // Tweak these values as needed to get the desired effect
-  Offset additionalForce = Offset(
-    random.nextDouble() * 5 - 2.5, // Horizontal force
-    -15 - random.nextDouble() * 10, // Vertical force, negative to go upwards
-  );
+    // Adjust the force to throw the fruit upwards
+    // Tweak these values as needed to get the desired effect
+    Offset additionalForce = Offset(
+      random.nextDouble() * 5 - 2.5, // Horizontal force
+      -15 - random.nextDouble() * 10, // Vertical force, negative to go upwards
+    );
 
-  _fruits.add(
-    Fruit(
-      position: Offset(initialXPosition, initialYPosition),
-      width: 80,
-      height: 80,
-      name: name,
-      additionalForce: additionalForce,
-      rotation: random.nextDouble() / 3 - 0.16,
-    ),
-  );
-}
-
-
+    _fruits.add(
+      Fruit(
+        position: Offset(initialXPosition, initialYPosition),
+        width: 80,
+        height: 80,
+        name: name,
+        additionalForce: additionalForce,
+        rotation: random.nextDouble() / 3 - 0.16,
+      ),
+    );
+  }
 
   void _tick() {
     setState(() {
@@ -146,23 +150,22 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         left: 16,
         right: 16,
         child: Row(
-        children: [
-          // Wrap the progress bar with a SizedBox or Container
-          SizedBox(
-            width: 400, // Set the width as per your requirement
-            child: LinearProgressIndicator(
-              value: _countdownController.value,
-              backgroundColor: Colors.grey[150],
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+          children: [
+            // Wrap the progress bar with a SizedBox or Container
+            SizedBox(
+              width: 400, // Set the width as per your requirement
+              child: LinearProgressIndicator(
+                value: _countdownController.value,
+                backgroundColor: Colors.grey[150],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              ),
             ),
-          ),
-          SizedBox(width: 10),
-          Text(countdownText, style: TextStyle(fontSize: 20)),
+            SizedBox(width: 10),
+            Text(countdownText, style: TextStyle(fontSize: 20)),
           ],
         ),
       ),
     );
-
 
     // Add Exit button
     widgetsOnStack.add(
