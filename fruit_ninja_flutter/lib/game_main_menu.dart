@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'canvas_area/canvas_area.dart';
+import 'dart:io';
 
 
 
@@ -28,7 +29,7 @@ class GameMenuScreen extends StatelessWidget {
               child: Text("High Score"),
             ),
             ElevatedButton(
-              onPressed: () => SystemNavigator.pop(), // This exits the app
+              onPressed: () => { SystemNavigator.pop(), exit(0) }, // This exits the app
               child: Text("Exit Game"),
             ),
           ],

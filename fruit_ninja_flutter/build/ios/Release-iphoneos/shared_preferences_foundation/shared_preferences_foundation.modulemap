@@ -1,0 +1,12 @@
+module shared_preferences_foundation {
+  umbrella header "shared_preferences_foundation-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+
+module shared_preferences_foundation.Swift {
+  header "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/build/ios/Release-iphoneos/shared_preferences_foundation/Swift Compatibility Header/shared_preferences_foundation-Swift.h"
+  requires objc
+}
