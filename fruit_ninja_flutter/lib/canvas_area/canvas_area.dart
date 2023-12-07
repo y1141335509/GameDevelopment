@@ -91,12 +91,20 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     final random = Random();
     String name = fruitNames[random.nextInt(fruitNames.length)];
 
-    // Set the initial position at the bottom of the screen
-    double initialXPosition =
-        random.nextDouble() * MediaQuery.of(context).size.width - 100;
-    double initialYPosition = MediaQuery.of(context).size.height -
-        80; // Assuming 80 is the fruit size
+    // Calculate center area bounds
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    Rect centerArea = Rect.fromCenter(
+      center: Offset(screenWidth / 2, screenHeight / 2),
+      width: 400,
+      height: 400,
+    );
 
+    // Ensure fruits spawn within the center area
+    Offset position = Offset(
+      centerArea.left + random.nextDouble() * centerArea.width,
+      centerArea.top + random.nextDouble() * centerArea.height,
+    );
     // Adjust the force to throw the fruit upwards
     // Tweak these values as needed to get the desired effect
     Offset additionalForce = Offset(
@@ -106,7 +114,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
     _fruits.add(
       Fruit(
-        position: Offset(initialXPosition, initialYPosition),
+        position: position,
         width: 80,
         height: 80,
         name: name,
