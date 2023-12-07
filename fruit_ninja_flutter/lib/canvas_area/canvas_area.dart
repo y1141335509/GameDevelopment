@@ -243,8 +243,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     widgetsOnStack.add(_getGestureDetector());
     widgetsOnStack.add(
       Positioned(
-        right: 200,
-        top: 16,
+        right: 250,
+        top: 24,
         child: Text(
           'Score: $_score',
           style: TextStyle(fontSize: 24),
@@ -255,7 +255,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     // add progress bar to the canvas area
     widgetsOnStack.add(
       Positioned(
-        top: 16,
+        top: 27,
         left: 16,
         right: 16,
         child: Row(
@@ -293,7 +293,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     // add Pause Game button:
     widgetsOnStack.add(Positioned(
         top: 16,
-        right: 72,
+        right: 100,
         child: ElevatedButton(
           onPressed: () => _pauseGame(),
           child: Text(_isGamePaused ? "Resume" : "Pause"),
@@ -447,6 +447,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   }
 
   _checkCollision() {
+    if (_isGamePaused) return; // Do nothing if the game is paused
     if (_touchSlice == null) {
       return;
     }
@@ -531,11 +532,16 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     _touchSlice = null;
   }
 
-  void _setNewSlice(details) {
-    _touchSlice = TouchSlice(pointsList: <Offset>[details.localFocalPoint]);
+  void _setNewSlice(ScaleStartDetails details) {
+    if (_isGamePaused) return; // Do nothing if the game is paused
+    setState(() {
+      _touchSlice = TouchSlice(pointsList: [details.localFocalPoint]);
+    });
   }
 
   void _addPointToSlice(ScaleUpdateDetails details) {
+    if (_isGamePaused) return; // Do nothing if the game is paused
+
     if (_touchSlice?.pointsList == null || _touchSlice!.pointsList.isEmpty) {
       return;
     }
