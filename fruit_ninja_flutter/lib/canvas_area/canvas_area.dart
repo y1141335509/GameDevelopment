@@ -127,23 +127,25 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   }
 
   void _tick() {
-    setState(() {
-      for (Fruit fruit in _fruits) {
-        fruit.applyGravity();
-      }
-      for (FruitPart fruitPart in _fruitParts) {
-        fruitPart.applyGravity();
-      }
+    if (!_isGamePaused) {
+      setState(() {
+        for (Fruit fruit in _fruits) {
+          fruit.applyGravity();
+        }
+        for (FruitPart fruitPart in _fruitParts) {
+          fruitPart.applyGravity();
+        }
 
-      // check survival at key time points (20 seconds per each)
-      _checkSurvival();
+        // check survival at key time points (20 seconds per each)
+        _checkSurvival();
 
-      if (Random().nextDouble() > 0.97) {
-        _spawnRandomFruit();
-      }
-    });
+        if (Random().nextDouble() > 0.97) {
+          _spawnRandomFruit();
+        }
+      });
 
-    Future<void>.delayed(Duration(milliseconds: 30), _tick);
+      Future<void>.delayed(Duration(milliseconds: 30), _tick);
+    }
   }
 
   void _checkSurvival() {
@@ -182,11 +184,10 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     setState(() {
       _isGamePaused = !_isGamePaused;
       if (_isGamePaused) {
-        _countdownController.stop(); // Stop the countdown timer
-        // Implement any other pausing logic here
+        _countdownController.stop();
       } else {
-        _countdownController.forward(); // Resume the countdown timer
-        // Implement any resume logic here
+        _countdownController.reverse(from: _countdownController.value);
+        _tick(); // Restart game loop
       }
     });
   }

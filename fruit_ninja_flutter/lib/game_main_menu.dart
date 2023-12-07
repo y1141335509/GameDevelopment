@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'canvas_area/canvas_area.dart';
+import 'canvas_area/high_score_page.dart';
 import 'dart:io';
-
 
 
 class GameMenuScreen extends StatelessWidget {
@@ -21,15 +21,21 @@ class GameMenuScreen extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => CanvasArea())),
               child: Text("Start"),
             ),
+            // In your GameMenuScreen class
+
             ElevatedButton(
               onPressed: () {
-                // Implement High Score logic here
-                // Example: showHighScores(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HighScoreScreen()),
+                );
               },
               child: Text("High Score"),
             ),
+
             ElevatedButton(
-              onPressed: () => { SystemNavigator.pop(), exit(0) }, // This exits the app
+              onPressed: () =>
+                  {SystemNavigator.pop(), exit(0)}, // This exits the app
               child: Text("Exit Game"),
             ),
           ],
