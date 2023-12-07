@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/fruit.dart';
 import 'models/fruit_part.dart';
@@ -36,6 +37,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   final List<Fruit> _fruits = <Fruit>[];
   final List<FruitPart> _fruitParts = <FruitPart>[];
   late AnimationController _countdownController;
+  bool _isGamePaused = false;
 
   // 2023/12/6 - try new mechanism:
   int _melonsCut = 0; // number of melons cut
@@ -176,7 +178,21 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     }
   }
 
+  void _pauseGame() {
+    setState(() {
+      _isGamePaused = !_isGamePaused;
+      if (_isGamePaused) {
+        _countdownController.stop(); // Stop the countdown timer
+        // Implement any other pausing logic here
+      } else {
+        _countdownController.forward(); // Resume the countdown timer
+        // Implement any resume logic here
+      }
+    });
+  }
+
   void _endGame(String message) {
+    _pauseGame(); // Pause the game
     showDialog(
       context: context,
       builder: (context) {
@@ -185,14 +201,30 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
           content: Text(message),
           actions: <Widget>[
             TextButton(
-              onPressed: () =>
-                  Navigator.of(context).popUntil((route) => route.isFirst),
+              onPressed: () async {
+                await _saveHighScore(
+                    _score); // Save the score if it's a high score
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              },
               child: Text("OK"),
             ),
           ],
         );
       },
     );
+  }
+
+  Future<void> _saveHighScore(int score) async {
+    final prefs = await SharedPreferences.getInstance();
+    int highScore = prefs.getInt('highScore') ?? 0;
+    if (score > highScore) {
+      await prefs.setInt('highScore', score);
+    }
+  }
+
+  Future<int> _getHighScore() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('highScore') ?? 0;
   }
 
   @override
@@ -256,6 +288,15 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         ),
       ),
     );
+
+    // add Pause Game button:
+    widgetsOnStack.add(Positioned(
+        top: 16,
+        right: 72,
+        child: ElevatedButton(
+          onPressed: () => _pauseGame(),
+          child: Text(_isGamePaused ? "Resume" : "Pause"),
+        )));
 
     return widgetsOnStack;
   }
