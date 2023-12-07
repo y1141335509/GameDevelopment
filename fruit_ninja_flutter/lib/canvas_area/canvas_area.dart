@@ -13,6 +13,15 @@ List<String> fruitNames = ['melon', 'apple', 'banana'];
 // fruitsCut defines the number of each fruit type is cut after game play.
 Map<String, int> fruitsCut = {'melon': 0, 'apple': 0, 'banana': 0};
 
+// max and min threshold for each fruit
+Map<int, List> fruitMinMax = {
+  20: [3, 10],
+  40: [8, 20],
+  60: [12, 25],
+  80: [15, 30],
+  100: [18, 33],
+  120: [20, 35],
+};
 
 class CanvasArea extends StatefulWidget {
   @override
@@ -27,6 +36,11 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   final List<Fruit> _fruits = <Fruit>[];
   final List<FruitPart> _fruitParts = <FruitPart>[];
   late AnimationController _countdownController;
+
+  // 2023/12/6 - try new mechanism:
+  int _melonsCut = 0; // number of melons cut
+  int _bananaCut = 0;
+  int _appleCut = 0;
 
   @override
   void initState() {
@@ -48,7 +62,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       if (status == AnimationStatus.dismissed) {
         // if run times up, then quit the game
         // SystemNavigator.pop();
-        Navigator.of(context).pop(); // Navigate back to the game menu
+        // Navigator.of(context).pop(); // Navigate back to game menu after 120s
       }
     });
 
@@ -79,7 +93,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
     // Set the initial position at the bottom of the screen
     double initialXPosition =
-        random.nextDouble() * MediaQuery.of(context).size.width;
+        random.nextDouble() * MediaQuery.of(context).size.width - 100;
     double initialYPosition = MediaQuery.of(context).size.height -
         80; // Assuming 80 is the fruit size
 
@@ -111,12 +125,66 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         fruitPart.applyGravity();
       }
 
+      // check survival at key time points (20 seconds per each)
+      _checkSurvival();
+
       if (Random().nextDouble() > 0.97) {
         _spawnRandomFruit();
       }
     });
 
     Future<void>.delayed(Duration(milliseconds: 30), _tick);
+  }
+
+  void _checkSurvival() {
+    int currentTime = (120 -
+            (_countdownController.duration?.inSeconds ?? 0) *
+                _countdownController.value)
+        .round();
+
+    // check if dead every 20 seconds
+    if (fruitMinMax.containsKey(currentTime)) {
+      List<dynamic> thresholds = fruitMinMax[currentTime] ?? [0, 0];
+
+      // reasons for dying:
+      // abnormally high blood sugar level
+      // hyperkalemia
+      // Gastrointestinal Diseases
+      if (_melonsCut < thresholds[0]) {
+        _endGame("You died due to abnormally low blood sugar level");
+      } else if (_melonsCut > thresholds[1]) {
+        _endGame("You died due to abnormally high blood sugar level");
+      } else if (_bananaCut < thresholds[0]) {
+        _endGame("You died due to abnormally low potassium level");
+      } else if (_bananaCut > thresholds[1]) {
+        _endGame("You died due to abnormally high potassium level");
+      } else if (_appleCut < thresholds[0]) {
+        _endGame("You died due to Gastrointestinal Diseases");
+      } else if (_appleCut > thresholds[1]) {
+        _endGame("You died due to Gastrointestinal Diseases");
+      }
+    } else if (currentTime >= 120) {
+      _endGame("Congrats!");
+    }
+  }
+
+  void _endGame(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Game Over"),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () =>
+                  Navigator.of(context).popUntil((route) => route.isFirst),
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -285,19 +353,6 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         ));
   }
 
-  // Widget _getMelonCut(FruitPart fruitPart) {
-  //   return Transform.rotate(
-  //     angle: fruitPart.rotation * pi * 2,
-  //     child: Image.asset(
-  //       fruitPart.isLeft
-  //           ? 'assets/melon_cut.png'
-  //           : 'assets/melon_cut_right.png',
-  //       height: 80,
-  //       fit: BoxFit.fitHeight,
-  //     ),
-  //   );
-  // }
-
   Widget _getMelon(Fruit fruit) {
     return Image.asset(
       'assets/melon_uncut.png',
@@ -365,6 +420,15 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
           _fruits.remove(fruit);
           _turnFruitIntoParts(fruit);
           _score += 10;
+
+          // handle fruit cut:
+          if (fruit.name == 'melon') {
+            _melonsCut++;
+          } else if (fruit.name == 'banana') {
+            _bananaCut++;
+          } else if (fruit.name == 'apple') {
+            _appleCut++;
+          }
           break;
         }
       }

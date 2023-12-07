@@ -32,6 +32,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "csv",
+      "rootUri": "file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/csv-5.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "cupertino_icons",
       "rootUri": "file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.6",
       "packageUri": "lib/",
@@ -140,7 +146,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-12-06T22:18:54.836418Z",
+  "generated": "2023-12-07T01:15:47.195194Z",
   "generator": "pub",
   "generatorVersion": "3.2.2"
 }
