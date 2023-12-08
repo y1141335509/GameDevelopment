@@ -9,10 +9,15 @@ import 'models/fruit_part.dart';
 import 'models/touch_slice.dart';
 import 'slice_painter.dart';
 
-List<String> fruitNames = ['melon', 'apple', 'banana'];
+List<String> fruitNames = ['melon', 'apple', 'banana', 'avocado'];
 
 // fruitsCut defines the number of each fruit type is cut after game play.
-Map<String, int> fruitsCut = {'melon': 0, 'apple': 0, 'banana': 0};
+Map<String, int> fruitsCut = {
+  'melon': 0,
+  'apple': 0,
+  'banana': 0,
+  'avocado': 0
+};
 
 // max and min threshold for each fruit
 Map<int, List> fruitMinMax = {
@@ -43,6 +48,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   int _melonsCut = 0; // number of melons cut
   int _bananaCut = 0;
   int _appleCut = 0;
+  int _avocadoCut = 0;
 
   @override
   void initState() {
@@ -163,17 +169,21 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       // hyperkalemia
       // Gastrointestinal Diseases
       if (_melonsCut < thresholds[0]) {
-        _endGame("You died due to abnormally low blood sugar level");
+        _endGame("You died of abnormally low blood sugar level");
       } else if (_melonsCut > thresholds[1]) {
-        _endGame("You died due to abnormally high blood sugar level");
+        _endGame("You died of abnormally high blood sugar level");
       } else if (_bananaCut < thresholds[0]) {
-        _endGame("You died due to abnormally low potassium level");
+        _endGame("You died of abnormally low potassium level");
       } else if (_bananaCut > thresholds[1]) {
-        _endGame("You died due to abnormally high potassium level");
+        _endGame("You died of abnormally high potassium level");
       } else if (_appleCut < thresholds[0]) {
-        _endGame("You died due to Gastrointestinal Diseases");
+        _endGame("You died of Gastrointestinal Diseases");
       } else if (_appleCut > thresholds[1]) {
-        _endGame("You died due to Gastrointestinal Diseases");
+        _endGame("You died of Gastrointestinal Diseases");
+      } else if (_avocadoCut > thresholds[0]) {
+        _endGame("You died of SEVERE obesity");
+      } else if (_avocadoCut > thresholds[1]) {
+        _endGame("You died of UNDER-weight");
       }
     } else if (currentTime >= 120) {
       _endGame("Congrats!");
@@ -230,10 +240,19 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: _getStack());
+    double screenW = MediaQuery.of(context).size.width;
+    double screenH = MediaQuery.of(context).size.height;
+
+    // Adjust sizes and positions based on screen size
+    double scoreFontSize = screenW * 0.05; // Example of responsive font size
+    double buttonWidth = screenW * 0.15; // Example of responsive button width
+
+    return Stack(
+        children: _getStack(screenW, screenH, scoreFontSize, buttonWidth));
   }
 
-  List<Widget> _getStack() {
+  List<Widget> _getStack(double screenWidth, double screenHeight, 
+                        double scoreFontSize, double buttonWidth) {
     List<Widget> widgetsOnStack = <Widget>[];
 
     widgetsOnStack.add(_getBackground());
@@ -241,13 +260,15 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     widgetsOnStack.addAll(_getFruitParts());
     widgetsOnStack.addAll(_getFruits());
     widgetsOnStack.add(_getGestureDetector());
+
+    // Adjust the position and size of score text
     widgetsOnStack.add(
       Positioned(
-        right: 220,
-        top: 24,
+        right: screenWidth * 0.05, // 5% of screen width from the right
+        top: screenHeight * 0.02, // 2% of screen height from the top
         child: Text(
           'Score: $_score',
-          style: TextStyle(fontSize: 24),
+          style: TextStyle(fontSize: scoreFontSize),
         ),
       ),
     );
@@ -262,7 +283,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
           children: [
             // Wrap the progress bar with a SizedBox or Container
             SizedBox(
-              width: 400, // Set the width as per your requirement
+              width: 300, // Set the width as per your requirement
               child: LinearProgressIndicator(
                 value: _countdownController.value,
                 backgroundColor: Colors.grey[150],
@@ -290,14 +311,20 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       ),
     );
 
-    // add Pause Game button:
-    widgetsOnStack.add(Positioned(
-        top: 16,
-        right: 100,
-        child: ElevatedButton(
-          onPressed: () => _pauseGame(),
-          child: Text(_isGamePaused ? "Resume" : "Pause"),
-        )));
+    // Adjust the position and size of buttons
+    widgetsOnStack.add(
+      Positioned(
+        top: screenHeight * 0.02,
+        right: screenWidth * 0.3, // Adjusted for better spacing
+        child: SizedBox(
+          width: buttonWidth,
+          child: ElevatedButton(
+            onPressed: () => _pauseGame(),
+            child: Text(_isGamePaused ? "Resume" : "Pause"),
+          ),
+        ),
+      ),
+    );
 
     return widgetsOnStack;
   }
@@ -351,6 +378,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         return _getApple(fruit);
       case 'banana':
         return _getBanana(fruit);
+      case 'avocado':
+        return _getAvocado(fruit);
       default: // 'melon'
         return _getMelon(fruit);
     }
@@ -387,6 +416,11 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
             ? 'assets/banana_cut_left.png'
             : 'assets/banana_cut_right.png';
         break;
+      case 'avocado':
+        assetName = fruitPart.isLeft
+            ? 'assets/avocado_cut_left.png'
+            : 'assets/avocado_cut_right.png';
+        break;
       default: // 'melon'
         assetName = fruitPart.isLeft
             ? 'assets/melon_cut_left.png'
@@ -422,6 +456,14 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   Widget _getApple(Fruit fruit) {
     return Image.asset(
       'assets/apple_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getAvocado(Fruit fruit) {
+    return Image.asset(
+      'assets/avocado_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -479,6 +521,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
             _bananaCut++;
           } else if (fruit.name == 'apple') {
             _appleCut++;
+          } else if (fruit.name == 'avocado') {
+            _avocadoCut++;
           }
           break;
         }
