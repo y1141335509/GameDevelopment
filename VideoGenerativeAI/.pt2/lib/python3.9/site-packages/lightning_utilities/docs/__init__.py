@@ -1,1 +1,0 @@
-from lightning_utilities.docs.retriever import fetch_external_assets

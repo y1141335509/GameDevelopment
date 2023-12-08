@@ -245,7 +245,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
     // Adjust sizes and positions based on screen size
     double scoreFontSize = screenW * 0.02; // Example of responsive font size
-    double buttonWidth = screenW * 0.1; // Example of responsive button width
+    double buttonWidth = screenW * 0.14; // Example of responsive button width
 
     return Stack(
         children: _getStack(screenW, screenH, scoreFontSize, buttonWidth));
