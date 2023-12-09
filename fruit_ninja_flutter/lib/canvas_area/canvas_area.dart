@@ -343,7 +343,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       decoration: BoxDecoration(
         gradient: RadialGradient(
           stops: <double>[0.2, 1.0],
-          colors: <Color>[Color(0xff3FCCDE), Color(0xffBFEEF4)],
+          colors: <Color>[Color(0xffBFEEF4), Color(0xff3FCCDE)],
         ),
       ),
     );
