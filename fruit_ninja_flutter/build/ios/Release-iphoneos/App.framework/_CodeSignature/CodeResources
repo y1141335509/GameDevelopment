@@ -10,11 +10,11 @@
 		</data>
 		<key>flutter_assets/AssetManifest.bin</key>
 		<data>
-		cJRlsmuuC0AwaqEkVMNqBugtD4A=
+		fKHACjcRSIt1zKJXjeitu7HXZxE=
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		Unut6nKavHx7dUBu5KHVMGHpih4=
+		rO3hIC7S7IywrAEbqWBauLG0+ek=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -24,29 +24,45 @@
 		<data>
 		vNnO2TSATu1umF5+nE4UgKVi0Qg=
 		</data>
+		<key>flutter_assets/assets/.DS_Store</key>
+		<data>
+		3y++sUAKzaCQmjLBz2v0kvESHgc=
+		</data>
 		<key>flutter_assets/assets/apple_cut_left.png</key>
 		<data>
-		arvvfXSlF3ZqAWvEj6287TC0ocs=
+		1zOqoXfLkeSOYJGQyoUjvuzneoI=
 		</data>
 		<key>flutter_assets/assets/apple_cut_right.png</key>
 		<data>
-		dx18nGZVLKqEXMGK8JimnNqgBbA=
+		6teKqbDrfMBQcpJAYOSwD/xbGnI=
 		</data>
 		<key>flutter_assets/assets/apple_uncut.png</key>
 		<data>
-		s0XMsyU/rAmxfT/A9QHQqHghwLY=
+		Fi3UqpRwyIxCdCnVVlYwq08k43s=
+		</data>
+		<key>flutter_assets/assets/avocado_cut_left.png</key>
+		<data>
+		l6+XpualTFw+MUsqvWCl4jKoiGA=
+		</data>
+		<key>flutter_assets/assets/avocado_cut_right.png</key>
+		<data>
+		1tQwr0EVL0bptygQvcmJF3vlNFE=
+		</data>
+		<key>flutter_assets/assets/avocado_uncut.png</key>
+		<data>
+		5OGqfXjvXovte1cgRt/a0Wc6q+g=
 		</data>
 		<key>flutter_assets/assets/banana_cut_left.png</key>
 		<data>
-		I9zvYGi54NeS89QzFCIjFQm/Abs=
+		qqp0nrjfMwNXRyd2VVOw+AQqACA=
 		</data>
 		<key>flutter_assets/assets/banana_cut_right.png</key>
 		<data>
-		MqEE1frAhBAGLGhZ+GcExYCkhgw=
+		x3UiqNQiE64t5XbkuwOZt14oQOc=
 		</data>
 		<key>flutter_assets/assets/banana_uncut.png</key>
 		<data>
-		mWyga7KHqEODmbSNKsRiRB8XRbw=
+		xipnrW0Hi3sGysEpnAxM13vyipU=
 		</data>
 		<key>flutter_assets/assets/data/nutritions.csv</key>
 		<data>
@@ -70,7 +86,7 @@
 		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
-		jh1h9R2eL3jpgzt7Tv8qBBS0fk4=
+		/CUoTuPQqqdexfyOT9lpJhV+2MQ=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -87,14 +103,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			9JLff2wYVsuldpkuPPCqO24rESeBAewBqedtZ4O8XTw=
+			mCvpJJEid3W0WYT7CD11ztlGJda34SJkm85zHSCDXeM=
 			</data>
 		</dict>
 		<key>flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zNT+TxLfEhE8NJqM8FRf0JqEFg9gTSaD95uIMR/0Ies=
+			MRpm87awMBRDcu48GmA1p0z7Z4T7gbeK2AOplozH16A=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -115,42 +131,63 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			KDWMSThXnVJ3AJ1rv9/iEZoLSkqvlAcrH549sUO8Czs=
+			6ELWxVesI+j/kjbtIEPAzuDKu1QMie8TPS3amD6enlY=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/apple_cut_right.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			34QciOMPqJSn1Rku19sguSO2XlOzw1HHb7Nmc5cCgrc=
+			0pF7aSVFhqH9Kp/8sRYvi/Z0snerXsBqCF5xEsf2B0o=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/apple_uncut.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			jZpGPLYRrlrtxhl9Tpggb6cxvDcKdv8nMrjoxXF9gFY=
+			Jh/UR0gqzsmWpWu4Hk42hid50baoQLpbDea9CaRtlH0=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/avocado_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hez+Xgq3ItJ11nReJqQdELoXBag17VIisgMKgEAzlSw=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/avocado_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7NZsbvSVeTA/79LsjYE0B5rnK4MeQXw6zj755ZY3QZI=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/avocado_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9BKfkkWhzbNzjhbM824a3E0Sgnc2NOngfVMFN3Lz9A8=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/banana_cut_left.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			bpXryfvvkwc3Ebndqvc/TbEGFDgRa4XFzmFh1pLpkQo=
+			H1OHdDqbEwBfjDquRYlyl6/QsPkzG9+2wf2fJXmzinY=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/banana_cut_right.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9Ybuf4BzQa4L2kjiakMbRkrK5wAluDNgWfI1AVl1DPQ=
+			iK6Q9cf3ZnkH9nIhdzjkeG0huE7uP6b1oUxbOGeNFgA=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/banana_uncut.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			p+ESqHyWUr6xdCpS3psCdaxIG7H3TrT6MElyfZA+agY=
+			tJoRtxzkniUdfRtZV7Bf88H7t5/zLRjVlV+oRKDAKE0=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/data/nutritions.csv</key>
@@ -192,7 +229,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			jVRedJibDUQ2wkq8kjRWO62pTYy94o1/E/Hcq3gxGO0=
+			2YZbZxoJ1oPROoYwidiCXg9ho3aWzl19RIvIAjqmJFM=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
