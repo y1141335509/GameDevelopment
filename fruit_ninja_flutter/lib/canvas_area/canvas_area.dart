@@ -323,7 +323,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     widgetsOnStack.add(
       Positioned(
         top: screenHeight * 0.02,
-        left: screenWidth * 0.1, // Adjusted for better spacing
+        left: screenWidth * 0.17, // Adjusted for better spacing
         child: SizedBox(
           width: screenWidth * .1,
           height: screenHeight * .1,
