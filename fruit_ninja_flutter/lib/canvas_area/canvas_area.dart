@@ -245,14 +245,14 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
     // Adjust sizes and positions based on screen size
     double scoreFontSize = screenW * 0.02; // Example of responsive font size
-    double buttonWidth = screenW * 0.14; // Example of responsive button width
+    double buttonWidth = screenW * 0.12; // Example of responsive button width
 
     return Stack(
         children: _getStack(screenW, screenH, scoreFontSize, buttonWidth));
   }
 
-  List<Widget> _getStack(double screenWidth, double screenHeight, 
-                        double scoreFontSize, double buttonWidth) {
+  List<Widget> _getStack(double screenWidth, double screenHeight,
+      double scoreFontSize, double buttonWidth) {
     List<Widget> widgetsOnStack = <Widget>[];
 
     widgetsOnStack.add(_getBackground());
@@ -260,12 +260,17 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     widgetsOnStack.addAll(_getFruitParts());
     widgetsOnStack.addAll(_getFruits());
     widgetsOnStack.add(_getGestureDetector());
+    const IconData not_started = IconData(0xe448, fontFamily: 'MaterialIcons');
+    const IconData motion_photos_pause =
+        IconData(0xe408, fontFamily: 'MaterialIcons');
+    const IconData arrow_back_ios_new =
+        IconData(0xe094, fontFamily: 'MaterialIcons', matchTextDirection: true);
 
     // Adjust the position and size of score text
     widgetsOnStack.add(
       Positioned(
+        top: screenHeight * 0.06, // 2% of screen height from the top
         right: screenWidth * 0.05, // 5% of screen width from the right
-        top: screenHeight * 0.02, // 2% of screen height from the top
         child: Text(
           'Score: $_score',
           style: TextStyle(fontSize: scoreFontSize),
@@ -273,17 +278,17 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       ),
     );
 
-    // add progress bar to the canvas area
+    // add (countdown) progress bar to the canvas area
     widgetsOnStack.add(
       Positioned(
-        top: 27,
-        left: 16,
-        right: 16,
+        top: screenHeight * .06,
+        left: screenWidth * .5,
         child: Row(
           children: [
             // Wrap the progress bar with a SizedBox or Container
             SizedBox(
-              width: 300, // Set the width as per your requirement
+              width: screenWidth * .25, // Set the width as per your requirement
+              height: screenHeight * .02,
               child: LinearProgressIndicator(
                 value: _countdownController.value,
                 backgroundColor: Colors.grey[150],
@@ -291,7 +296,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
               ),
             ),
             SizedBox(width: 10),
-            Text(countdownText, style: TextStyle(fontSize: 20)),
+            Text(countdownText, style: TextStyle(fontSize: scoreFontSize)),
           ],
         ),
       ),
@@ -300,27 +305,31 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     // Add Exit button
     widgetsOnStack.add(
       Positioned(
-        top: 16,
-        right: 16,
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop(); // Navigate back to the game menu
-          },
-          child: Text("Exit"),
-        ),
-      ),
+          top: screenHeight * .02,
+          left: screenWidth * .02,
+          child: SizedBox(
+            width: screenWidth * .1,
+            height: screenHeight * .1,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Navigate back to the game menu
+              },
+              child: Icon(arrow_back_ios_new),
+            ),
+          )),
     );
 
-    // Adjust the position and size of buttons
+    // Adjust the position and size of PAUSE button
     widgetsOnStack.add(
       Positioned(
         top: screenHeight * 0.02,
-        right: screenWidth * 0.3, // Adjusted for better spacing
+        left: screenWidth * 0.1, // Adjusted for better spacing
         child: SizedBox(
-          width: buttonWidth,
+          width: screenWidth * .1,
+          height: screenHeight * .1,
           child: ElevatedButton(
             onPressed: () => _pauseGame(),
-            child: Text(_isGamePaused ? "Resume" : "Pause"),
+            child: Icon(_isGamePaused ? not_started : motion_photos_pause),
           ),
         ),
       ),
@@ -334,7 +343,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       decoration: BoxDecoration(
         gradient: RadialGradient(
           stops: <double>[0.2, 1.0],
-          colors: <Color>[Color(0xffFFB75E), Color(0xffED8F03)],
+          colors: <Color>[Color(0xff3FCCDE), Color(0xffBFEEF4)],
         ),
       ),
     );
