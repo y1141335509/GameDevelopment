@@ -9,3 +9,4 @@ track filter=lfs diff=lfs merge=lfs -text
 all filter=lfs diff=lfs merge=lfs -text
 .pt2 filter=lfs diff=lfs merge=lfs -text
 files filter=lfs diff=lfs merge=lfs -text
+../VideoGenerativeAI filter=lfs diff=lfs merge=lfs -text
