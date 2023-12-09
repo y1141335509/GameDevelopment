@@ -1,2 +1,5 @@
 VideoGenerativeAI/
 .pt2/
+VideoGenerativeAI/.pt2/lib/python3.9/site-packages/scipy/.dylibs/libopenblas.0.dylib
+VideoGenerativeAI/.pt2/lib/python3.9/site-packages/numpy/.dylibs/libopenblas64_.0.dylib
+VideoGenerativeAI/.pt2/lib/python3.9/site-packages/torch/lib/libtorch_cpu.dylib
