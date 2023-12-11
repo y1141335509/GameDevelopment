@@ -106,6 +106,14 @@ source_span
 2.18
 file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/source_span-1.10.0/
 file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/source_span-1.10.0/lib/
+sqflite
+3.0
+file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/sqflite-2.3.0/
+file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/sqflite-2.3.0/lib/
+sqflite_common
+3.0
+file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/sqflite_common-2.5.0+2/
+file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/sqflite_common-2.5.0+2/lib/
 stack_trace
 2.18
 file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/stack_trace-1.11.1/
@@ -118,6 +126,10 @@ string_scanner
 2.18
 file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/string_scanner-1.2.0/
 file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/string_scanner-1.2.0/lib/
+synchronized
+2.18
+file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/synchronized-3.1.0/
+file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/synchronized-3.1.0/lib/
 term_glyph
 2.12
 file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/term_glyph-1.2.1/

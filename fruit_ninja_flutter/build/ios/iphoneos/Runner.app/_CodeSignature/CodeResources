@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		z0327duNv61U/9MRxyFjStIRE18=
+		fD75uFgpO+n8FObUXIwmu3JmTj0=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		Gc+NHgfZx0sP9HaPsrsFfFIbIls=
+		HwF+JJ6nFS6IcExi5xOY75+256k=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<data>
@@ -132,6 +132,14 @@
 		<data>
 		/CUoTuPQqqdexfyOT9lpJhV+2MQ=
 		</data>
+		<key>Frameworks/App.framework/flutter_assets/isolate_snapshot_data</key>
+		<data>
+		EXldNsWAtnxmJpl7z8Yb+aq05bI=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
+		<data>
+		KNyn9HbwM7tXLGNTulJELqwJLjI=
+		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
 		P7bb/oR3EhwqCIH1M6LyTuBIWYU=
@@ -140,9 +148,13 @@
 		<data>
 		ZiX/DByz8A2xHGmziP9zxnaRW9M=
 		</data>
+		<key>Frameworks/App.framework/flutter_assets/vm_snapshot_data</key>
+		<data>
+		cW0Pqsk2814YYWUEON+YgI6+YD0=
+		</data>
 		<key>Frameworks/Flutter.framework/Flutter</key>
 		<data>
-		ZNlIAExECme2GPbqRJ6gwjDmjQs=
+		J2eKFyHEXvkPHhYLRWzdHw/VzFA=
 		</data>
 		<key>Frameworks/Flutter.framework/Headers/Flutter.h</key>
 		<data>
@@ -224,65 +236,9 @@
 		<data>
 		Ubat0LvE4LUgCwHeyl0Anx2vnzk=
 		</data>
-		<key>Frameworks/libswiftCore.dylib</key>
-		<data>
-		uIEtvlQp03Zm1yEIeOpRh+iaYQ4=
-		</data>
-		<key>Frameworks/libswiftCoreAudio.dylib</key>
-		<data>
-		ryr2Y3/xkeFfkTseoOYt+M8xV6g=
-		</data>
-		<key>Frameworks/libswiftCoreFoundation.dylib</key>
-		<data>
-		khk0m5xckZiOYnIVj8Po/ntkhJQ=
-		</data>
-		<key>Frameworks/libswiftCoreGraphics.dylib</key>
-		<data>
-		XfLAArcS7QH+fo0IykUwAAV89bM=
-		</data>
-		<key>Frameworks/libswiftCoreImage.dylib</key>
-		<data>
-		1J8+m2nczn3dmE1wQM8VEhP/FQQ=
-		</data>
-		<key>Frameworks/libswiftCoreMedia.dylib</key>
-		<data>
-		yp+p0GjcQnsL9SDfWa5fsONzS4Y=
-		</data>
-		<key>Frameworks/libswiftDarwin.dylib</key>
-		<data>
-		PrrvmPEhxJnk3MFx4bPisKaRQQA=
-		</data>
-		<key>Frameworks/libswiftDispatch.dylib</key>
-		<data>
-		cNzFRMjUtfMgmpTgZWwYSha9Iok=
-		</data>
-		<key>Frameworks/libswiftFoundation.dylib</key>
-		<data>
-		JFmPLvt8auI7gqEXKPMiEXsSRWA=
-		</data>
-		<key>Frameworks/libswiftMetal.dylib</key>
-		<data>
-		vqtjX20ISLSEkDxQMywGuhyK2Xc=
-		</data>
-		<key>Frameworks/libswiftObjectiveC.dylib</key>
-		<data>
-		HjaMvprGrYfegkNDkjU6wj720pw=
-		</data>
-		<key>Frameworks/libswiftQuartzCore.dylib</key>
-		<data>
-		5FE73xrpXQQl5d31DsimtxTUrCk=
-		</data>
-		<key>Frameworks/libswiftUIKit.dylib</key>
-		<data>
-		NuFwXBUbcJl6garBQTRzis2sclI=
-		</data>
-		<key>Frameworks/libswiftos.dylib</key>
-		<data>
-		tDuu8aAl51pAw2bgc2PzipTDcp0=
-		</data>
 		<key>Info.plist</key>
 		<data>
-		Qf9yi6NwgOdmMqvAQce1r0z9NHw=
+		H/xN/eAGjzJT4VATV8XONKVCETQ=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -369,7 +325,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ErjLxBuWdejxRyiGcRwpuykov4qD8UK24Gi+MI8bB7M=
+			ZP1kZwkkMc5f2qJODRMFivI61iw772IquuO9hG9/iSE=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -383,7 +339,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ptcZ8lrUl6FQTYsuny/DfQAS6e3F7ZY+8C3DAGyajHs=
+			xfP7PWx+3BBELOvfPOryMs/0zrt5ZcHjysfYKm6GbpM=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
@@ -519,6 +475,20 @@
 			2YZbZxoJ1oPROoYwidiCXg9ho3aWzl19RIvIAjqmJFM=
 			</data>
 		</dict>
+		<key>Frameworks/App.framework/flutter_assets/isolate_snapshot_data</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			OuvmU3RDStcY+pMEaMj2xk7cBEgWMukiMNLvvpvEimY=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			htjEhAAEk2A1z7vHUvScyEHREn94ULSDJN7gNvk9nl8=
+			</data>
+		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<dict>
 			<key>hash2</key>
@@ -533,11 +503,18 @@
 			49CVVGC0BQtpsarzJBllXjeVYst0OhUVq6Izlb7jGMQ=
 			</data>
 		</dict>
+		<key>Frameworks/App.framework/flutter_assets/vm_snapshot_data</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			sev5a27JT/ZUSpHrGmWBmxjqtUgq1PyqOI5pHwvTLwg=
+			</data>
+		</dict>
 		<key>Frameworks/Flutter.framework/Flutter</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			NFaB5U3mW03NOLS9WaeG3Rs0LeMUlD2ob3tmYXU22IQ=
+			0gHZjMjHhaXkUSP9FlZZ3gMChRblRAVsRQDUo1JbDwM=
 			</data>
 		</dict>
 		<key>Frameworks/Flutter.framework/Headers/Flutter.h</key>
@@ -678,104 +655,6 @@
 			<key>hash2</key>
 			<data>
 			ZepykIMSjfzhwAcmupMrkaqvXkhza1ZE3TdHjl8odaw=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftCore.dylib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			CNvqe/26H9gZaJ4nAd2y1cdSYBf1k5yVxVrE1uOhVag=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftCoreAudio.dylib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			n1buiRe/vPc3HVb0YJ+JaPaEFvZwW7crMPl7bEaM37E=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftCoreFoundation.dylib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Wyxg9WvdMz4mxw/5WfNY8zzDm8Te7Uqo3s4kC4ArYr0=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftCoreGraphics.dylib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			xTHorC4hsBVVSvmJ0KOU/fLwVQ6++yQTzDXNU4qB+2s=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftCoreImage.dylib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			QCON8yR8/UrhGY+vv2A9GKmSVdUIagTwNi7JqBz+kVg=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftCoreMedia.dylib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			V8h/rMUG85eK33X5jkbk+0YTt0TwVRya6pm4g1Cau3M=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftDarwin.dylib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Q5SZj38tf+5PbkXHBnsxLjz5fpVgBhbr3LN4UH7cab4=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftDispatch.dylib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			h8DLy5hlVpwqh23Z62Tb3r6C1LIybYYZzz06sGQXOiA=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftFoundation.dylib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			DP3CoIEUTcAw5bzib+pS3GlMea/5lnVbsxbQKwgw4Us=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftMetal.dylib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			lb1+SyNtjjM9b7clGwRfv4lbnovvb1yczZHQ7p+MCMA=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftObjectiveC.dylib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			FXBjEFEi3YCAMfkPKAmERP+sF24Vray14A7vpjnuPT0=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftQuartzCore.dylib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			ZIB0hA8/mfOub9LvALSTrBzk5Uywfo5lv7crO0jdBI4=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftUIKit.dylib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			IBCi20GabYZ85Omltb2JLFdcFybGxKFDB1eaBT7GU2I=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftos.dylib</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Y1VYwU+nPZLu2GUNm9HoBLXjb6uUwXi9n+lfdnVfoqI=
 			</data>
 		</dict>
 		<key>embedded.mobileprovision</key>

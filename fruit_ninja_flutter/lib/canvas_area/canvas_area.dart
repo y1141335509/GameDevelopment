@@ -1,10 +1,14 @@
 import 'dart:collection';
+import 'package:flutter/widgets.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:vege_vs_zombie/canvas_area/database/body_db.dart';
 
 import 'models/fruit.dart';
+import './models/body.dart';
 import 'models/fruit_part.dart';
 import 'models/touch_slice.dart';
 import 'slice_painter.dart';
@@ -18,6 +22,14 @@ Map<String, int> fruitsCut = {
   'banana': 0,
   'avocado': 0
 };
+
+Map<String, Map<String, double>> fruitNutritionalValues = {
+  'melon': {'water': 50.0, 'energy': 30.0, 'protein': 1.0},
+  'apple': {'water': 40.0, 'energy': 20.0, 'protein': 0.5},
+  'banana': {'water': 30.0, 'energy': 25.0, 'protein': 1.2},
+  'avocado': {'water': 20.0, 'energy': 35.0, 'protein': 1.5},
+};
+late Body player; // Instance to hold player's state
 
 // max and min threshold for each fruit
 Map<int, List> fruitMinMax = {
@@ -50,9 +62,32 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   int _appleCut = 0;
   int _avocadoCut = 0;
 
+  // Initial maximum values
+  double maxWater = 20000.0;
+  double maxEnergy = 3000.0;
+  double maxProtein = 500.0;
+
+  // Define the increase percentages for each time interval
+  Map<int, double> increasePercentages = {
+    20: 1.0, // 100% increase
+    40: 1.0, // 100% increase
+    60: 1.0, // 100% increase
+    80: 0.8, // 80% increase
+    100: 0.6, // 60% increase
+    120: 0.4, // 40% increase
+  };
+
   @override
   void initState() {
     super.initState();
+
+    // Initialize the player with default nutritional values
+    player = Body(
+      id: 0, // If id is not relevant at the moment, you can set it to 0 or any default value
+      water: 50.0, // Default water value
+      energy: 50.0, // Default energy value
+      protein: 25.0, // Default protein value
+    );
 
     // Initialize the countdown controller
     _countdownController = AnimationController(
@@ -154,41 +189,74 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     }
   }
 
+
+  Set<int> increasedTimes = {}; // Keep track of the times at which increases have occurred
   void _checkSurvival() {
-    int currentTime = (120 -
-            (_countdownController.duration?.inSeconds ?? 0) *
-                _countdownController.value)
-        .round();
+    int currentTime = (120 - (_countdownController.duration?.inSeconds ?? 0) * _countdownController.value).round();
 
-    // check if dead every 20 seconds
-    if (fruitMinMax.containsKey(currentTime)) {
-      List<dynamic> thresholds = fruitMinMax[currentTime] ?? [0, 0];
-
-      // reasons for dying:
-      // abnormally high blood sugar level
-      // hyperkalemia
-      // Gastrointestinal Diseases
-      if (_melonsCut < thresholds[0]) {
-        _endGame("You died of abnormally low blood sugar level");
-      } else if (_melonsCut > thresholds[1]) {
-        _endGame("You died of abnormally high blood sugar level");
-      } else if (_bananaCut < thresholds[0]) {
-        _endGame("You died of abnormally low potassium level");
-      } else if (_bananaCut > thresholds[1]) {
-        _endGame("You died of abnormally high potassium level");
-      } else if (_appleCut < thresholds[0]) {
-        _endGame("You died of Gastrointestinal Diseases");
-      } else if (_appleCut > thresholds[1]) {
-        _endGame("You died of Gastrointestinal Diseases");
-      } else if (_avocadoCut > thresholds[0]) {
-        _endGame("You died of SEVERE obesity");
-      } else if (_avocadoCut > thresholds[1]) {
-        _endGame("You died of UNDER-weight");
+    increasePercentages.forEach((time, percentage) {
+      if (currentTime >= time && !increasedTimes.contains(time)) {
+        maxWater *= (1 + percentage);
+        maxEnergy *= (1 + percentage);
+        maxProtein *= (1 + percentage);
+        increasedTimes.add(time); // Mark this time as having increased the values
       }
-    } else if (currentTime >= 120) {
+    });
+
+    _checkPlayerHealth();
+    
+    if (currentTime >= 120) {
       _endGame("Congrats!");
     }
   }
+  // void _checkSurvival() {
+  //   final bodyDB = BodyDB();
+  //   int currentTime = (120 -
+  //           (_countdownController.duration?.inSeconds ?? 0) *
+  //               _countdownController.value)
+  //       .round();
+
+  //   // Update max thresholds based on the elapsed time
+  //   increasePercentages.forEach((time, percentage) {
+  //     if (currentTime >= time) {
+  //       maxWater *= (1 + percentage);
+  //       maxEnergy *= (1 + percentage);
+  //       maxProtein *= (1 + percentage);
+  //     }
+  //   });
+
+  //   _checkPlayerHealth();
+
+  //   // check if dead every 20 seconds
+  //   // if (fruitMinMax.containsKey(currentTime)) {
+  //   //   List<dynamic> thresholds = fruitMinMax[currentTime] ?? [0, 0];
+
+  //   //   // reasons for dying:
+  //   //   // abnormally high blood sugar level
+  //   //   // hyperkalemia
+  //   //   // Gastrointestinal Diseases
+  //   //   if (_melonsCut < thresholds[0]) {
+  //   //     _endGame("You died of abnormally low blood sugar level");
+  //   //   } else if (_melonsCut > thresholds[1]) {
+  //   //     _endGame("You died of abnormally high blood sugar level");
+  //   //   } else if (_bananaCut < thresholds[0]) {
+  //   //     _endGame("You died of abnormally low potassium level");
+  //   //   } else if (_bananaCut > thresholds[1]) {
+  //   //     _endGame("You died of abnormally high potassium level");
+  //   //   } else if (_appleCut < thresholds[0]) {
+  //   //     _endGame("You died of Gastrointestinal Diseases");
+  //   //   } else if (_appleCut > thresholds[1]) {
+  //   //     _endGame("You died of Gastrointestinal Diseases");
+  //   //   } else if (_avocadoCut > thresholds[0]) {
+  //   //     _endGame("You died of SEVERE obesity");
+  //   //   } else if (_avocadoCut > thresholds[1]) {
+  //   //     _endGame("You died of UNDER-weight");
+  //   //   }
+  //   // }
+  //   if (currentTime >= 120) {
+  //     _endGame("Congrats!");
+  //   }
+  // }
 
   void _pauseGame() {
     setState(() {
@@ -523,6 +591,11 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
           _turnFruitIntoParts(fruit);
           _score += 10;
 
+          // update player's nutrition
+          _updatePlayerNutrition(fruit.name);
+          // check player's die:
+          _checkPlayerHealth();
+
           // handle fruit cut:
           if (fruit.name == 'melon') {
             _melonsCut++;
@@ -603,5 +676,25 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       _touchSlice!.pointsList.removeAt(0);
     }
     _touchSlice!.pointsList.add(details.localFocalPoint);
+  }
+
+  void _updatePlayerNutrition(String fruitName) {
+    final nutrition = fruitNutritionalValues[fruitName];
+    if (nutrition != null) {
+      player.water += nutrition['water'] ?? 0;
+      player.energy += nutrition['energy'] ?? 0;
+      player.protein += nutrition['protein'] ?? 0;
+    }
+  }
+
+
+  void _checkPlayerHealth() {
+    if (player.water > maxWater ||
+        player.energy > maxEnergy ||
+        player.protein > maxProtein) {
+      _endGame("You died due to over-nutrition!");
+    } else if (player.water < 0 || player.energy < 0 || player.protein < 0) {
+      _endGame("You died due to under-nutrition!");
+    }
   }
 }
