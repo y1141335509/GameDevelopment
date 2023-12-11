@@ -23,17 +23,10 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-<<<<<<< HEAD
-			gcE92xLmEFBmANfR7DDCg6yG2TY=
-			</data>
-			<key>requirement</key>
-			<string>cdhash H"81c13ddb12e610506600d7d1ec30c283ac86d936"</string>
-=======
 			391Z6WhRAfx0vxLGhQyl4y8PIuw=
 			</data>
 			<key>requirement</key>
 			<string>cdhash H"dfdd59e9685101fc74bf12c6850ca5e32f0f22ec"</string>
->>>>>>> new-breanch
 		</dict>
 		<key>Frameworks/FMDB.framework</key>
 		<dict>
