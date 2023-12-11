@@ -1,4 +1,3 @@
-import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame_tiled/flame_tiled.dart';
@@ -16,12 +15,8 @@ void main() {
   ));
 }
 
-
-
 class TileTutorialGame extends FlameGame {
   Future<void> onLoad() async {
-    print('loading assets. ..');
-
     await super.onLoad();
     final homeMap =
         await TiledComponent.load('level_01.tmx', Vector2.all(16.0));

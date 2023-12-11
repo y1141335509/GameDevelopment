@@ -1,0 +1,80 @@
+{
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles/Terrain_16by16.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles/level_01.tmx": {
+            "scale": 1.6624999999999999,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 198.4962406015038,
+                "y": 195.48872180451133
+            }
+        },
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles_01/Bridge_All.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles_01/House_Blue.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles_01/Shadows.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles_01/Terrain (16x16).tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles_01/Tilemap_Elevation.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles_01/Tilemap_Flat.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles_01/Tree.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles_01/Water.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles_01/level-01.tmx": {
+            "scale": 1.056875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 320.75694855115313,
+                "y": 184.50620934358363
+            }
+        },
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles_01/world-map.tmx": {
+            "scale": 0.42274999999999996,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 801.8923713778829,
+                "y": 496.7474866942639
+            }
+        },
+        "Terrain_16by16.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "level_01.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 291,
+                "y": 156
+            }
+        }
+    },
+    "openFiles": [
+    ],
+    "project": "",
+    "recentFiles": [
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles/level_01.tmx",
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles_01/level-01.tmx",
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles_01/world-map.tmx",
+        "Terrain_16by16.tsx",
+        "level_01.tmx"
+    ]
+}

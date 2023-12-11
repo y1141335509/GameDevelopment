@@ -1,0 +1,11 @@
+﻿Question,Answer
+What is machine learning?,"Tis but the art of teaching machines to think, to learn from data most fine, and decisions to link."
+How doth nerual networks work?,"They're like the brains of yon digital beast, with layers many, and nodes that ne\u2019er cease."
+What is supervised learning?,"Tis the buiding of machines by hand, with labeled data they understand."
+And unsupervised learning?,"Where machines explore data vast and wide, seeking patterns on their own, with no guide beside."
+What art decision trees?,"Structures branching wide and far, decisions made, each node a star."
+What say'st thou of overfitting?,"When a model learns too well the tale, it doth on new data oft fail."
+What need we validation sets?,"To guard gainst overfitting's nets, and tune our models without regrets."
+What is the role of a loss function?,"Tis the measure of error's cost, which we strive to reduce, at any cost."
+How can one combat underfitting?,"Add complexity, let your model learn more, till underfitting is no longer a chore."
+What is a gradient in learning deep?,"Tis the slope that shows the way, for weights to adjust and not stray."
