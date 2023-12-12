@@ -18,7 +18,7 @@ import 'slice_painter.dart';
 List<String> fruitNames = ['melon', 'apple', 'banana', 'avocado'];
 
 // fruitsCut defines the number of each fruit type is cut after game play.
-Map<String, int> fruitsCut = {
+Map<String, int> foodSpawnCount = {
   'melon': 0,
   'apple': 0,
   'banana': 0,
@@ -217,10 +217,9 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   double minCaffeine = 20;
   double minAlcohol = 20;
 
-
   // Define the increase percentages for each time interval
   Map<int, double> increasePercentages = {
-    20: 0.0, // 100% increase
+    20: 0.0, // 0% increase
     40: 1.0, // 100% increase
     60: 1.0, // 100% increase
     80: 0.8, // 80% increase
@@ -228,15 +227,35 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     120: 0.4, // 40% increase
   };
 
+  Set<int> checkedTimePoints = {}; // Tracks which time points have been checked
+
   @override
   void initState() {
     super.initState();
 
+    // Initialize the countdown controller
+    _countdownController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 120),
+    )..addListener(() {
+        setState(() {});
+      });
+
+    // Add status listener
+    _countdownController.addStatusListener((status) {
+      if (status == AnimationStatus.dismissed) {
+        _endGame("Time's up!");
+      }
+    });
+
+    // Start the countdown
+    _countdownController.reverse(from: 1.0);
+
     // Initialize the player with default nutritional values
     player = Body(
         id: 0, // If id is not relevant at the moment, you can set it to 0 or any default value
-        water: 50.0, // Default water value
-        energy: 50.0, // Default energy value
+        water: 50000.0, // Default water value
+        energy: 2500.0, // Default energy value
         protein: 25.0, // Default protein value
         fat: 6.78,
         carb: 341,
@@ -259,27 +278,6 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         vk: 4.52,
         caffeine: 0,
         alcohol: 0);
-    _loadNutritionalValues();
-
-    // Initialize the countdown controller
-    _countdownController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 120),
-    )..addListener(() {
-        setState(() {});
-      });
-
-    // Start the countdown
-    _countdownController.reverse(from: 1.0);
-
-    // add status listener:
-    _countdownController.addStatusListener((status) {
-      if (status == AnimationStatus.dismissed) {
-        // if run times up, then quit the game
-        // SystemNavigator.pop();
-        // Navigator.of(context).pop(); // Navigate back to game menu after 120s
-      }
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _spawnRandomFruit();
@@ -327,6 +325,11 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       -15 - random.nextDouble() * 10, // Vertical force, negative to go upwards
     );
 
+    // Update the count for the spawned food
+    foodSpawnCount[name] = (foodSpawnCount[name] ?? 0) + 1;
+    // Print the count of each type of food spawned
+    print("Food Spawn Count: $foodSpawnCount");
+
     _fruits.add(
       Fruit(
         position: position,
@@ -349,15 +352,22 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
           fruitPart.applyGravity();
         }
 
-        // check survival at key time points (20 seconds per each)
-        _checkSurvival();
-
         if (Random().nextDouble() > 0.97) {
           _spawnRandomFruit();
         }
       });
 
       Future<void>.delayed(Duration(milliseconds: 30), _tick);
+
+      // Check player's nutrition every 20 seconds
+      int currentTime = (120 -
+              (_countdownController.duration?.inSeconds ?? 0) *
+                  _countdownController.value)
+          .round();
+      if (currentTime % 20 == 0 && currentTime != 0) {
+        _checkPlayerNutrition();
+      }
+
     }
   }
 
@@ -368,6 +378,17 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
             (_countdownController.duration?.inSeconds ?? 0) *
                 _countdownController.value)
         .round();
+
+    List<int> healthCheckPoints = [20, 40, 60, 80, 100];
+    Set<int> checkedPoints = Set();
+
+    // Check if current time is exactly on a checkpoint and not at the start of the game (currentTime > 0)
+    if (healthCheckPoints.contains(currentTime) &&
+        !checkedPoints.contains(currentTime) &&
+        currentTime > 0) {
+      _checkPlayerHealth();
+      checkedPoints.add(currentTime); // Mark this time as checked
+    }
 
     increasePercentages.forEach((time, percentage) {
       if (currentTime >= time && !increasedTimes.contains(time)) {
@@ -418,6 +439,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       }
     });
   }
+
+  
 
   void _endGame(String message) {
     _pauseGame(); // Pause the game
@@ -742,8 +765,6 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
           // update player's nutrition
           _updatePlayerNutrition(fruit.name);
-          // check player's die:
-          _checkPlayerHealth();
 
           // handle fruit cut:
           if (fruit.name == 'melon') {
@@ -855,11 +876,16 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       player.caffeine += nutrition['caffeine'] ?? 0;
       player.alcohol += nutrition['alcohol'] ?? 0;
 
-      print('updated nutritions: ' + nutrition.toString());
+      // print('updated nutritions: ' + nutrition.toString());
     }
+    // Print updated nutrition values
+    print("Updated Player Nutrition:");
+    print("Water: ${player.water}");
+    print("Energy: ${player.energy}");
+    print("Protein: ${player.protein}");
   }
 
-  void _checkPlayerHealth() async {
+  void _checkPlayerHealth() {
     if (player.water > maxWater ||
         player.energy > maxEnergy ||
         player.protein > maxProtein ||
@@ -913,29 +939,25 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     }
   }
 
-  Future<void> _loadNutritionalValues() async {
-    final csvData = await rootBundle.loadString('assets/data/nutritions.csv');
+  void _checkPlayerNutrition() {
+    bool isMalnutrition = _isBelowMinNutrition();
+    bool isOvernutrition = _isAboveMaxNutrition();
 
-    // Convert the CSV data to a List of Maps
-    List<List<dynamic>> rowsAsListOfValues =
-        const CsvToListConverter().convert(csvData);
-    List<String> headers = rowsAsListOfValues[0].cast<String>();
-
-    // Create the map
-    Map<String, Map<String, double>> nutritionalValues = {};
-
-    // Iterate over the CSV rows and fill the map
-    for (final row in rowsAsListOfValues.skip(1)) {
-      String fruitName = row[0];
-      Map<String, double> fruitValues = {};
-
-      for (int i = 1; i < headers.length; i++) {
-        fruitValues[headers[i]] = row[i].toDouble();
-      }
-
-      nutritionalValues[fruitName] = fruitValues;
+    if (isMalnutrition) {
+      _endGame("Malnutrition!");
+    } else if (isOvernutrition) {
+      _endGame("Overnutrition!");
     }
-
-    foodNutritions = nutritionalValues;
   }
+
+  bool _isBelowMinNutrition() {
+    return player.water < minWater || player.energy < minEnergy || player.protein < minProtein;
+    // Add checks for other nutrients
+  }
+
+  bool _isAboveMaxNutrition() {
+    return player.water > maxWater || player.energy > maxEnergy || player.protein > maxProtein;
+    // Add checks for other nutrients
+  }
+  
 }
