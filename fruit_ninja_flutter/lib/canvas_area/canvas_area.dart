@@ -7,12 +7,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:vege_vs_zombie/canvas_area/database/body_db.dart';
 
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:csv/csv.dart';
 import 'models/fruit.dart';
 import './models/body.dart';
 import 'models/fruit_part.dart';
 import 'models/touch_slice.dart';
 import 'slice_painter.dart';
-import './database/food_nutrition.dart';
 
 List<String> fruitNames = ['melon', 'apple', 'banana', 'avocado'];
 
@@ -24,14 +25,112 @@ Map<String, int> fruitsCut = {
   'avocado': 0
 };
 
-// Map<String, Map<String, double>> foodNutritions = {
-//   'melon': {'water': 50.0, 'energy': 30.0, 'protein': 1.0},
-//   'apple': {'water': 40.0, 'energy': 20.0, 'protein': 0.5},
-//   'banana': {'water': 30.0, 'energy': 25.0, 'protein': 1.2},
-//   'avocado': {'water': 20.0, 'energy': 35.0, 'protein': 1.5},
-// };
-late Map<String, Map<String, double>> foodNutritions;
-
+Map<String, Map<String, double>> foodNutritions = {
+  "melon": {
+    "water": 4130.0,
+    "energy": 1360.0,
+    "protein": 27.6,
+    "fat": 6.78,
+    "carb": 341,
+    "fiber": 18.1,
+    "sugar": 280,
+    "calcium": 316,
+    "iron": 10.8,
+    "magnesium": 452,
+    "phosphorus": 497,
+    "potassium": 5060,
+    "sodium": 45.2,
+    "zinc": 4.52,
+    "copper": 1.9,
+    "manganese": 1.72,
+    "selenium": 18.1,
+    "vc": 366,
+    "vb": 2.03,
+    "va": 1270,
+    "vd": 0,
+    "vk": 4.52,
+    "caffeine": 0,
+    "alcohol": 0
+  },
+  "apple": {
+    "water": 83.6,
+    "energy": 65,
+    "protein": 0.15,
+    "fat": 0.16,
+    "carb": 15.6,
+    "fiber": 2.1,
+    "sugar": 13.3,
+    "calcium": 6,
+    "iron": 0.02,
+    "magnesium": 4.7,
+    "phosphorus": 10,
+    "potassium": 104,
+    "sodium": 1,
+    "zinc": 0.02,
+    "copper": 0.033,
+    "manganese": 0.033,
+    "selenium": 0,
+    "vc": 5.7,
+    "vb": 0.045,
+    "va": 2,
+    "vd": 0,
+    "vk": 1,
+    "caffeine": 0,
+    "alcohol": 0
+  },
+  "banana": {
+    "water": 75.3,
+    "energy": 98,
+    "protein": 0.74,
+    "fat": 0.29,
+    "carb": 23,
+    "fiber": 1.7,
+    "sugar": 15.8,
+    "calcium": 5,
+    "iron": 0.4,
+    "magnesium": 28,
+    "phosphorus": 22,
+    "potassium": 326,
+    "sodium": 4,
+    "zinc": 0.16,
+    "copper": 0.101,
+    "manganese": 0.258,
+    "selenium": 2.5,
+    "vc": 12.3,
+    "vb": 0.209,
+    "va": 1,
+    "vd": 0,
+    "vk": 0.1,
+    "caffeine": 0,
+    "alcohol": 0
+  },
+  "avocado": {
+    "water": 73.2,
+    "energy": 160,
+    "protein": 670,
+    "fat": 14.7,
+    "carb": 8.53,
+    "fiber": 6.7,
+    "sugar": 0.66,
+    "calcium": 12,
+    "iron": 0.55,
+    "magnesium": 29,
+    "phosphorus": 52,
+    "potassium": 485,
+    "sodium": 7,
+    "zinc": 0.64,
+    "copper": 0.19,
+    "manganese": 0.142,
+    "selenium": 0.4,
+    "vc": 10,
+    "vb": 0.257,
+    "va": 7,
+    "vd": 0,
+    "vk": 21,
+    "caffeine": 0,
+    "alcohol": 0
+  }
+};
 
 late Body player; // Instance to hold player's state
 
@@ -67,13 +166,61 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   int _avocadoCut = 0;
 
   // Initial maximum values
-  double maxWater = 20000.0;
-  double maxEnergy = 3000.0;
-  double maxProtein = 500.0;
+  double maxWater = 100000;
+  double maxEnergy = 48000;
+  double maxProtein = 2400;
+  double maxFat = 16800;
+  double maxCarb = 6000;
+  double maxFiber = 1400;
+  double maxSugar = 720;
+  double maxCalcium = 50000;
+  double maxIron = 900;
+  double maxMagnesium = 7000;
+  double maxPhosphorus = 80000;
+  double maxPotassium = 94000;
+  double maxSodium = 46000;
+  double maxZinc = 800;
+  double maxCopper = 200;
+  double maxManganese = 220;
+  double maxSelenium = 8000;
+  double maxVc = 40000;
+  double maxVb = 2000;
+  double maxVa = 60000;
+  double maxVd = 2000;
+  double maxVk = 2400;
+  double maxCaffeine = 8000;
+  double maxAlcohol = 600000;
+
+// Initial minimium values
+  double minWater = 10000;
+  double minEnergy = 24000;
+  double minProtein = 960;
+  double minFat = 4800;
+  double minCarb = 2600;
+  double minFiber = 500;
+  double minSugar = 40;
+  double minCalcium = 20000;
+  double minIron = 160;
+  double minMagnesium = 6400;
+  double minPhosphorus = 14000;
+  double minPotassium = 70000;
+  double minSodium = 10000;
+  double minZinc = 160;
+  double minCopper = 18;
+  double minManganese = 36;
+  double minSelenium = 1100;
+  double minVc = 1500;
+  double minVb = 20;
+  double minVa = 14000;
+  double minVd = 300;
+  double minVk = 1500;
+  double minCaffeine = 20;
+  double minAlcohol = 20;
+
 
   // Define the increase percentages for each time interval
   Map<int, double> increasePercentages = {
-    20: 1.0, // 100% increase
+    20: 0.0, // 100% increase
     40: 1.0, // 100% increase
     60: 1.0, // 100% increase
     80: 0.8, // 80% increase
@@ -85,14 +232,34 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-
     // Initialize the player with default nutritional values
     player = Body(
-      id: 0, // If id is not relevant at the moment, you can set it to 0 or any default value
-      water: 50.0, // Default water value
-      energy: 50.0, // Default energy value
-      protein: 25.0, // Default protein value
-    );
+        id: 0, // If id is not relevant at the moment, you can set it to 0 or any default value
+        water: 50.0, // Default water value
+        energy: 50.0, // Default energy value
+        protein: 25.0, // Default protein value
+        fat: 6.78,
+        carb: 341,
+        fiber: 18.1,
+        sugar: 280,
+        calcium: 316,
+        iron: 10.8,
+        magnesium: 452,
+        phosphorus: 497,
+        potassium: 5060,
+        sodium: 45.2,
+        zinc: 4.52,
+        copper: 1.9,
+        manganese: 1.72,
+        selenium: 18.1,
+        vc: 366,
+        vb: 2.03,
+        va: 1270,
+        vd: 0,
+        vk: 4.52,
+        caffeine: 0,
+        alcohol: 0);
+    _loadNutritionalValues();
 
     // Initialize the countdown controller
     _countdownController = AnimationController(
@@ -207,6 +374,27 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         maxWater *= (1 + percentage);
         maxEnergy *= (1 + percentage);
         maxProtein *= (1 + percentage);
+        maxFat *= (1 + percentage);
+        maxCarb *= (1 + percentage);
+        maxFiber *= (1 + percentage);
+        maxSugar *= (1 + percentage);
+        maxCalcium *= (1 + percentage);
+        maxIron *= (1 + percentage);
+        maxMagnesium *= (1 + percentage);
+        maxPhosphorus *= (1 + percentage);
+        maxPotassium *= (1 + percentage);
+        maxSodium *= (1 + percentage);
+        maxZinc *= (1 + percentage);
+        maxCopper *= (1 + percentage);
+        maxManganese *= (1 + percentage);
+        maxSelenium *= (1 + percentage);
+        maxVc *= (1 + percentage);
+        maxVb *= (1 + percentage);
+        maxVa *= (1 + percentage);
+        maxVd *= (1 + percentage);
+        maxVk *= (1 + percentage);
+        maxCaffeine *= (1 + percentage);
+        maxAlcohol *= (1 + percentage);
         increasedTimes
             .add(time); // Mark this time as having increased the values
       }
@@ -218,54 +406,6 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       _endGame("Congrats!");
     }
   }
-  // void _checkSurvival() {
-  //   final bodyDB = BodyDB();
-  //   int currentTime = (120 -
-  //           (_countdownController.duration?.inSeconds ?? 0) *
-  //               _countdownController.value)
-  //       .round();
-
-  //   // Update max thresholds based on the elapsed time
-  //   increasePercentages.forEach((time, percentage) {
-  //     if (currentTime >= time) {
-  //       maxWater *= (1 + percentage);
-  //       maxEnergy *= (1 + percentage);
-  //       maxProtein *= (1 + percentage);
-  //     }
-  //   });
-
-  //   _checkPlayerHealth();
-
-  //   // check if dead every 20 seconds
-  //   // if (fruitMinMax.containsKey(currentTime)) {
-  //   //   List<dynamic> thresholds = fruitMinMax[currentTime] ?? [0, 0];
-
-  //   //   // reasons for dying:
-  //   //   // abnormally high blood sugar level
-  //   //   // hyperkalemia
-  //   //   // Gastrointestinal Diseases
-  //   //   if (_melonsCut < thresholds[0]) {
-  //   //     _endGame("You died of abnormally low blood sugar level");
-  //   //   } else if (_melonsCut > thresholds[1]) {
-  //   //     _endGame("You died of abnormally high blood sugar level");
-  //   //   } else if (_bananaCut < thresholds[0]) {
-  //   //     _endGame("You died of abnormally low potassium level");
-  //   //   } else if (_bananaCut > thresholds[1]) {
-  //   //     _endGame("You died of abnormally high potassium level");
-  //   //   } else if (_appleCut < thresholds[0]) {
-  //   //     _endGame("You died of Gastrointestinal Diseases");
-  //   //   } else if (_appleCut > thresholds[1]) {
-  //   //     _endGame("You died of Gastrointestinal Diseases");
-  //   //   } else if (_avocadoCut > thresholds[0]) {
-  //   //     _endGame("You died of SEVERE obesity");
-  //   //   } else if (_avocadoCut > thresholds[1]) {
-  //   //     _endGame("You died of UNDER-weight");
-  //   //   }
-  //   // }
-  //   if (currentTime >= 120) {
-  //     _endGame("Congrats!");
-  //   }
-  // }
 
   void _pauseGame() {
     setState(() {
@@ -687,40 +827,115 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     _touchSlice!.pointsList.add(details.localFocalPoint);
   }
 
-  void _updatePlayerNutrition(String fruitName) async {
-    foodNutritions = await FoodNutrition().getFoodNutritionalValues();
+  void _updatePlayerNutrition(String fruitName) {
     final nutrition = foodNutritions[fruitName];
     if (nutrition != null) {
       player.water += nutrition['water'] ?? 0;
       player.energy += nutrition['energy'] ?? 0;
       player.protein += nutrition['protein'] ?? 0;
+      player.fat += nutrition['fat'] ?? 0;
+      player.carb += nutrition['carb'] ?? 0;
+      player.fiber += nutrition['fiber'] ?? 0;
+      player.sugar += nutrition['sugar'] ?? 0;
+      player.calcium += nutrition['calcium'] ?? 0;
+      player.iron += nutrition['iron'] ?? 0;
+      player.magnesium += nutrition['magnesium'] ?? 0;
+      player.phosphorus += nutrition['phosphorus'] ?? 0;
+      player.potassium += nutrition['potassium'] ?? 0;
+      player.sodium += nutrition['sodium'] ?? 0;
+      player.zinc += nutrition['zinc'] ?? 0;
+      player.copper += nutrition['copper'] ?? 0;
+      player.manganese += nutrition['manganese'] ?? 0;
+      player.selenium += nutrition['selenium'] ?? 0;
+      player.vc += nutrition['vc'] ?? 0;
+      player.vb += nutrition['vb'] ?? 0;
+      player.va += nutrition['va'] ?? 0;
+      player.vd += nutrition['vd'] ?? 0;
+      player.vk += nutrition['vk'] ?? 0;
+      player.caffeine += nutrition['caffeine'] ?? 0;
+      player.alcohol += nutrition['alcohol'] ?? 0;
+
+      print('updated nutritions: ' + nutrition.toString());
     }
   }
 
-
-
   void _checkPlayerHealth() async {
-
-    print('current water: ' +
-        (player.water).toString() +
-        ' energy: ' +
-        (player.energy).toString() +
-        (player.protein).toString());
-    print('current max: ' +
-        maxWater.toString() +
-        " " +
-        maxEnergy.toString() +
-        " " +
-        maxProtein.toString());
-    foodNutritions = await FoodNutrition().getFoodNutritionalValues();
-
-    print('did you get the other nutritions? -> ' + foodNutritions['va'].toString());
     if (player.water > maxWater ||
         player.energy > maxEnergy ||
-        player.protein > maxProtein) {
+        player.protein > maxProtein ||
+        player.fat > maxFat ||
+        player.carb > maxCarb ||
+        player.fiber > maxFiber ||
+        player.sugar > maxSugar ||
+        player.calcium > maxCalcium ||
+        player.iron > maxIron ||
+        player.magnesium > maxMagnesium ||
+        player.phosphorus > maxPhosphorus ||
+        player.potassium > maxPotassium ||
+        player.sodium > maxSodium ||
+        player.zinc > maxZinc ||
+        player.copper > maxCopper ||
+        player.manganese > maxManganese ||
+        player.selenium > maxSelenium ||
+        player.vc > maxVc ||
+        player.vb > maxVb ||
+        player.va > maxVa ||
+        player.vd > maxVd ||
+        player.vk > maxVk ||
+        player.caffeine > maxCaffeine ||
+        player.alcohol > maxAlcohol) {
       _endGame("You died due to over-nutrition!");
-    } else if (player.water < 0 || player.energy < 0 || player.protein < 0) {
+    } else if (player.water < minWater ||
+        player.energy < minEnergy ||
+        player.protein < minProtein ||
+        player.fat < minFat ||
+        player.carb < minCarb ||
+        player.fiber < minFiber ||
+        player.sugar < minSugar ||
+        player.calcium < minCalcium ||
+        player.iron < minIron ||
+        player.magnesium < minMagnesium ||
+        player.phosphorus < minPhosphorus ||
+        player.potassium < minPotassium ||
+        player.sodium < minSodium ||
+        player.zinc < minZinc ||
+        player.copper < minCopper ||
+        player.manganese < minManganese ||
+        player.selenium < minSelenium ||
+        player.vc < minVc ||
+        player.vb < minVb ||
+        player.va < minVa ||
+        player.vd < minVd ||
+        player.vk < minVk ||
+        player.caffeine < minCaffeine ||
+        player.alcohol < minAlcohol) {
       _endGame("You died due to under-nutrition!");
     }
+  }
+
+  Future<void> _loadNutritionalValues() async {
+    final csvData = await rootBundle.loadString('assets/data/nutritions.csv');
+
+    // Convert the CSV data to a List of Maps
+    List<List<dynamic>> rowsAsListOfValues =
+        const CsvToListConverter().convert(csvData);
+    List<String> headers = rowsAsListOfValues[0].cast<String>();
+
+    // Create the map
+    Map<String, Map<String, double>> nutritionalValues = {};
+
+    // Iterate over the CSV rows and fill the map
+    for (final row in rowsAsListOfValues.skip(1)) {
+      String fruitName = row[0];
+      Map<String, double> fruitValues = {};
+
+      for (int i = 1; i < headers.length; i++) {
+        fruitValues[headers[i]] = row[i].toDouble();
+      }
+
+      nutritionalValues[fruitName] = fruitValues;
+    }
+
+    foodNutritions = nutritionalValues;
   }
 }
