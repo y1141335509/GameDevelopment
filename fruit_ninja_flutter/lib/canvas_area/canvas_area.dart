@@ -12,6 +12,7 @@ import './models/body.dart';
 import 'models/fruit_part.dart';
 import 'models/touch_slice.dart';
 import 'slice_painter.dart';
+import './database/food_nutrition.dart';
 
 List<String> fruitNames = ['melon', 'apple', 'banana', 'avocado'];
 
@@ -23,12 +24,15 @@ Map<String, int> fruitsCut = {
   'avocado': 0
 };
 
-Map<String, Map<String, double>> fruitNutritionalValues = {
-  'melon': {'water': 50.0, 'energy': 30.0, 'protein': 1.0},
-  'apple': {'water': 40.0, 'energy': 20.0, 'protein': 0.5},
-  'banana': {'water': 30.0, 'energy': 25.0, 'protein': 1.2},
-  'avocado': {'water': 20.0, 'energy': 35.0, 'protein': 1.5},
-};
+// Map<String, Map<String, double>> foodNutritions = {
+//   'melon': {'water': 50.0, 'energy': 30.0, 'protein': 1.0},
+//   'apple': {'water': 40.0, 'energy': 20.0, 'protein': 0.5},
+//   'banana': {'water': 30.0, 'energy': 25.0, 'protein': 1.2},
+//   'avocado': {'water': 20.0, 'energy': 35.0, 'protein': 1.5},
+// };
+late Map<String, Map<String, double>> foodNutritions;
+
+
 late Body player; // Instance to hold player's state
 
 // max and min threshold for each fruit
@@ -80,6 +84,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
 
     // Initialize the player with default nutritional values
     player = Body(
@@ -189,22 +194,26 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     }
   }
 
-
-  Set<int> increasedTimes = {}; // Keep track of the times at which increases have occurred
+  Set<int> increasedTimes =
+      {}; // Keep track of the times at which increases have occurred
   void _checkSurvival() {
-    int currentTime = (120 - (_countdownController.duration?.inSeconds ?? 0) * _countdownController.value).round();
+    int currentTime = (120 -
+            (_countdownController.duration?.inSeconds ?? 0) *
+                _countdownController.value)
+        .round();
 
     increasePercentages.forEach((time, percentage) {
       if (currentTime >= time && !increasedTimes.contains(time)) {
         maxWater *= (1 + percentage);
         maxEnergy *= (1 + percentage);
         maxProtein *= (1 + percentage);
-        increasedTimes.add(time); // Mark this time as having increased the values
+        increasedTimes
+            .add(time); // Mark this time as having increased the values
       }
     });
 
     _checkPlayerHealth();
-    
+
     if (currentTime >= 120) {
       _endGame("Congrats!");
     }
@@ -678,8 +687,9 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     _touchSlice!.pointsList.add(details.localFocalPoint);
   }
 
-  void _updatePlayerNutrition(String fruitName) {
-    final nutrition = fruitNutritionalValues[fruitName];
+  void _updatePlayerNutrition(String fruitName) async {
+    foodNutritions = await FoodNutrition().getFoodNutritionalValues();
+    final nutrition = foodNutritions[fruitName];
     if (nutrition != null) {
       player.water += nutrition['water'] ?? 0;
       player.energy += nutrition['energy'] ?? 0;
@@ -688,7 +698,23 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   }
 
 
-  void _checkPlayerHealth() {
+
+  void _checkPlayerHealth() async {
+
+    print('current water: ' +
+        (player.water).toString() +
+        ' energy: ' +
+        (player.energy).toString() +
+        (player.protein).toString());
+    print('current max: ' +
+        maxWater.toString() +
+        " " +
+        maxEnergy.toString() +
+        " " +
+        maxProtein.toString());
+    foodNutritions = await FoodNutrition().getFoodNutritionalValues();
+
+    print('did you get the other nutritions? -> ' + foodNutritions['va'].toString());
     if (player.water > maxWater ||
         player.energy > maxEnergy ||
         player.protein > maxProtein) {
