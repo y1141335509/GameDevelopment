@@ -13,6 +13,8 @@ import 'models/fruit.dart';
 import './models/body.dart';
 import 'models/fruit_part.dart';
 import 'models/touch_slice.dart';
+import 'package:audioplayers/audioplayers.dart';
+// import 'package:assets_audio_player/assets_audio_player.dart';
 import 'slice_painter.dart';
 
 List<String> fruitNames = ['melon', 'apple', 'banana', 'avocado'];
@@ -229,9 +231,21 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Set<int> checkedTimePoints = {}; // Tracks which time points have been checked
 
+  // for audios:
+  late AudioPlayer _audioPlayer;
+
   @override
   void initState() {
     super.initState();
+
+    //// Audios:
+    // AssetsAudioPlayer.newPlayer().open(
+    //   Audio("assets/audios/lemonjuicysqueezefruit-77998.mp3"),
+    //   autoStart: true,
+    //   showNotification: true,
+    // );
+
+    //// Audios
 
     // Initialize the countdown controller
     _countdownController = AnimationController(
@@ -367,7 +381,6 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       if (currentTime % 20 == 0 && currentTime != 0) {
         _checkPlayerNutrition();
       }
-
     }
   }
 
@@ -439,8 +452,6 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       }
     });
   }
-
-  
 
   void _endGame(String message) {
     _pauseGame(); // Pause the game
@@ -766,6 +777,15 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
           // update player's nutrition
           _updatePlayerNutrition(fruit.name);
 
+          //// Audios:
+          // AssetsAudioPlayer.newPlayer().open(
+          //   Audio("assets/audios/lemonjuicysqueezefruit-77998.mp3"),
+          //   autoStart: true,
+          //   showNotification: true,
+          // );
+
+          //// Audios
+
           // handle fruit cut:
           if (fruit.name == 'melon') {
             _melonsCut++;
@@ -951,13 +971,16 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   }
 
   bool _isBelowMinNutrition() {
-    return player.water < minWater || player.energy < minEnergy || player.protein < minProtein;
+    return player.water < minWater ||
+        player.energy < minEnergy ||
+        player.protein < minProtein;
     // Add checks for other nutrients
   }
 
   bool _isAboveMaxNutrition() {
-    return player.water > maxWater || player.energy > maxEnergy || player.protein > maxProtein;
+    return player.water > maxWater ||
+        player.energy > maxEnergy ||
+        player.protein > maxProtein;
     // Add checks for other nutrients
   }
-  
 }
