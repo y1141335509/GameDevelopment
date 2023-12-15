@@ -1,8 +1,17 @@
 PODS:
+  - assets_audio_player (0.0.1):
+    - FlutterMacOS
+  - assets_audio_player_web (0.0.1):
+    - FlutterMacOS
+  - audioplayers_darwin (0.0.1):
+    - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -11,7 +20,11 @@ PODS:
     - FMDB (>= 2.7.5)
 
 DEPENDENCIES:
+  - assets_audio_player (from `Flutter/ephemeral/.symlinks/plugins/assets_audio_player/macos`)
+  - assets_audio_player_web (from `Flutter/ephemeral/.symlinks/plugins/assets_audio_player_web/macos`)
+  - audioplayers_darwin (from `Flutter/ephemeral/.symlinks/plugins/audioplayers_darwin/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
+  - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
   - shared_preferences_foundation (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite (from `Flutter/ephemeral/.symlinks/plugins/sqflite/macos`)
 
@@ -20,16 +33,28 @@ SPEC REPOS:
     - FMDB
 
 EXTERNAL SOURCES:
+  assets_audio_player:
+    :path: Flutter/ephemeral/.symlinks/plugins/assets_audio_player/macos
+  assets_audio_player_web:
+    :path: Flutter/ephemeral/.symlinks/plugins/assets_audio_player_web/macos
+  audioplayers_darwin:
+    :path: Flutter/ephemeral/.symlinks/plugins/audioplayers_darwin/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
+  path_provider_foundation:
+    :path: Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin
   shared_preferences_foundation:
     :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin
   sqflite:
     :path: Flutter/ephemeral/.symlinks/plugins/sqflite/macos
 
 SPEC CHECKSUMS:
+  assets_audio_player: be2578e6f11dd4d183412e97143673c3c4cb2e8a
+  assets_audio_player_web: 917101123b6db8f73156835c0fa266c11340ff15
+  audioplayers_darwin: dcad41de4fbd0099cb3749f7ab3b0cb8f70b810c
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   sqflite: a5789cceda41d54d23f31d6de539d65bb14100ea
 

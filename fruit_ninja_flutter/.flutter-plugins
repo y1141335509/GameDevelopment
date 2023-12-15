@@ -1,4 +1,13 @@
 # This is a generated file; do not edit or check into version control.
+audioplayers=/Users/yinghaiyu/.pub-cache/hosted/pub.dev/audioplayers-5.2.1/
+audioplayers_android=/Users/yinghaiyu/.pub-cache/hosted/pub.dev/audioplayers_android-4.0.3/
+audioplayers_darwin=/Users/yinghaiyu/.pub-cache/hosted/pub.dev/audioplayers_darwin-5.0.2/
+audioplayers_linux=/Users/yinghaiyu/.pub-cache/hosted/pub.dev/audioplayers_linux-3.1.0/
+audioplayers_web=/Users/yinghaiyu/.pub-cache/hosted/pub.dev/audioplayers_web-4.1.0/
+audioplayers_windows=/Users/yinghaiyu/.pub-cache/hosted/pub.dev/audioplayers_windows-3.1.0/
+path_provider=/Users/yinghaiyu/.pub-cache/hosted/pub.dev/path_provider-2.1.1/
+path_provider_android=/Users/yinghaiyu/.pub-cache/hosted/pub.dev/path_provider_android-2.2.1/
+path_provider_foundation=/Users/yinghaiyu/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.1/
 path_provider_linux=/Users/yinghaiyu/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/
 path_provider_windows=/Users/yinghaiyu/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.1/
 shared_preferences=/Users/yinghaiyu/.pub-cache/hosted/pub.dev/shared_preferences-2.2.2/

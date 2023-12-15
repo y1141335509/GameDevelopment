@@ -26,6 +26,8 @@ dependencies:
     sdk: flutter
   shared_preferences: ^2.0.6
   sqflite: ^2.3.0 # Use the latest version available
+  audioplayers: ^5.2.1
+  # assets_audio_player: ^3.1.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -51,6 +53,7 @@ flutter:
   assets:
     - assets/
     - assets/data/nutritions.csv
+    - assets/audios/lemonjuicysqueezefruit-77998.mp3
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
