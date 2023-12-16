@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:vege_vs_zombie/canvas_area/canvas_area.dart';
 import 'initial_screen.dart';
 import 'game_main_menu.dart';
 import 'package:flutter/services.dart';
+import 'package:sqflite/sqflite.dart';
+import './db_initializer.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  print('initializing...');
+  Database db = await DBInitializer.initializeDB(); // 数据库初始化函数
+  await DBInitializer.importCSVToSQLite(db); // 导入CSV数据到SQLite
   // runApp(InitialScreen());
   runApp(MaterialApp(
     home: GameMenuScreen(),
@@ -21,7 +28,7 @@ class MyApp extends StatelessWidget {
 
     // this is where your app starts
     return MaterialApp(
-      title: 'Fruit Ninja clone',
+      title: 'Food vs Death',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,

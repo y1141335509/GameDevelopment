@@ -27,6 +27,7 @@ dependencies:
   shared_preferences: ^2.0.6
   sqflite: ^2.3.0 # Use the latest version available
   audioplayers: ^5.2.1
+  path_provider: ^2.0.2
   # assets_audio_player: ^3.1.1
 
 
@@ -53,6 +54,7 @@ flutter:
   assets:
     - assets/
     - assets/data/nutritions.csv
+    - assets/data/food_nutrition.csv
     - assets/audios/lemonjuicysqueezefruit-77998.mp3
   #   - images/a_dot_ham.jpeg
 

@@ -1,13 +1,10 @@
-import 'dart:collection';
-import 'package:flutter/widgets.dart';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:vege_vs_zombie/canvas_area/database/body_db.dart';
+import 'package:path/path.dart' as path;
 
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:csv/csv.dart';
 import 'models/fruit.dart';
 import './models/body.dart';
@@ -16,6 +13,8 @@ import 'models/touch_slice.dart';
 import 'package:audioplayers/audioplayers.dart';
 // import 'package:assets_audio_player/assets_audio_player.dart';
 import 'slice_painter.dart';
+
+
 
 List<String> fruitNames = ['melon', 'apple', 'banana', 'avocado'];
 
@@ -244,8 +243,10 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     //   autoStart: true,
     //   showNotification: true,
     // );
-
     //// Audios
+    
+
+
 
     // Initialize the countdown controller
     _countdownController = AnimationController(
