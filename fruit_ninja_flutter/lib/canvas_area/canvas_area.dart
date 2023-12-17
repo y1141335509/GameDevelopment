@@ -1,11 +1,10 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as path;
-
-import 'package:csv/csv.dart';
 import 'models/fruit.dart';
 import './models/body.dart';
 import 'models/fruit_part.dart';
@@ -18,8 +17,6 @@ import '../db_initializer.dart';
 ////////////////////////////////////////////
 ///                                      ///
 ///                                      ///
-// var db_initializer = DBInitializer();
-// var db = db_initializer.database;
 Future<List<String>> names = DBInitializer().queryAllFoodNames();
 
 ///                                      ///
@@ -172,6 +169,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   int _pinkSalmonCut = 0;
   int _chickenCut = 0;
   int _beefCut = 0;
+  int _arugulaCut = 0;
   int _breadCut = 0;
   int _eggCut = 0;
   int _cornCut = 0;
@@ -229,9 +227,11 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       });
 
     // Add status listener
-    _countdownController.addStatusListener((status) {
+    _countdownController.addStatusListener((status) async {
       if (status == AnimationStatus.dismissed) {
-        _endGame("Time's up!");
+        // _endGame("Time's up!");
+        final diseases = await _getNutrientRelatedDiseases();
+        _endGame(diseases);
       }
     });
 
@@ -267,7 +267,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         alcohol: 0);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _spawnRandomFruit();
+      _spawnRandomFood();
     });
 
     _tick();
@@ -287,15 +287,85 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
 ////////////////////////////////////
 
-  void _spawnRandomFruit() async {
+  Map<String, int> foodSpawnConfig = {
+    'watermelon': 0,
+    'apple': 0,
+    'banana': 30,
+    'avocado': 0,
+    'broccoli': 2,
+    'pink salmon': 2,
+    'chicken': 0,
+    'beef': 5,
+    'arugula': 4,
+    'bread': 2,
+    'egg': 30,
+    'corn': 29,
+    'beer': 1,
+    'vodka': 0,
+    'coffee': 1,
+    'noodles': 0,
+    'rice': 0,
+    'milk': 0,
+    'yogurt': 0,
+    'tofu': 16,
+    'muffin': 0,
+    'corn oil': 18,
+    'mango': 0,
+    'cilantro': 5,
+    'sugar': 0,
+    'soy milk': 0,
+    'carrot': 30,
+    'pumpkin': 8,
+    'potato': 1,
+  };
+
+  late Timer _spawnTimer;
+
+  void _spawnRandomFood() {
+    String randomFood = _getRandomFoodName();
+    _spawnSingleFood(randomFood);
+    int elapsedTime = (120 -
+            (_countdownController.duration?.inSeconds ?? 0) *
+                _countdownController.value)
+        .round();
+    int spawnInterval = 20; // Interval for checking spawn configuration
+
+    if (elapsedTime % spawnInterval == 0 && elapsedTime <= 120) {
+      // Only do this in the first 60 seconds
+      int totalSpawnCountFor20Secs =
+          _calculateTotalSpawnForNext20Secs(elapsedTime);
+      int spawnsPerSecond = totalSpawnCountFor20Secs ~/ 20;
+
+      _spawnTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+        for (int i = 0; i < spawnsPerSecond; i++) {
+          String randomFood = _getRandomFoodName();
+          _spawnSingleFood(randomFood);
+        }
+
+        // Stop the timer after 20 seconds
+        if (timer.tick >= 20) {
+          timer.cancel();
+        }
+      });
+    }
+  }
+
+  int _calculateTotalSpawnForNext20Secs(int elapsedTime) {
+    int total = 0;
+    foodSpawnConfig.forEach((name, count) {
+      total += (count ~/ 6); // Divide by 3 to get count for 20 seconds
+    });
+    return total;
+  }
+
+  String _getRandomFoodName() {
+    Random random = Random();
+    List<String> foodNames = foodSpawnConfig.keys.toList();
+    return foodNames[random.nextInt(foodNames.length)];
+  }
+
+  void _spawnSingleFood(String name) {
     final random = Random();
-    List<String> foodNames = [
-      'watermelon', 'apple', 'banana', 'avocado', 'broccoli', 'pink salmon', 
-      'chicken', 'beef', 'bread', 'egg', 'corn', 'beer', 'vodka', 'coffee',
-      'noodles', 'rice', 'yogurt', 'tofu', 'muffin', 'corn oil', 'mango',
-      'cilantro', 'sugar', 'soy milk', 'carrot', 'pumpkin', 'potato',
-    ];
-    String name = foodNames[random.nextInt(foodNames.length)];
 
     // Calculate center area bounds
     double screenWidth = MediaQuery.of(context).size.width;
@@ -306,25 +376,17 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       height: 400,
     );
 
-    // Ensure fruits spawn within the center area
+    // Ensure food spawns within the center area
     Offset position = Offset(
       centerArea.left + random.nextDouble() * centerArea.width,
       centerArea.top + random.nextDouble() * centerArea.height,
     );
-    // Adjust the force to throw the fruit upwards
-    // Tweak these values as needed to get the desired effect
-    Offset additionalForce = Offset(
-      random.nextDouble() * 5 - 2.5, // Horizontal force
-      -15 - random.nextDouble() * 10, // Vertical force, negative to go upwards
-    );
 
-    // Update the count for the spawned food
-    for (String foodName in foodNames) {
-      foodSpawnCount[foodName] = 0;
-    }
-    foodSpawnCount[name] = (foodSpawnCount[name] ?? 0) + 1;
-    // Print the count of each type of food spawned
-    print("Food Spawn Count: $foodSpawnCount");
+    // Adjust the force to throw the food upwards
+    Offset additionalForce = Offset(
+      random.nextDouble() * 5 - 2.5,
+      -15 - random.nextDouble() * 10,
+    );
 
     _fruits.add(
       Fruit(
@@ -349,83 +411,29 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         }
 
         if (Random().nextDouble() > 0.97) {
-          _spawnRandomFruit();
+          _spawnRandomFood();
         }
       });
 
-      Future<void>.delayed(Duration(milliseconds: 30), _tick);
-
-      // Check player's nutrition every 20 seconds
       int currentTime = (120 -
               (_countdownController.duration?.inSeconds ?? 0) *
                   _countdownController.value)
           .round();
-      if (currentTime % 20 == 0 && currentTime != 0) {
-        // _checkPlayerNutrition();
-        _checkPlayerHealth();
+
+      if (currentTime >= 120) {
+        List<String> win = [];
+        win.add("Congrats!");
+        _endGame(win);
+      } else if (currentTime % 20 == 0 && currentTime > 0) {
+        _checkPlayerHealth(currentTime);
       }
+
+      Future<void>.delayed(Duration(milliseconds: 30), _tick);
     }
   }
 
   Set<int> increasedTimes =
       {}; // Keep track of the times at which increases have occurred
-  void _checkSurvival() async {
-    int currentTime = (120 -
-            (_countdownController.duration?.inSeconds ?? 0) *
-                _countdownController.value)
-        .round();
-
-    List<int> healthCheckPoints = [20, 40, 60, 80, 100];
-    Set<int> checkedPoints = Set();
-
-    // Check if current time is exactly on a checkpoint and not at the start of the game (currentTime > 0)
-    if (healthCheckPoints.contains(currentTime) &&
-        !checkedPoints.contains(currentTime) &&
-        currentTime > 0) {
-      _checkPlayerHealth();
-      checkedPoints.add(currentTime); // Mark this time as checked
-    }
-
-    final upper = await DBInitializer().queryFoodNutritionByName('upper');
-    increasePercentages.forEach((time, percentage) {
-      if (currentTime >= time && !increasedTimes.contains(time)) {
-        upper.forEach((element) {
-          element['WATER'] *= (1 + percentage);
-          element['ENERGY'] *= (1 + percentage);
-          element['PROTEIN'] *= (1 + percentage);
-          element['FAT'] *= (1 + percentage);
-          element['CARB'] *= (1 + percentage);
-          element['FIBER'] *= (1 + percentage);
-          element['SUGAR'] *= (1 + percentage);
-          element['CALCIUM'] *= (1 + percentage);
-          element['IRON'] *= (1 + percentage);
-          element['MAGNESIUM'] *= (1 + percentage);
-          element['PHOSPHORUS'] *= (1 + percentage);
-          element['POTASSIUM'] *= (1 + percentage);
-          element['SODIUM'] *= (1 + percentage);
-          element['ZINC'] *= (1 + percentage);
-          element['COPPER'] *= (1 + percentage);
-          element['MANGANESE'] *= (1 + percentage);
-          element['SELENIUM'] *= (1 + percentage);
-          element['VC'] *= (1 + percentage);
-          element['VB'] *= (1 + percentage);
-          element['VA'] *= (1 + percentage);
-          element['VD'] *= (1 + percentage);
-          element['VK'] *= (1 + percentage);
-          element['CAFFEINE'] *= (1 + percentage);
-          element['ALCOHOL'] *= (1 + percentage);
-        });
-        increasedTimes
-            .add(time); // Mark this time as having increased the values
-      }
-    });
-
-    _checkPlayerHealth();
-
-    if (currentTime >= 120) {
-      _endGame("Congrats!");
-    }
-  }
 
   void _pauseGame() {
     setState(() {
@@ -439,19 +447,19 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     });
   }
 
-  void _endGame(String message) {
+  void _endGame(List<String> diseases) {
     _pauseGame(); // Pause the game
+    String message = diseases.join(", ");
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text("Game Over"),
-          content: Text(message),
+          content: Text("You died due to: $message"),
           actions: <Widget>[
             TextButton(
               onPressed: () async {
-                await _saveHighScore(
-                    _score); // Save the score if it's a high score
+                await _saveHighScore(_score);
                 Navigator.of(context).popUntil((route) => route.isFirst);
               },
               child: Text("OK"),
@@ -513,7 +521,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
           style: TextStyle(fontSize: scoreFontSize),
         ),
       ),
-    );
+    ); 
 
     // add (countdown) progress bar to the canvas area
     widgetsOnStack.add(
@@ -634,6 +642,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         return _getChicken(fruit);
       case 'beef':
         return _getBeef(fruit);
+      case 'arugula':
+        return _getArugula(fruit);
       case 'bread':
         return _getBread(fruit);
       case 'egg':
@@ -734,6 +744,11 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         assetName = fruitPart.isLeft
             ? 'assets/beef_cut_left.png'
             : 'assets/beef_cut_right.png';
+        break;
+      case 'arugula':
+        assetName = fruitPart.isLeft
+            ? 'assets/arugula_cut_left.png'
+            : 'assets/arugula_cut_right.png';
         break;
       case 'bread':
         assetName = fruitPart.isLeft
@@ -915,6 +930,14 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     );
   }
 
+  Widget _getArugula(Fruit fruit) {
+    return Image.asset(
+      'assets/arugula_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
   Widget _getBread(Fruit fruit) {
     return Image.asset(
       'assets/bread_uncut.png',
@@ -1075,7 +1098,6 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     );
   }
 
-
   Widget _getGestureDetector() {
     return GestureDetector(
       onScaleStart: (ScaleStartDetails details) {
@@ -1150,6 +1172,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
             _chickenCut++;
           } else if (fruit.name == 'beef') {
             _beefCut++;
+          } else if (fruit.name == 'arugula') {
+            _arugulaCut++;
           } else if (fruit.name == 'bread') {
             _breadCut++;
           } else if (fruit.name == 'egg') {
@@ -1264,7 +1288,6 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   }
 
   void _updatePlayerNutrition(String fruitName) async {
-
     final nutrition = await DBInitializer().queryFoodNutritionByName(fruitName);
     if (nutrition != null) {
       player.water += nutrition[0]['WATER'] ?? 0;
@@ -1294,60 +1317,213 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     }
   }
 
-  void _checkPlayerHealth() async {
-    final upper = await DBInitializer().queryFoodNutritionByName('upper');
-    final lower = await DBInitializer().queryFoodNutritionByName('lower');
-    if (player.water > upper[0]['WATER'] ||
-        player.energy > upper[0]['ENERGY'] ||
-        player.protein > upper[0]['PROTEIN'] ||
-        player.fat > upper[0]['FAT'] ||
-        player.carb > upper[0]['CARB'] ||
-        player.fiber > upper[0]['FIBER'] ||
-        player.sugar > upper[0]['SUGAR'] ||
-        player.calcium > upper[0]['CALCIUM'] ||
-        player.iron > upper[0]['IRON'] ||
-        player.magnesium > upper[0]['MAGNESIUM'] ||
-        player.phosphorus > upper[0]['PHOSPHORUS'] ||
-        player.potassium > upper[0]['POTASSIUM'] ||
-        player.sodium > upper[0]['SODIUM'] ||
-        player.zinc > upper[0]['ZINC'] ||
-        player.copper > upper[0]['COPPER'] ||
-        player.manganese > upper[0]['MANGANESE'] ||
-        player.selenium > upper[0]['SELENIUM'] ||
-        player.vc > upper[0]['VC'] ||
-        player.vb > upper[0]['VB'] ||
-        player.va > upper[0]['VA'] ||
-        player.vd > upper[0]['VD'] ||
-        player.vk > upper[0]['VK'] ||
-        player.caffeine > upper[0]['CAFFEINE'] ||
-        player.alcohol > upper[0]['ALCOHOL']) {
-      _endGame("You died due to over-nutrition!");
-    } else if (player.water > lower[0]['WATER'] ||
-        player.energy > lower[0]['ENERGY'] ||
-        player.protein > lower[0]['PROTEIN'] ||
-        player.fat > lower[0]['FAT'] ||
-        player.carb > lower[0]['CARB'] ||
-        player.fiber > lower[0]['FIBER'] ||
-        player.sugar > lower[0]['SUGAR'] ||
-        player.calcium > lower[0]['CALCIUM'] ||
-        player.iron > lower[0]['IRON'] ||
-        player.magnesium > lower[0]['MAGNESIUM'] ||
-        player.phosphorus > lower[0]['PHOSPHORUS'] ||
-        player.potassium > lower[0]['POTASSIUM'] ||
-        player.sodium > lower[0]['SODIUM'] ||
-        player.zinc > lower[0]['ZINC'] ||
-        player.copper > lower[0]['COPPER'] ||
-        player.manganese > lower[0]['MANGANESE'] ||
-        player.selenium > lower[0]['SELENIUM'] ||
-        player.vc > lower[0]['VC'] ||
-        player.vb > lower[0]['VB'] ||
-        player.va > lower[0]['VA'] ||
-        player.vd > lower[0]['VD'] ||
-        player.vk > lower[0]['VK'] ||
-        player.caffeine > lower[0]['CAFFEINE'] ||
-        player.alcohol > lower[0]['ALCOHOL']) {
-      _endGame("You died due to under-nutrition!");
+  // void _checkPlayerHealth1(int currentTimeEpoch) async {
+  //   final upper = await DBInitializer().queryFoodNutritionByName('upper');
+  //   final lower = await DBInitializer().queryFoodNutritionByName('lower');
+  //   int dayPerYear = 365, hundredGramEach = 6;
+  //   double upperScalar = 1.1, lowerScalar = 0.75;
+  //   if (player.water > upper[0]['WATER'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.energy > upper[0]['ENERGY'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.protein > upper[0]['PROTEIN'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.fat > upper[0]['FAT'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.carb > upper[0]['CARB'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.fiber > upper[0]['FIBER'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.sugar > upper[0]['SUGAR'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.calcium > upper[0]['CALCIUM'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.iron > upper[0]['IRON'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.magnesium > upper[0]['MAGNESIUM'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.phosphorus > upper[0]['PHOSPHORUS'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.potassium > upper[0]['POTASSIUM'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.sodium > upper[0]['SODIUM'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.zinc > upper[0]['ZINC'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.copper > upper[0]['COPPER'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.manganese > upper[0]['MANGANESE'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.selenium > upper[0]['SELENIUM'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.vc > upper[0]['VC'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.vb > upper[0]['VB'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.va > upper[0]['VA'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.vd > upper[0]['VD'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.vk > upper[0]['VK'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.caffeine > upper[0]['CAFFEINE'] * dayPerYear * hundredGramEach * upperScalar ||
+  //       player.alcohol > upper[0]['ALCOHOL']) {
+  //     _endGame("You died due to over-nutrition!");
+  //   } else if (player.water > lower[0]['WATER'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.energy > lower[0]['ENERGY'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.protein > lower[0]['PROTEIN'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.fat > lower[0]['FAT'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.carb > lower[0]['CARB'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.fiber > lower[0]['FIBER'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.sugar > lower[0]['SUGAR'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.calcium > lower[0]['CALCIUM'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.iron > lower[0]['IRON'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.magnesium > lower[0]['MAGNESIUM'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.phosphorus > lower[0]['PHOSPHORUS'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.potassium > lower[0]['POTASSIUM'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.sodium > lower[0]['SODIUM'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.zinc > lower[0]['ZINC'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.copper > lower[0]['COPPER'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.manganese > lower[0]['MANGANESE'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.selenium > lower[0]['SELENIUM'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.vc > lower[0]['VC'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.vb > lower[0]['VB'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.va > lower[0]['VA'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.vd > lower[0]['VD'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.vk > lower[0]['VK'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.caffeine > lower[0]['CAFFEINE'] * dayPerYear * hundredGramEach * lowerScalar ||
+  //       player.alcohol > lower[0]['ALCOHOL']) {
+  //     _endGame("You died due to under-nutrition!");
+  //   }
+  // }
+
+  void _checkPlayerHealth(int currentTimeEpoch) async {
+    final diseases = await _getNutrientRelatedDiseases();
+    if (diseases.isNotEmpty) {
+      _endGame(diseases);
     }
   }
 
+  // This method returns a list of diseases based on the player's nutrient levels.
+  Future<List<String>> _getNutrientRelatedDiseases() async {
+    List<String> diseases = [];
+    final upper = await DBInitializer().queryFoodNutritionByName('upper');
+    final lower = await DBInitializer().queryFoodNutritionByName('lower');
+    int dayPerYear = 365, hundredGramEach = 6;
+    double upperScalar = 1.1, lowerScalar = 0.75;
+    if (player.water >
+        upper[0]['WATER'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Hyponatremia");
+    if (player.energy >
+        upper[0]['ENERGY'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Obesity");
+    if (player.protein >
+        upper[0]['PROTEIN'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Aminoaciduria");
+    if (player.fat >
+        upper[0]['FAT'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Heart diseases");
+    if (player.carb >
+        upper[0]['CARB'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Diabetes");
+    if (player.fiber >
+        upper[0]['FIBER'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Bowel obstruction");
+    if (player.sugar >
+        upper[0]['SUGAR'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Diabetes");
+    if (player.calcium >
+        upper[0]['CALCIUM'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Hypercalcemia");
+    if (player.iron >
+        upper[0]['IRON'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Hemochromatosis");
+    if (player.magnesium >
+        upper[0]['MAGNESIUM'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Hypermagnesemia");
+    if (player.phosphorus >
+        upper[0]['PHOSPHORUS'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Hyperphosphatemia");
+    if (player.potassium >
+        upper[0]['POTASSIUM'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Hyperkalemia");
+    if (player.sodium >
+        upper[0]['SODIUM'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Hypernatremia");
+    if (player.zinc >
+        upper[0]['ZINC'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Zinc toxicity");
+    if (player.copper >
+        upper[0]['COPPER'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Wilson’s disease");
+    if (player.manganese >
+        upper[0]['MANGANESE'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Manganese toxicity");
+    if (player.selenium >
+        upper[0]['SELENIUM'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Selenosis");
+    if (player.vc > upper[0]['VC'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Diarrhea");
+    if (player.vb > upper[0]['VB'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("");
+    if (player.va > upper[0]['VA'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Hypervitaminosis A");
+    if (player.vd > upper[0]['VD'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Hypervitaminosis D");
+    if (player.vk > upper[0]['VK'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Vitamin K excess");
+    if (player.caffeine >
+        upper[0]['CAFFEINE'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Anxiety & insomnia");
+    if (player.alcohol >
+        upper[0]['ALCOHOL'] * dayPerYear * hundredGramEach * upperScalar)
+      diseases.add("Alcohol disorder");
+    if (player.water >
+        lower[0]['WATER'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Dehydration");
+    if (player.energy >
+        lower[0]['ENERGY'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Energy deficiency");
+    if (player.protein >
+        lower[0]['PROTEIN'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Kwashiorkor");
+    if (player.fat >
+        lower[0]['FAT'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Essential fatty acids deficiency");
+    if (player.carb >
+        lower[0]['CARB'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Energy deficiencyd");
+    if (player.fiber >
+        lower[0]['FIBER'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Constipation, digestive issues");
+    if (player.sugar >
+        lower[0]['SUGAR'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Lack of sugar");
+    if (player.calcium >
+        lower[0]['CALCIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Osteoporosis");
+    if (player.iron >
+        lower[0]['IRON'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Anemia");
+    if (player.magnesium >
+        lower[0]['MAGNESIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Muscle cramps");
+    if (player.phosphorus >
+        lower[0]['PHOSPHORUS'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Weak bones");
+    if (player.potassium >
+        lower[0]['POTASSIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Hypokalemia");
+    if (player.sodium >
+        lower[0]['SODIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Hyponatremia");
+    if (player.zinc >
+        lower[0]['ZINC'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Growth retardation");
+    if (player.copper >
+        lower[0]['COPPER'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("cardiovascular diseases");
+    if (player.manganese >
+        lower[0]['MANGANESE'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Bone malformation");
+    if (player.selenium >
+        lower[0]['SELENIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Keshan disease");
+    if (player.vc > lower[0]['VC'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Scurvy");
+    if (player.vb > lower[0]['VB'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Various deficiency diseases");
+    if (player.va > lower[0]['VA'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Night blindness");
+    if (player.vd > lower[0]['VD'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Rickets");
+    if (player.vk > lower[0]['VK'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Bleeding disorders");
+    if (player.caffeine >
+        lower[0]['CAFFEINE'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Sleep disorders");
+    if (player.alcohol >
+        lower[0]['ALCOHOL'] * dayPerYear * hundredGramEach * lowerScalar)
+      diseases.add("Alcohol withdrawal syndrome");
+
+    return diseases;
+  }
 }

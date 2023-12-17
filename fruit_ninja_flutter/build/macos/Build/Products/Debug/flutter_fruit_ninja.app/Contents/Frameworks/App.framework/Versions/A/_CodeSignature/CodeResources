@@ -10,11 +10,11 @@
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.bin</key>
 		<data>
-		RyK5x3awstTsqotbnjtuPwrPNVA=
+		nz7cCFc/sv6MYOe54lD9JuQiWHA=
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<data>
-		DmO8owo+2diqB/WIJ49Gk1hfyoc=
+		kWtVEr1zscfdGqcfGXeuxR5t7PU=
 		</data>
 		<key>Resources/flutter_assets/FontManifest.json</key>
 		<data>
@@ -35,6 +35,18 @@
 		<key>Resources/flutter_assets/assets/apple_uncut.png</key>
 		<data>
 		Fi3UqpRwyIxCdCnVVlYwq08k43s=
+		</data>
+		<key>Resources/flutter_assets/assets/arugula_cut_left.png</key>
+		<data>
+		fXshamUqVzygZwKAZj9LO731OJA=
+		</data>
+		<key>Resources/flutter_assets/assets/arugula_cut_right.png</key>
+		<data>
+		6d392yEGFCY9UhVGtTZaLl39CJg=
+		</data>
+		<key>Resources/flutter_assets/assets/arugula_uncut.png</key>
+		<data>
+		GHzOUELiEDm+X6G+tSt+jJ/5GqE=
 		</data>
 		<key>Resources/flutter_assets/assets/audios/lemonjuicysqueezefruit-77998.mp3</key>
 		<data>
@@ -386,7 +398,7 @@
 		</data>
 		<key>Resources/flutter_assets/kernel_blob.bin</key>
 		<data>
-		S4nxUwJO/p+9M3wljbxDw1DJ2iE=
+		ovg8FtEffVLLO1r/8I1Z2EcrC9Y=
 		</data>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -414,14 +426,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			BUCHAZbLTmwVPTd2PLsJpIsYrOMjAUGy6xe+yhjP7hU=
+			cQw1fE9blAmEehVvvMjP/tM/7ywbCSzRw1ARIsNU7C0=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eKtNPI4BDpOll1CW87DpyflZZQKZPPrHVRCOBqZaY30=
+			+ILudxnbm67E9BSxPWrvmAgOrfZwOhfM8x9Lqj/KkGg=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/FontManifest.json</key>
@@ -457,6 +469,27 @@
 			<key>hash2</key>
 			<data>
 			Jh/UR0gqzsmWpWu4Hk42hid50baoQLpbDea9CaRtlH0=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/arugula_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			oxwle9BQhdHOLIe2Oc6J4kbZH7vHa6xZljm6lxL5d+I=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/arugula_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			xXnMjlncKGFJpy3k4lICS6YM1PbhpG7klEbmIpi0pHE=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/arugula_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			kGIJNevCwEOR1Gc58w9R4XQ/G5EwrxMKy9OTdHvXSQQ=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/assets/audios/lemonjuicysqueezefruit-77998.mp3</key>
@@ -1072,7 +1105,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Q0QMTUfEl6JNGs6x9M7Dz23z9SgTuJhl6gotzK50fXs=
+			wU/T9Xid4MkiQtS18y6Lu1gYGQ782p6r/OJwKUloGOE=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
