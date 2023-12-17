@@ -168,6 +168,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   int _bananaCut = 0;
   int _appleCut = 0;
   int _avocadoCut = 0;
+  int _broccoliCut = 0;
+  int _pinkSalmonCut = 0;
 
   // // Initial maximum values
   // double maxWater = 100000;
@@ -322,6 +324,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       'banana',
       'avocado',
       'broccoli',
+      'pink salmon',
     ];
     String name = foodNames[random.nextInt(foodNames.length)];
 
@@ -656,6 +659,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         return _getAvocado(fruit);
       case 'broccoli':
         return _getBroccoli(fruit);
+      case 'pink salmon':
+        return _getPinkSalmon(fruit);
       default: // 'watermelon'
         return _getMelon(fruit);
     }
@@ -701,6 +706,11 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         assetName = fruitPart.isLeft
             ? 'assets/broccoli_cut_left.png'
             : 'assets/broccoli_cut_right.png';
+        break;
+      case 'pink salmon':
+        assetName = fruitPart.isLeft
+            ? 'assets/pink_salmon_cut_left.png'
+            : 'assets/pink_salmon_cut_right.png';
         break;
       default: // 'melon'
         assetName = fruitPart.isLeft
@@ -757,6 +767,15 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       fit: BoxFit.fitHeight,
     );
   }
+
+  Widget _getPinkSalmon(Fruit fruit) {
+    return Image.asset(
+      'assets/pink_salmon_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+  
 
   Widget _getGestureDetector() {
     return GestureDetector(
@@ -824,6 +843,10 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
             _appleCut++;
           } else if (fruit.name == 'avocado') {
             _avocadoCut++;
+          } else if (fruit.name == 'broccoli') {
+            _broccoliCut++;
+          } else if (fruit.name == 'pink salmon') {
+            _pinkSalmonCut++;
           }
           break;
         }

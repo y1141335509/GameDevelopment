@@ -10,11 +10,11 @@
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.bin</key>
 		<data>
-		fT9yNxWcgOFsNSj/AbMjtX0Psbw=
+		cvwT6he0uAJHcP4u2tXiaCk3exE=
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<data>
-		ahYIKa2aFERbeYdIF60wPemb7IU=
+		H6X/3TcMmKIKKdrGFLGcGVoqZqY=
 		</data>
 		<key>Resources/flutter_assets/FontManifest.json</key>
 		<data>
@@ -100,6 +100,18 @@
 		<data>
 		HMlYrFTlTC/TvtW0dL5HajgErrk=
 		</data>
+		<key>Resources/flutter_assets/assets/pink_salmon_cut_left.png</key>
+		<data>
+		JenTouTzrF2WLlmLoKO3axMmdaU=
+		</data>
+		<key>Resources/flutter_assets/assets/pink_salmon_cut_right.png</key>
+		<data>
+		3IcgWFBGUMmw7lQTl5ZBo5m7gUI=
+		</data>
+		<key>Resources/flutter_assets/assets/pink_salmon_uncut.png</key>
+		<data>
+		JdERp7zbGXYoWKIP/HSV9p5y/mQ=
+		</data>
 		<key>Resources/flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
 		/CUoTuPQqqdexfyOT9lpJhV+2MQ=
@@ -110,7 +122,7 @@
 		</data>
 		<key>Resources/flutter_assets/kernel_blob.bin</key>
 		<data>
-		2dO5Iceqy1YNE1OMsehUQ3gilb0=
+		Rx1CxWxUW/q/F6Sex7oC/2L1u30=
 		</data>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -138,14 +150,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			KIGKMZvVPKLplHkjdxC7USdtKnTh3iX0ulLJfVwMbVc=
+			fGiYt7glMaHShMM0R6yFHz6vupp7MZHdAJRnHN73vbU=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ObQY0+cRnV4sYzQiv1L+Hyo/ZHpaAYg5LwmeQVI+lPY=
+			Pej0aE+clYxe4ucTRZFUgNF15TaJ/FZe4+GNc98l8VY=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/FontManifest.json</key>
@@ -295,6 +307,27 @@
 			UB4KT/1fn8BJGdQu5pziA678i2Jh+eQhjOCANwJ7cjI=
 			</data>
 		</dict>
+		<key>Resources/flutter_assets/assets/pink_salmon_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			SqWwNQB7CfybYR9Z/tEsV8NfgA+WmT+cYKZjfNMUKCY=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/pink_salmon_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			UkjeDFyq2VC2EydfsWA/xcjM2mHrY2Lp/vYMnU0a0LE=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/pink_salmon_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9l/n5UBEile7UUIztcLeC2vH4FmZS5toDL6x2kPJpms=
+			</data>
+		</dict>
 		<key>Resources/flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<dict>
 			<key>hash2</key>
@@ -313,7 +346,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			+83bXiJ5ZgE0IDQiy0U8P8FtISJgDkNyO/Cnne3Vm5M=
+			6LWvrOuZnTB+Yt2nzWENEWdbid62y8fzoWn1II62PFU=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
