@@ -10,11 +10,11 @@
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.bin</key>
 		<data>
-		fAxwO2FcS8rCfQmG21sOYf1hKMs=
+		RyK5x3awstTsqotbnjtuPwrPNVA=
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<data>
-		hTjrZIAp8W7XGeGZarDcEuYNmrU=
+		DmO8owo+2diqB/WIJ49Gk1hfyoc=
 		</data>
 		<key>Resources/flutter_assets/FontManifest.json</key>
 		<data>
@@ -112,6 +112,18 @@
 		<data>
 		4wFQf2xHz7TxBpanknQFXvxCfY8=
 		</data>
+		<key>Resources/flutter_assets/assets/carrot_cut_left.png</key>
+		<data>
+		/tcoYKLrq8yLwbvOdq3fO1f2aGg=
+		</data>
+		<key>Resources/flutter_assets/assets/carrot_cut_right.png</key>
+		<data>
+		aUZb3c7Vcju+XhgKaI7p5x+qZ9E=
+		</data>
+		<key>Resources/flutter_assets/assets/carrot_uncut.png</key>
+		<data>
+		+qtOd/qZdDtW6PFTIGzkNSb+xLg=
+		</data>
 		<key>Resources/flutter_assets/assets/chicken_cut_left.png</key>
 		<data>
 		uQMtwHCpEsels8/QKS8lKSl1UjQ=
@@ -124,6 +136,30 @@
 		<data>
 		MD0a5tYVst+Sej/rrtDoqJmWQLk=
 		</data>
+		<key>Resources/flutter_assets/assets/cilantro_cut_left.png</key>
+		<data>
+		K2PB+VxcS5rQKIoW6cBknv/V7NA=
+		</data>
+		<key>Resources/flutter_assets/assets/cilantro_cut_right.png</key>
+		<data>
+		xnAchgDB6pBR73qCFEELQURXiwA=
+		</data>
+		<key>Resources/flutter_assets/assets/cilantro_uncut.png</key>
+		<data>
+		Ufs3e0h5dcpSToSGcFAja5b8Juk=
+		</data>
+		<key>Resources/flutter_assets/assets/coffee_cut_left.png</key>
+		<data>
+		i5KqtorQs2kaXPuDHPRwzSZTKr8=
+		</data>
+		<key>Resources/flutter_assets/assets/coffee_cut_right.png</key>
+		<data>
+		Z29SLHYvlbvT/UFSSpJbdfor38U=
+		</data>
+		<key>Resources/flutter_assets/assets/coffee_uncut.png</key>
+		<data>
+		hGBW+B03AK5xTyTJQioCzr0uWfs=
+		</data>
 		<key>Resources/flutter_assets/assets/corn_cut_left.png</key>
 		<data>
 		vXWQj/20/RKoeB4jmipHbJri9Jw=
@@ -131,6 +167,18 @@
 		<key>Resources/flutter_assets/assets/corn_cut_right.png</key>
 		<data>
 		JUU2zA1c1dWxDoYFH+ADr6cUkRU=
+		</data>
+		<key>Resources/flutter_assets/assets/corn_oil_cut_left.png</key>
+		<data>
+		ZuDg8HnNTAg+sJuht+ZCxdU1hs4=
+		</data>
+		<key>Resources/flutter_assets/assets/corn_oil_cut_right.png</key>
+		<data>
+		ZuDg8HnNTAg+sJuht+ZCxdU1hs4=
+		</data>
+		<key>Resources/flutter_assets/assets/corn_oil_uncut.png</key>
+		<data>
+		2hFRpWvctfcPcXxh+KD6htzyEes=
 		</data>
 		<key>Resources/flutter_assets/assets/corn_uncut.png</key>
 		<data>
@@ -156,6 +204,18 @@
 		<data>
 		ZPh3WK/iV2CKNXH8mbAdM7TUoVk=
 		</data>
+		<key>Resources/flutter_assets/assets/mango_cut_left.png</key>
+		<data>
+		Qwni6y3F0RDxuikvQoVHDYteYkg=
+		</data>
+		<key>Resources/flutter_assets/assets/mango_cut_right.png</key>
+		<data>
+		i0mIsislWRg3vpCSjJlZR1fbMxQ=
+		</data>
+		<key>Resources/flutter_assets/assets/mango_uncut.png</key>
+		<data>
+		N9ZkndMnuZlBtq1T6ioHna5fRlY=
+		</data>
 		<key>Resources/flutter_assets/assets/melon_cut_left.png</key>
 		<data>
 		YmiTwKmfEX6p1XTgPpxHkq7DePM=
@@ -172,6 +232,42 @@
 		<data>
 		HMlYrFTlTC/TvtW0dL5HajgErrk=
 		</data>
+		<key>Resources/flutter_assets/assets/milk_cut_left.png</key>
+		<data>
+		kfjf2eo08C6I7aW6YVGzHqffXGk=
+		</data>
+		<key>Resources/flutter_assets/assets/milk_cut_right.png</key>
+		<data>
+		eDUyrQk/m7BN8ATEnmw+AUqQN9Q=
+		</data>
+		<key>Resources/flutter_assets/assets/milk_uncut.png</key>
+		<data>
+		GU/+m1t7d55WXEYxVQWaEX1W9F0=
+		</data>
+		<key>Resources/flutter_assets/assets/muffin_cut_left.png</key>
+		<data>
+		HTYkd+hP9pkHTvyNZRvD2S8rqPA=
+		</data>
+		<key>Resources/flutter_assets/assets/muffin_cut_right.png</key>
+		<data>
+		HTYkd+hP9pkHTvyNZRvD2S8rqPA=
+		</data>
+		<key>Resources/flutter_assets/assets/muffin_uncut.png</key>
+		<data>
+		1PdyAnmVlzNWNktdJJ2G6eqbHso=
+		</data>
+		<key>Resources/flutter_assets/assets/noodles_cut_left.png</key>
+		<data>
+		UCZx78XKsuN4cqsesmNZFfUjHQQ=
+		</data>
+		<key>Resources/flutter_assets/assets/noodles_cut_right.png</key>
+		<data>
+		KZoLTcOjwcp0c7AzZ4PNPl7TUN8=
+		</data>
+		<key>Resources/flutter_assets/assets/noodles_uncut.png</key>
+		<data>
+		y6QKTaBxjcS+esm0ztzcS3Bc/UA=
+		</data>
 		<key>Resources/flutter_assets/assets/pink_salmon_cut_left.png</key>
 		<data>
 		JenTouTzrF2WLlmLoKO3axMmdaU=
@@ -183,6 +279,78 @@
 		<key>Resources/flutter_assets/assets/pink_salmon_uncut.png</key>
 		<data>
 		JdERp7zbGXYoWKIP/HSV9p5y/mQ=
+		</data>
+		<key>Resources/flutter_assets/assets/potato_cut_left.png</key>
+		<data>
+		zU5sX3LFxUKspr+QUiZ7JppVgoA=
+		</data>
+		<key>Resources/flutter_assets/assets/potato_cut_right.png</key>
+		<data>
+		WBmypuLuNpLV86P9sXZT9GjXl7Y=
+		</data>
+		<key>Resources/flutter_assets/assets/potato_uncut.png</key>
+		<data>
+		IAVA0a+veacGePHlFOO9UxB1Vv0=
+		</data>
+		<key>Resources/flutter_assets/assets/pumpkin_cut_left.png</key>
+		<data>
+		jMJQvrvkZKVLBlEkvkuskucOfbc=
+		</data>
+		<key>Resources/flutter_assets/assets/pumpkin_cut_right.png</key>
+		<data>
+		kxhM2vuelNC9z+H2psB2+iIWw7w=
+		</data>
+		<key>Resources/flutter_assets/assets/pumpkin_uncut.png</key>
+		<data>
+		agCFOgbEb0EEalFEm9RVCsdPt5U=
+		</data>
+		<key>Resources/flutter_assets/assets/rice_cut_left.png</key>
+		<data>
+		UCZx78XKsuN4cqsesmNZFfUjHQQ=
+		</data>
+		<key>Resources/flutter_assets/assets/rice_cut_right.png</key>
+		<data>
+		KZoLTcOjwcp0c7AzZ4PNPl7TUN8=
+		</data>
+		<key>Resources/flutter_assets/assets/rice_uncut.png</key>
+		<data>
+		U+sCVgzTGKEZw3mSRFnqW1IpsVQ=
+		</data>
+		<key>Resources/flutter_assets/assets/soy_milk_cut_left.png</key>
+		<data>
+		kfjf2eo08C6I7aW6YVGzHqffXGk=
+		</data>
+		<key>Resources/flutter_assets/assets/soy_milk_cut_right.png</key>
+		<data>
+		eDUyrQk/m7BN8ATEnmw+AUqQN9Q=
+		</data>
+		<key>Resources/flutter_assets/assets/soy_milk_uncut.png</key>
+		<data>
+		wn3HtvW5FFYIyBtDQhaloARV9ik=
+		</data>
+		<key>Resources/flutter_assets/assets/sugar_cut_left.png</key>
+		<data>
+		GCCKvHJTrN1BzjldcrvfHmudQx0=
+		</data>
+		<key>Resources/flutter_assets/assets/sugar_cut_right.png</key>
+		<data>
+		KYoUciRV6hNAFeYPvZMX4wuoiMA=
+		</data>
+		<key>Resources/flutter_assets/assets/sugar_uncut.png</key>
+		<data>
+		9qJ0+gD7bEEANw0xRWkMPQgK/4o=
+		</data>
+		<key>Resources/flutter_assets/assets/tofu_cut_left.png</key>
+		<data>
+		UCZx78XKsuN4cqsesmNZFfUjHQQ=
+		</data>
+		<key>Resources/flutter_assets/assets/tofu_cut_right.png</key>
+		<data>
+		KZoLTcOjwcp0c7AzZ4PNPl7TUN8=
+		</data>
+		<key>Resources/flutter_assets/assets/tofu_uncut.png</key>
+		<data>
+		4bWaf3AAiwgqXJh06vMszuy98/Y=
 		</data>
 		<key>Resources/flutter_assets/assets/vodka_cut_left.png</key>
 		<data>
@@ -196,6 +364,18 @@
 		<data>
 		lhaRzuoZkSjS7n3SAnfixztfN5g=
 		</data>
+		<key>Resources/flutter_assets/assets/yogurt_cut_left.png</key>
+		<data>
+		AflSoLXdJ+5zGHrRVALlJjO7ZX4=
+		</data>
+		<key>Resources/flutter_assets/assets/yogurt_cut_right.png</key>
+		<data>
+		CiP6Dv+wZDU8Lhfbaky94abh7Pg=
+		</data>
+		<key>Resources/flutter_assets/assets/yogurt_uncut.png</key>
+		<data>
+		gXoCrXFJDB+BKL4bKOAY0Ad3R7A=
+		</data>
 		<key>Resources/flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
 		/CUoTuPQqqdexfyOT9lpJhV+2MQ=
@@ -206,7 +386,7 @@
 		</data>
 		<key>Resources/flutter_assets/kernel_blob.bin</key>
 		<data>
-		oTwhGlAOrEuKvPL3YjDZL5yEVjM=
+		S4nxUwJO/p+9M3wljbxDw1DJ2iE=
 		</data>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -234,14 +414,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			w7VwQa8yfQs8Kdq6844jUqHJ/rN1d6YJqHNC0MCLU+U=
+			BUCHAZbLTmwVPTd2PLsJpIsYrOMjAUGy6xe+yhjP7hU=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			nQhMew5ZOgRTMOv/NZ7DYUIjaBGggNvQEslhMJWZQ7w=
+			eKtNPI4BDpOll1CW87DpyflZZQKZPPrHVRCOBqZaY30=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/FontManifest.json</key>
@@ -412,6 +592,27 @@
 			5LpHGjCnRAGC2i3+6i6lIYLvkjbMXk7f0QC+UrnSnH0=
 			</data>
 		</dict>
+		<key>Resources/flutter_assets/assets/carrot_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			bnboD3ptfYbwhLI5+L3+VadnUqrt4XRx5IUj7Ey3kfg=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/carrot_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			fDW7IzBXbkskTLt+313oMi7/BR9J6j1mE1HLKlCDQSc=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/carrot_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			MRwbf2MB1scZJLVBlD+RgpXBQbg1K43TdyVlOwANfWc=
+			</data>
+		</dict>
 		<key>Resources/flutter_assets/assets/chicken_cut_left.png</key>
 		<dict>
 			<key>hash2</key>
@@ -433,6 +634,48 @@
 			CQGt6m+brknJ2cl3zqaFRnzt8As5hFyoNtNBQ3d1Xvc=
 			</data>
 		</dict>
+		<key>Resources/flutter_assets/assets/cilantro_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			+cGn+9EnSxPlcsSw4sagyQHIXOI6ynX82Vd95iOaiV8=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/cilantro_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ejXgO/84+KYpKOnXm35jPPU5Sa92G+NLkWIzRw3Hurs=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/cilantro_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			MaqiOafWF7U8r0K0VFyLCNSZSEdeXjFBPgOMtgdFkp4=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/coffee_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			D5B9fusddwF00ntuouKnUu3KpVQQ5LR7Wu6DYnok3kE=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/coffee_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			fV6orec8Dxmilh7Lp1RDbDEh1SYxdb7G1gJ5lfdg6z4=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/coffee_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			BbRjC4KOl8X7IZcYw3zpgeV6/6PVQNL+DE76hnwRDE0=
+			</data>
+		</dict>
 		<key>Resources/flutter_assets/assets/corn_cut_left.png</key>
 		<dict>
 			<key>hash2</key>
@@ -445,6 +688,27 @@
 			<key>hash2</key>
 			<data>
 			AQrlgNHFFxRViBWRbac4+WX7klMRfNEeFMB4172KpKk=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/corn_oil_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jPXJfJc+T6GqmJnJF8zcKuujQnAvelGWixS+zwqeEtE=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/corn_oil_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jPXJfJc+T6GqmJnJF8zcKuujQnAvelGWixS+zwqeEtE=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/corn_oil_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			n4z2X82rxGkKdjx8gzynnO/cL9JyUv+ZiMVswiL/daA=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/assets/corn_uncut.png</key>
@@ -489,6 +753,27 @@
 			jZTU0da/6qF4yxKV/IZHhe+ixRmWuRZn/S1txd2d9qg=
 			</data>
 		</dict>
+		<key>Resources/flutter_assets/assets/mango_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			tJqta7oS9KITMxnPj31+7CREBbmnHr4dPScDA/Cn50s=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/mango_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			FxsMxxrbpHTeOz2lpM42OzITD8Z/5Dk6d8wHGlFrhak=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/mango_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			I1mah8/mDB4XeWoRqyB99FQcqDPw0L9YQGDt15V2Vj0=
+			</data>
+		</dict>
 		<key>Resources/flutter_assets/assets/melon_cut_left.png</key>
 		<dict>
 			<key>hash2</key>
@@ -517,6 +802,69 @@
 			UB4KT/1fn8BJGdQu5pziA678i2Jh+eQhjOCANwJ7cjI=
 			</data>
 		</dict>
+		<key>Resources/flutter_assets/assets/milk_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			YV15B1HbZN2HZ0DzzOqpnu+Is41EYbezUH6a7CVtxQ4=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/milk_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			16Qy0mhXXzhH4qf/grYPuc/tzatj48JofM6lpNcMNXA=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/milk_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			eAc+2NVlYvgQJsLD8SVGdJ7S9WuE9MSBwkOgIuIlPVI=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/muffin_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			HRIYnb9DjnnAiaaN3hhjgCBp8GXRVETdUkDD6jz0LvM=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/muffin_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			HRIYnb9DjnnAiaaN3hhjgCBp8GXRVETdUkDD6jz0LvM=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/muffin_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			t1AuaX5PpJKQGAlW+A7yZmjYrbTn+e0D1kW1DPAiMv4=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/noodles_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			f5j4aHtS6XOgC2t4YX9tg4Z0z0FXJiMsa7MBg0lhXH0=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/noodles_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Gkg3aMZ9zrGoCpIo8ib+zyiu0EnhI5DQ9lOoE0pE73c=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/noodles_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ky5TzJuBYLRnLtBFNPIRIKWjrPI6wTucIx5OCAtpKWY=
+			</data>
+		</dict>
 		<key>Resources/flutter_assets/assets/pink_salmon_cut_left.png</key>
 		<dict>
 			<key>hash2</key>
@@ -536,6 +884,132 @@
 			<key>hash2</key>
 			<data>
 			9l/n5UBEile7UUIztcLeC2vH4FmZS5toDL6x2kPJpms=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/potato_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			0y+jrhcWZxJLWdLxQ204WhViH+oiZKky7iHTm1enmRo=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/potato_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			WEgHFhpIYnj1GxQEuMxCyzobhJjM4L5FwS2jKzbdrRM=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/potato_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			RDDKGfGv3MDn9If5ZbyGOPO8Q/eS3zrGggllAWXFUEw=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/pumpkin_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qrzRRuZcyNSKWE+7sRmanfMpGF1n2BYaujvv0x4g0GA=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/pumpkin_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			BvUwP8G5l3r+NeIANFz34S1hFk/5i0tkM2J8LDM7Gp4=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/pumpkin_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			+PEdceNVvU1Wy+AZ6xTFCYhDH3H/mDTaOujtbXAOXmc=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/rice_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			f5j4aHtS6XOgC2t4YX9tg4Z0z0FXJiMsa7MBg0lhXH0=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/rice_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Gkg3aMZ9zrGoCpIo8ib+zyiu0EnhI5DQ9lOoE0pE73c=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/rice_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			p/YPXk0X9de5JaGA1Jnv5En2k+2SVz495rnUFQgcp78=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/soy_milk_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			YV15B1HbZN2HZ0DzzOqpnu+Is41EYbezUH6a7CVtxQ4=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/soy_milk_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			16Qy0mhXXzhH4qf/grYPuc/tzatj48JofM6lpNcMNXA=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/soy_milk_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			XKQO4gimbdeJwCqbVuEygxpdzOYX7SIUhkdmQEN3Svw=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/sugar_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			PaE7lVcqoLwVGqQmN4WiYgWpoDzUAb1sMAWBl5up954=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/sugar_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			zYzWgDQIG0EdjpMGk0zz5JvYbJybYZetb5VBfyh5U2E=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/sugar_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			N9D2fRF6DO9qIoMKZirqdKz1JBRK8L5AqNt0CfAI+ZI=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/tofu_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			f5j4aHtS6XOgC2t4YX9tg4Z0z0FXJiMsa7MBg0lhXH0=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/tofu_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Gkg3aMZ9zrGoCpIo8ib+zyiu0EnhI5DQ9lOoE0pE73c=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/tofu_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			j9Xu7wxk9jbw6CBpU1H28ZKHO+/ZzpL+/GtiCvzFCoE=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/assets/vodka_cut_left.png</key>
@@ -559,6 +1033,27 @@
 			Te+rMt7+cg0OZ61jB6/6LCX++FQJ0JAGzyA1BqmIKZU=
 			</data>
 		</dict>
+		<key>Resources/flutter_assets/assets/yogurt_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			FCEmKRIBIRPjlZXeJf0YGeYeozOzFJV5sqwpm0Anc2Y=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/yogurt_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			5OSLQFMgc78t0tNk2w8hVF1rUeGL+TI8BfrrSOq7Pko=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/yogurt_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			yPTAE06v8jyZxDaRZnWKTcJ4AgnnndeygKcHWLVJEso=
+			</data>
+		</dict>
 		<key>Resources/flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<dict>
 			<key>hash2</key>
@@ -577,7 +1072,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			sO4cX8gLHEAM5PGQH1Aoe6ehodKF9brPoBTlQ9yRzl8=
+			Q0QMTUfEl6JNGs6x9M7Dz23z9SgTuJhl6gotzK50fXs=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>

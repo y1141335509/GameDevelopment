@@ -179,6 +179,19 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   int _vodkaCut = 0;
   int _coffeeCut = 0;
   int _noodlesCut = 0;
+  int _riceCut = 0;
+  int _milkCut = 0;
+  int _yogurtCut = 0;
+  int _tofuCut = 0;
+  int _muffinCut = 0;
+  int _cornOilCut = 0;
+  int _mangoCut = 0;
+  int _cilantroCut = 0;
+  int _sugarCut = 0;
+  int _soyMilkCut = 0;
+  int _carrotCut = 0;
+  int _pumpkinCut = 0;
+  int _potatoCut = 0;
 
   // Define the increase percentages for each time interval
   Map<int, double> increasePercentages = {
@@ -277,21 +290,10 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   void _spawnRandomFruit() async {
     final random = Random();
     List<String> foodNames = [
-      'watermelon',
-      'apple',
-      'banana',
-      'avocado',
-      'broccoli',
-      'pink salmon',
-      'chicken',
-      'beef',
-      'bread',
-      'egg',
-      'corn',
-      'beer',
-      'vodka',
-      'coffee',
-      'noodles',
+      'watermelon', 'apple', 'banana', 'avocado', 'broccoli', 'pink salmon', 
+      'chicken', 'beef', 'bread', 'egg', 'corn', 'beer', 'vodka', 'coffee',
+      'noodles', 'rice', 'yogurt', 'tofu', 'muffin', 'corn oil', 'mango',
+      'cilantro', 'sugar', 'soy milk', 'carrot', 'pumpkin', 'potato',
     ];
     String name = foodNames[random.nextInt(foodNames.length)];
 
@@ -645,7 +647,33 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       case 'coffee':
         return _getCoffee(fruit);
       case 'noodles':
-        return _getCoffee(fruit);
+        return _getNoodles(fruit);
+      case 'rice':
+        return _getRice(fruit);
+      case 'milk':
+        return _getMilk(fruit);
+      case 'yogurt':
+        return _getYogurt(fruit);
+      case 'tofu':
+        return _getTofu(fruit);
+      case 'muffin':
+        return _getMuffin(fruit);
+      case 'corn oil':
+        return _getCornOil(fruit);
+      case 'mango':
+        return _getMango(fruit);
+      case 'cilantro':
+        return _getCilantro(fruit);
+      case 'sugar':
+        return _getSugar(fruit);
+      case 'soy milk':
+        return _getSoyMilk(fruit);
+      case 'carrot':
+        return _getCarrot(fruit);
+      case 'pumpkin':
+        return _getPumpkin(fruit);
+      case 'potato':
+        return _getPotato(fruit);
       default: // 'watermelon'
         return _getMelon(fruit);
     }
@@ -741,6 +769,71 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         assetName = fruitPart.isLeft
             ? 'assets/noodles_cut_left.png'
             : 'assets/noodles_cut_right.png';
+        break;
+      case 'rice':
+        assetName = fruitPart.isLeft
+            ? 'assets/rice_cut_left.png'
+            : 'assets/rice_cut_right.png';
+        break;
+      case 'milk':
+        assetName = fruitPart.isLeft
+            ? 'assets/milk_cut_left.png'
+            : 'assets/milk_cut_right.png';
+        break;
+      case 'yogurt':
+        assetName = fruitPart.isLeft
+            ? 'assets/yogurt_cut_left.png'
+            : 'assets/yogurt_cut_right.png';
+        break;
+      case 'tofu':
+        assetName = fruitPart.isLeft
+            ? 'assets/tofu_cut_left.png'
+            : 'assets/tofu_cut_right.png';
+        break;
+      case 'muffin':
+        assetName = fruitPart.isLeft
+            ? 'assets/muffin_cut_left.png'
+            : 'assets/muffin_cut_right.png';
+        break;
+      case 'corn oil':
+        assetName = fruitPart.isLeft
+            ? 'assets/corn_oil_cut_left.png'
+            : 'assets/corn_oil_cut_right.png';
+        break;
+      case 'mango':
+        assetName = fruitPart.isLeft
+            ? 'assets/mango_cut_left.png'
+            : 'assets/mango_cut_right.png';
+        break;
+      case 'cilantro':
+        assetName = fruitPart.isLeft
+            ? 'assets/cilantro_cut_left.png'
+            : 'assets/cilantro_cut_right.png';
+        break;
+      case 'sugar':
+        assetName = fruitPart.isLeft
+            ? 'assets/sugar_cut_left.png'
+            : 'assets/sugar_cut_right.png';
+        break;
+      case 'soy milk':
+        assetName = fruitPart.isLeft
+            ? 'assets/soy_milk_cut_left.png'
+            : 'assets/soy_milk_cut_right.png';
+        break;
+      case 'carrot':
+        assetName = fruitPart.isLeft
+            ? 'assets/carrot_cut_left.png'
+            : 'assets/carrot_cut_right.png';
+        break;
+      case 'pumpkin':
+        assetName = fruitPart.isLeft
+            ? 'assets/pumpkin_cut_left.png'
+            : 'assets/pumpkin_cut_right.png';
+        break;
+      case 'potato':
+        assetName = fruitPart.isLeft
+            ? 'assets/potato_cut_left.png'
+            : 'assets/potato_cut_right.png';
         break;
       default: // 'melon'
         assetName = fruitPart.isLeft
@@ -878,6 +971,111 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     );
   }
 
+  Widget _getRice(Fruit fruit) {
+    return Image.asset(
+      'assets/rice_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getMilk(Fruit fruit) {
+    return Image.asset(
+      'assets/milk_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getYogurt(Fruit fruit) {
+    return Image.asset(
+      'assets/yogurt_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getTofu(Fruit fruit) {
+    return Image.asset(
+      'assets/tofu_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getMuffin(Fruit fruit) {
+    return Image.asset(
+      'assets/muffin_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getCornOil(Fruit fruit) {
+    return Image.asset(
+      'assets/corn_oil_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getMango(Fruit fruit) {
+    return Image.asset(
+      'assets/mango_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getCilantro(Fruit fruit) {
+    return Image.asset(
+      'assets/cilantro_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getSugar(Fruit fruit) {
+    return Image.asset(
+      'assets/sugar_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getSoyMilk(Fruit fruit) {
+    return Image.asset(
+      'assets/soy_milk_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getCarrot(Fruit fruit) {
+    return Image.asset(
+      'assets/carrot_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getPumpkin(Fruit fruit) {
+    return Image.asset(
+      'assets/pumpkin_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getPotato(Fruit fruit) {
+    return Image.asset(
+      'assets/potato_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+
   Widget _getGestureDetector() {
     return GestureDetector(
       onScaleStart: (ScaleStartDetails details) {
@@ -966,6 +1164,32 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
             _coffeeCut++;
           } else if (fruit.name == 'noodles') {
             _noodlesCut++;
+          } else if (fruit.name == 'rice') {
+            _riceCut++;
+          } else if (fruit.name == 'milk') {
+            _milkCut++;
+          } else if (fruit.name == 'yogurt') {
+            _yogurtCut++;
+          } else if (fruit.name == 'tofu') {
+            _tofuCut++;
+          } else if (fruit.name == 'muffin') {
+            _muffinCut++;
+          } else if (fruit.name == 'corn oil') {
+            _cornOilCut++;
+          } else if (fruit.name == 'mango') {
+            _mangoCut++;
+          } else if (fruit.name == 'cilantro') {
+            _cilantroCut++;
+          } else if (fruit.name == 'sugar') {
+            _sugarCut++;
+          } else if (fruit.name == 'soy milk') {
+            _soyMilkCut++;
+          } else if (fruit.name == 'carrot') {
+            _carrotCut++;
+          } else if (fruit.name == 'pumpkin') {
+            _pumpkinCut++;
+          } else if (fruit.name == 'potato') {
+            _potatoCut++;
           }
           break;
         }
@@ -1040,20 +1264,6 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   }
 
   void _updatePlayerNutrition(String fruitName) async {
-    ////////////////////////////////////
-    ///           TESTING            ///
-    // List<Map<dynamic, dynamic>> m = await DBInitializer().queryFoodNutritions();
-    // m looks like:
-    // [{}]
-    // for (int i = 0; i < m.length; i++) {
-    //   print('mapp: ' + m[i].toString());
-    //   for (String key in m[i].keys) {
-    //     print('key: ' + key.toString() + " ---> " + m[i][key].toString());
-    //   }
-    // }
-
-    ///           TESTING            ///
-    ////////////////////////////////////
 
     final nutrition = await DBInitializer().queryFoodNutritionByName(fruitName);
     if (nutrition != null) {
@@ -1140,28 +1350,4 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     }
   }
 
-  // void _checkPlayerNutrition() {
-  //   bool isMalnutrition = _isBelowMinNutrition();
-  //   bool isOvernutrition = _isAboveMaxNutrition();
-
-  //   if (isMalnutrition) {
-  //     _endGame("Malnutrition!");
-  //   } else if (isOvernutrition) {
-  //     _endGame("Overnutrition!");
-  //   }
-  // }
-
-  // bool _isBelowMinNutrition() {
-  //   return player.water < minWater ||
-  //       player.energy < minEnergy ||
-  //       player.protein < minProtein;
-  //   // Add checks for other nutrients
-  // }
-
-  // bool _isAboveMaxNutrition() {
-  //   return player.water > maxWater ||
-  //       player.energy > maxEnergy ||
-  //       player.protein > maxProtein;
-  //   // Add checks for other nutrients
-  // }
 }
