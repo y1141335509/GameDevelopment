@@ -171,7 +171,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   int _broccoliCut = 0;
   int _pinkSalmonCut = 0;
   int _chickenCut = 0;
-
+  int _beefCut = 0;
 
   // Define the increase percentages for each time interval
   Map<int, double> increasePercentages = {
@@ -277,6 +277,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       'broccoli',
       'pink salmon',
       'chicken',
+      'beef',
     ];
     String name = foodNames[random.nextInt(foodNames.length)];
 
@@ -615,6 +616,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         return _getPinkSalmon(fruit);
       case 'chicken':
         return _getChicken(fruit);
+      case 'beef':
+        return _getBeef(fruit);
       default: // 'watermelon'
         return _getMelon(fruit);
     }
@@ -670,6 +673,11 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         assetName = fruitPart.isLeft
             ? 'assets/chicken_cut_left.png'
             : 'assets/chicken_cut_right.png';
+        break;
+      case 'beek':
+        assetName = fruitPart.isLeft
+            ? 'assets/beef_cut_left.png'
+            : 'assets/beef_cut_right.png';
         break;
       default: // 'melon'
         assetName = fruitPart.isLeft
@@ -738,6 +746,14 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   Widget _getChicken(Fruit fruit) {
     return Image.asset(
       'assets/chicken_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getBeef(Fruit fruit) {
+    return Image.asset(
+      'assets/beef_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -815,6 +831,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
             _pinkSalmonCut++;
           } else if (fruit.name == 'chicken') {
             _chickenCut++;
+          } else if (fruit.name == 'beef') {
+            _beefCut++;
           }
           break;
         }

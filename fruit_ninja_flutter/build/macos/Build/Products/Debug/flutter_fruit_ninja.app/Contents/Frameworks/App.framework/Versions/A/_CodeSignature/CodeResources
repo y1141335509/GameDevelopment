@@ -10,11 +10,11 @@
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.bin</key>
 		<data>
-		bMdCus36165megt33l048D8tf1M=
+		8nHlMp6zdQ3ijlR05Vbv7VlSNPg=
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<data>
-		1GtG4I5jl+zbWBnqpcGwOlTEvtU=
+		a7zgbJpqNQ1YFPIpmh2trWw/ZcY=
 		</data>
 		<key>Resources/flutter_assets/FontManifest.json</key>
 		<data>
@@ -63,6 +63,18 @@
 		<key>Resources/flutter_assets/assets/banana_uncut.png</key>
 		<data>
 		xipnrW0Hi3sGysEpnAxM13vyipU=
+		</data>
+		<key>Resources/flutter_assets/assets/beef_cut_left.png</key>
+		<data>
+		o5HDRm9JnfwBPCYdWVPbh51YKQU=
+		</data>
+		<key>Resources/flutter_assets/assets/beef_cut_right.png</key>
+		<data>
+		R9eVDOtxy7GUxoG+7k1DpBUSUOo=
+		</data>
+		<key>Resources/flutter_assets/assets/beef_uncut.png</key>
+		<data>
+		sHg4iegJx98a4TXX6YDpqZW+IAA=
 		</data>
 		<key>Resources/flutter_assets/assets/broccoli_cut_left.png</key>
 		<data>
@@ -134,7 +146,7 @@
 		</data>
 		<key>Resources/flutter_assets/kernel_blob.bin</key>
 		<data>
-		Fc4L9umottm6fJUTbB6iE/TJ/6E=
+		XEBsO6IbMCeiqVdSIqooiZaB4Z8=
 		</data>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -162,14 +174,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			CPgZjyMIPfhqO4wywl3xm01I8q4lPQWoVXxZ9XteCVQ=
+			gCzt945AXzx/rsl0/r0xi+GAaH3CkRVsYyaL+IGVWZk=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5uSbBX9rTVJ3byn6UzZBJ6syFNLIn/zNHpvb1bOimr8=
+			dFUanIWWC680WT2LwAhZ6jQ/RQmvQxYFhwPpMYayeTg=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/FontManifest.json</key>
@@ -254,6 +266,27 @@
 			<key>hash2</key>
 			<data>
 			tJoRtxzkniUdfRtZV7Bf88H7t5/zLRjVlV+oRKDAKE0=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/beef_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7Kh6iECjOOWyIiZ7qm7z6z8KoQ2PHN/5lNCgGGfx8ac=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/beef_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			uq7J9ZMPTk7SbjirgfHJOMW9VkPRJ3tkuh0QTJcuwjs=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/beef_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			RMMW5kIAvUd06P3t1UP9yad1R3yiwYYn+ljnIDQlxzM=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/assets/broccoli_cut_left.png</key>
@@ -379,7 +412,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			B5hFDsVowC1VGqxZXhf47cf0+SS8St5UsPWc9E7Pgrk=
+			v5KqCcwbVKG+WWSEkYmbZZ2GncG/Q3ZJtaa1RtL7Hc8=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
