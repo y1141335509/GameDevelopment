@@ -21,7 +21,7 @@ import '../db_initializer.dart';
 // var db_initializer = DBInitializer();
 // var db = db_initializer.database;
 Future<List<String>> names = DBInitializer().queryAllFoodNames();
-// 尝试将该代码放到_CanvasAreaState类里
+
 ///                                      ///
 ///                                      ///
 ////////////////////////////////////////////
@@ -169,57 +169,56 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   int _appleCut = 0;
   int _avocadoCut = 0;
 
-  // Initial maximum values
-  double maxWater = 100000;
-  double maxEnergy = 48000;
-  double maxProtein = 2400;
-  double maxFat = 16800;
-  double maxCarb = 6000;
-  double maxFiber = 1400;
-  double maxSugar = 720;
-  double maxCalcium = 50000;
-  double maxIron = 900;
-  double maxMagnesium = 7000;
-  double maxPhosphorus = 80000;
-  double maxPotassium = 94000;
-  double maxSodium = 46000;
-  double maxZinc = 800;
-  double maxCopper = 200;
-  double maxManganese = 220;
-  double maxSelenium = 8000;
-  double maxVc = 40000;
-  double maxVb = 2000;
-  double maxVa = 60000;
-  double maxVd = 2000;
-  double maxVk = 2400;
-  double maxCaffeine = 8000;
-  double maxAlcohol = 600000;
-
-  // Initial minimium values
-  double minWater = 10000;
-  double minEnergy = 24000;
-  double minProtein = 960;
-  double minFat = 4800;
-  double minCarb = 2600;
-  double minFiber = 500;
-  double minSugar = 40;
-  double minCalcium = 20000;
-  double minIron = 160;
-  double minMagnesium = 6400;
-  double minPhosphorus = 14000;
-  double minPotassium = 70000;
-  double minSodium = 10000;
-  double minZinc = 160;
-  double minCopper = 18;
-  double minManganese = 36;
-  double minSelenium = 1100;
-  double minVc = 1500;
-  double minVb = 20;
-  double minVa = 14000;
-  double minVd = 300;
-  double minVk = 1500;
-  double minCaffeine = 20;
-  double minAlcohol = 20;
+  // // Initial maximum values
+  // double maxWater = 100000;
+  // double maxEnergy = 48000;
+  // double maxProtein = 2400;
+  // double maxFat = 16800;
+  // double maxCarb = 6000;
+  // double maxFiber = 1400;
+  // double maxSugar = 720;
+  // double maxCalcium = 50000;
+  // double maxIron = 900;
+  // double maxMagnesium = 7000;
+  // double maxPhosphorus = 80000;
+  // double maxPotassium = 94000;
+  // double maxSodium = 46000;
+  // double maxZinc = 800;
+  // double maxCopper = 200;
+  // double maxManganese = 220;
+  // double maxSelenium = 8000;
+  // double maxVc = 40000;
+  // double maxVb = 2000;
+  // double maxVa = 60000;
+  // double maxVd = 2000;
+  // double maxVk = 2400;
+  // double maxCaffeine = 8000;
+  // double maxAlcohol = 600000;
+  // // Initial minimium values
+  // double minWater = 10000;
+  // double minEnergy = 24000;
+  // double minProtein = 960;
+  // double minFat = 4800;
+  // double minCarb = 2600;
+  // double minFiber = 500;
+  // double minSugar = 40;
+  // double minCalcium = 20000;
+  // double minIron = 160;
+  // double minMagnesium = 6400;
+  // double minPhosphorus = 14000;
+  // double minPotassium = 70000;
+  // double minSodium = 10000;
+  // double minZinc = 160;
+  // double minCopper = 18;
+  // double minManganese = 36;
+  // double minSelenium = 1100;
+  // double minVc = 1500;
+  // double minVb = 20;
+  // double minVa = 14000;
+  // double minVd = 300;
+  // double minVk = 1500;
+  // double minCaffeine = 20;
+  // double minAlcohol = 20;
 
   // Define the increase percentages for each time interval
   Map<int, double> increasePercentages = {
@@ -317,7 +316,13 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   void _spawnRandomFruit() async {
     final random = Random();
-    List<String> foodNames = ['watermelon', 'apple', 'banana', 'avocado'];
+    List<String> foodNames = [
+      'watermelon',
+      'apple',
+      'banana',
+      'avocado',
+      'broccoli',
+    ];
     String name = foodNames[random.nextInt(foodNames.length)];
 
     // Calculate center area bounds
@@ -384,14 +389,15 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
                   _countdownController.value)
           .round();
       if (currentTime % 20 == 0 && currentTime != 0) {
-        _checkPlayerNutrition();
+        // _checkPlayerNutrition();
+        _checkPlayerHealth();
       }
     }
   }
 
   Set<int> increasedTimes =
       {}; // Keep track of the times at which increases have occurred
-  void _checkSurvival() {
+  void _checkSurvival() async {
     int currentTime = (120 -
             (_countdownController.duration?.inSeconds ?? 0) *
                 _countdownController.value)
@@ -408,32 +414,35 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       checkedPoints.add(currentTime); // Mark this time as checked
     }
 
+    final upper = await DBInitializer().queryFoodNutritionByName('upper');
     increasePercentages.forEach((time, percentage) {
       if (currentTime >= time && !increasedTimes.contains(time)) {
-        maxWater *= (1 + percentage);
-        maxEnergy *= (1 + percentage);
-        maxProtein *= (1 + percentage);
-        maxFat *= (1 + percentage);
-        maxCarb *= (1 + percentage);
-        maxFiber *= (1 + percentage);
-        maxSugar *= (1 + percentage);
-        maxCalcium *= (1 + percentage);
-        maxIron *= (1 + percentage);
-        maxMagnesium *= (1 + percentage);
-        maxPhosphorus *= (1 + percentage);
-        maxPotassium *= (1 + percentage);
-        maxSodium *= (1 + percentage);
-        maxZinc *= (1 + percentage);
-        maxCopper *= (1 + percentage);
-        maxManganese *= (1 + percentage);
-        maxSelenium *= (1 + percentage);
-        maxVc *= (1 + percentage);
-        maxVb *= (1 + percentage);
-        maxVa *= (1 + percentage);
-        maxVd *= (1 + percentage);
-        maxVk *= (1 + percentage);
-        maxCaffeine *= (1 + percentage);
-        maxAlcohol *= (1 + percentage);
+        upper.forEach((element) {
+          element['WATER'] *= (1 + percentage);
+          element['ENERGY'] *= (1 + percentage);
+          element['PROTEIN'] *= (1 + percentage);
+          element['FAT'] *= (1 + percentage);
+          element['CARB'] *= (1 + percentage);
+          element['FIBER'] *= (1 + percentage);
+          element['SUGAR'] *= (1 + percentage);
+          element['CALCIUM'] *= (1 + percentage);
+          element['IRON'] *= (1 + percentage);
+          element['MAGNESIUM'] *= (1 + percentage);
+          element['PHOSPHORUS'] *= (1 + percentage);
+          element['POTASSIUM'] *= (1 + percentage);
+          element['SODIUM'] *= (1 + percentage);
+          element['ZINC'] *= (1 + percentage);
+          element['COPPER'] *= (1 + percentage);
+          element['MANGANESE'] *= (1 + percentage);
+          element['SELENIUM'] *= (1 + percentage);
+          element['VC'] *= (1 + percentage);
+          element['VB'] *= (1 + percentage);
+          element['VA'] *= (1 + percentage);
+          element['VD'] *= (1 + percentage);
+          element['VK'] *= (1 + percentage);
+          element['CAFFEINE'] *= (1 + percentage);
+          element['ALCOHOL'] *= (1 + percentage);
+        });
         increasedTimes
             .add(time); // Mark this time as having increased the values
       }
@@ -645,7 +654,9 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         return _getBanana(fruit);
       case 'avocado':
         return _getAvocado(fruit);
-      default: // 'melon'
+      case 'broccoli':
+        return _getBroccoli(fruit);
+      default: // 'watermelon'
         return _getMelon(fruit);
     }
   }
@@ -685,6 +696,11 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         assetName = fruitPart.isLeft
             ? 'assets/avocado_cut_left.png'
             : 'assets/avocado_cut_right.png';
+        break;
+      case 'broccoli':
+        assetName = fruitPart.isLeft
+            ? 'assets/broccoli_cut_left.png'
+            : 'assets/broccoli_cut_right.png';
         break;
       default: // 'melon'
         assetName = fruitPart.isLeft
@@ -729,6 +745,14 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   Widget _getAvocado(Fruit fruit) {
     return Image.asset(
       'assets/avocado_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getBroccoli(Fruit fruit) {
+    return Image.asset(
+      'assets/broccoli_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -876,20 +900,19 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   void _updatePlayerNutrition(String fruitName) async {
     ////////////////////////////////////
     ///           TESTING            ///
-    List<Map<dynamic, dynamic>> m = await DBInitializer().queryFoodNutritions();
+    // List<Map<dynamic, dynamic>> m = await DBInitializer().queryFoodNutritions();
     // m looks like:
     // [{}]
-    for (int i = 0; i < m.length; i++) {
-      print('mapp: ' + m[i].toString());
-      for (String key in m[i].keys) {
-        print('key: ' + key.toString() + " ---> " + m[i][key].toString());
-      }
-    }
+    // for (int i = 0; i < m.length; i++) {
+    //   print('mapp: ' + m[i].toString());
+    //   for (String key in m[i].keys) {
+    //     print('key: ' + key.toString() + " ---> " + m[i][key].toString());
+    //   }
+    // }
 
     ///           TESTING            ///
     ////////////////////////////////////
 
-    // final nutrition = foodNutritions[fruitName];
     final nutrition = await DBInitializer().queryFoodNutritionByName(fruitName);
     if (nutrition != null) {
       player.water += nutrition[0]['WATER'] ?? 0;
@@ -917,18 +940,12 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       player.caffeine += nutrition[0]['CAFFEINE'] ?? 0;
       player.alcohol += nutrition[0]['ALCOHOL'] ?? 0;
     }
-    // Print updated nutrition values
-    // print("Updated Player Nutrition:");
-    // print("Water: ${player.water}");
-    // print("Energy: ${player.energy}");
-    // print("Protein: ${player.protein}");
   }
 
   void _checkPlayerHealth() async {
     final upper = await DBInitializer().queryFoodNutritionByName('upper');
     final lower = await DBInitializer().queryFoodNutritionByName('lower');
-    if (
-        player.water > upper[0]['WATER'] ||
+    if (player.water > upper[0]['WATER'] ||
         player.energy > upper[0]['ENERGY'] ||
         player.protein > upper[0]['PROTEIN'] ||
         player.fat > upper[0]['FAT'] ||
@@ -981,28 +998,28 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     }
   }
 
-  void _checkPlayerNutrition() {
-    bool isMalnutrition = _isBelowMinNutrition();
-    bool isOvernutrition = _isAboveMaxNutrition();
+  // void _checkPlayerNutrition() {
+  //   bool isMalnutrition = _isBelowMinNutrition();
+  //   bool isOvernutrition = _isAboveMaxNutrition();
 
-    if (isMalnutrition) {
-      _endGame("Malnutrition!");
-    } else if (isOvernutrition) {
-      _endGame("Overnutrition!");
-    }
-  }
+  //   if (isMalnutrition) {
+  //     _endGame("Malnutrition!");
+  //   } else if (isOvernutrition) {
+  //     _endGame("Overnutrition!");
+  //   }
+  // }
 
-  bool _isBelowMinNutrition() {
-    return player.water < minWater ||
-        player.energy < minEnergy ||
-        player.protein < minProtein;
-    // Add checks for other nutrients
-  }
+  // bool _isBelowMinNutrition() {
+  //   return player.water < minWater ||
+  //       player.energy < minEnergy ||
+  //       player.protein < minProtein;
+  //   // Add checks for other nutrients
+  // }
 
-  bool _isAboveMaxNutrition() {
-    return player.water > maxWater ||
-        player.energy > maxEnergy ||
-        player.protein > maxProtein;
-    // Add checks for other nutrients
-  }
+  // bool _isAboveMaxNutrition() {
+  //   return player.water > maxWater ||
+  //       player.energy > maxEnergy ||
+  //       player.protein > maxProtein;
+  //   // Add checks for other nutrients
+  // }
 }

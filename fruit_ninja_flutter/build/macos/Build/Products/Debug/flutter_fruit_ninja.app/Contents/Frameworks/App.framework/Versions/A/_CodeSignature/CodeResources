@@ -10,11 +10,11 @@
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.bin</key>
 		<data>
-		dm8MM/PAyQ7qbPY2BWsudNQlE+0=
+		fT9yNxWcgOFsNSj/AbMjtX0Psbw=
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<data>
-		hUH/rQKPQaGp+uSjvwVE23MaZEE=
+		ahYIKa2aFERbeYdIF60wPemb7IU=
 		</data>
 		<key>Resources/flutter_assets/FontManifest.json</key>
 		<data>
@@ -64,6 +64,18 @@
 		<data>
 		xipnrW0Hi3sGysEpnAxM13vyipU=
 		</data>
+		<key>Resources/flutter_assets/assets/broccoli_cut_left.png</key>
+		<data>
+		gehZu3PpomgFf52nkF45PYiCsPc=
+		</data>
+		<key>Resources/flutter_assets/assets/broccoli_cut_right.png</key>
+		<data>
+		7rhWiCJ5BrR0aZX/iITEmJN88u4=
+		</data>
+		<key>Resources/flutter_assets/assets/broccoli_uncut.png</key>
+		<data>
+		4wFQf2xHz7TxBpanknQFXvxCfY8=
+		</data>
 		<key>Resources/flutter_assets/assets/data/food_nutrition.csv</key>
 		<data>
 		DM3WP2VyK4ArgQYJMwaHF0WexCw=
@@ -98,7 +110,7 @@
 		</data>
 		<key>Resources/flutter_assets/kernel_blob.bin</key>
 		<data>
-		gCCly0nzs803Tt/ahSI9IdolNVs=
+		2dO5Iceqy1YNE1OMsehUQ3gilb0=
 		</data>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -126,14 +138,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6BIFupcXaa0cVYUW67MU/0hgcBE/f8tURrOhNvAVODI=
+			KIGKMZvVPKLplHkjdxC7USdtKnTh3iX0ulLJfVwMbVc=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			RDU91CqLTiqUUNxZw09+x16/XQIrT9DcxexcHoAAOzo=
+			ObQY0+cRnV4sYzQiv1L+Hyo/ZHpaAYg5LwmeQVI+lPY=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/FontManifest.json</key>
@@ -220,6 +232,27 @@
 			tJoRtxzkniUdfRtZV7Bf88H7t5/zLRjVlV+oRKDAKE0=
 			</data>
 		</dict>
+		<key>Resources/flutter_assets/assets/broccoli_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			UKtrjZ2LksC/2J3hBpMQ4PA8NBCIz+NKGuXyWWSq7ys=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/broccoli_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			4836XQVlTr/iRyePBg3vx25Lg6Vj41H5c7fVwVce4Ts=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/broccoli_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			5LpHGjCnRAGC2i3+6i6lIYLvkjbMXk7f0QC+UrnSnH0=
+			</data>
+		</dict>
 		<key>Resources/flutter_assets/assets/data/food_nutrition.csv</key>
 		<dict>
 			<key>hash2</key>
@@ -280,7 +313,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			KoKhFXt/6CPrOdccy1/dTxkJB4huH2zy4QZYnpDldpU=
+			+83bXiJ5ZgE0IDQiy0U8P8FtISJgDkNyO/Cnne3Vm5M=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
