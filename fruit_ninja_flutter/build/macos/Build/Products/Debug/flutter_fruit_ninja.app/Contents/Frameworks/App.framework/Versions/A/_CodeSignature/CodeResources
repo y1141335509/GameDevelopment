@@ -10,11 +10,11 @@
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.bin</key>
 		<data>
-		cvwT6he0uAJHcP4u2tXiaCk3exE=
+		bMdCus36165megt33l048D8tf1M=
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<data>
-		H6X/3TcMmKIKKdrGFLGcGVoqZqY=
+		1GtG4I5jl+zbWBnqpcGwOlTEvtU=
 		</data>
 		<key>Resources/flutter_assets/FontManifest.json</key>
 		<data>
@@ -76,6 +76,18 @@
 		<data>
 		4wFQf2xHz7TxBpanknQFXvxCfY8=
 		</data>
+		<key>Resources/flutter_assets/assets/chicken_cut_left.png</key>
+		<data>
+		uQMtwHCpEsels8/QKS8lKSl1UjQ=
+		</data>
+		<key>Resources/flutter_assets/assets/chicken_cut_right.png</key>
+		<data>
+		kNhS0TFhhlgtIwftp2eBSsAkLkk=
+		</data>
+		<key>Resources/flutter_assets/assets/chicken_uncut.png</key>
+		<data>
+		MD0a5tYVst+Sej/rrtDoqJmWQLk=
+		</data>
 		<key>Resources/flutter_assets/assets/data/food_nutrition.csv</key>
 		<data>
 		DM3WP2VyK4ArgQYJMwaHF0WexCw=
@@ -122,7 +134,7 @@
 		</data>
 		<key>Resources/flutter_assets/kernel_blob.bin</key>
 		<data>
-		Rx1CxWxUW/q/F6Sex7oC/2L1u30=
+		Fc4L9umottm6fJUTbB6iE/TJ/6E=
 		</data>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -150,14 +162,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fGiYt7glMaHShMM0R6yFHz6vupp7MZHdAJRnHN73vbU=
+			CPgZjyMIPfhqO4wywl3xm01I8q4lPQWoVXxZ9XteCVQ=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Pej0aE+clYxe4ucTRZFUgNF15TaJ/FZe4+GNc98l8VY=
+			5uSbBX9rTVJ3byn6UzZBJ6syFNLIn/zNHpvb1bOimr8=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/FontManifest.json</key>
@@ -265,6 +277,27 @@
 			5LpHGjCnRAGC2i3+6i6lIYLvkjbMXk7f0QC+UrnSnH0=
 			</data>
 		</dict>
+		<key>Resources/flutter_assets/assets/chicken_cut_left.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			iCzCUKgLlGlEWukV3j9g2GwKG1UZV12YI7qTMnj0+98=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/chicken_cut_right.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Ams03V0wm87PYtX2hvG5aftbx+jb0pIPK+p8w/5A3Q0=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/chicken_uncut.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			CQGt6m+brknJ2cl3zqaFRnzt8As5hFyoNtNBQ3d1Xvc=
+			</data>
+		</dict>
 		<key>Resources/flutter_assets/assets/data/food_nutrition.csv</key>
 		<dict>
 			<key>hash2</key>
@@ -346,7 +379,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6LWvrOuZnTB+Yt2nzWENEWdbid62y8fzoWn1II62PFU=
+			B5hFDsVowC1VGqxZXhf47cf0+SS8St5UsPWc9E7Pgrk=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>

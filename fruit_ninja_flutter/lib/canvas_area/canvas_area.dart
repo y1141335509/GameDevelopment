@@ -170,57 +170,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   int _avocadoCut = 0;
   int _broccoliCut = 0;
   int _pinkSalmonCut = 0;
+  int _chickenCut = 0;
 
-  // // Initial maximum values
-  // double maxWater = 100000;
-  // double maxEnergy = 48000;
-  // double maxProtein = 2400;
-  // double maxFat = 16800;
-  // double maxCarb = 6000;
-  // double maxFiber = 1400;
-  // double maxSugar = 720;
-  // double maxCalcium = 50000;
-  // double maxIron = 900;
-  // double maxMagnesium = 7000;
-  // double maxPhosphorus = 80000;
-  // double maxPotassium = 94000;
-  // double maxSodium = 46000;
-  // double maxZinc = 800;
-  // double maxCopper = 200;
-  // double maxManganese = 220;
-  // double maxSelenium = 8000;
-  // double maxVc = 40000;
-  // double maxVb = 2000;
-  // double maxVa = 60000;
-  // double maxVd = 2000;
-  // double maxVk = 2400;
-  // double maxCaffeine = 8000;
-  // double maxAlcohol = 600000;
-  // // Initial minimium values
-  // double minWater = 10000;
-  // double minEnergy = 24000;
-  // double minProtein = 960;
-  // double minFat = 4800;
-  // double minCarb = 2600;
-  // double minFiber = 500;
-  // double minSugar = 40;
-  // double minCalcium = 20000;
-  // double minIron = 160;
-  // double minMagnesium = 6400;
-  // double minPhosphorus = 14000;
-  // double minPotassium = 70000;
-  // double minSodium = 10000;
-  // double minZinc = 160;
-  // double minCopper = 18;
-  // double minManganese = 36;
-  // double minSelenium = 1100;
-  // double minVc = 1500;
-  // double minVb = 20;
-  // double minVa = 14000;
-  // double minVd = 300;
-  // double minVk = 1500;
-  // double minCaffeine = 20;
-  // double minAlcohol = 20;
 
   // Define the increase percentages for each time interval
   Map<int, double> increasePercentages = {
@@ -325,6 +276,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       'avocado',
       'broccoli',
       'pink salmon',
+      'chicken',
     ];
     String name = foodNames[random.nextInt(foodNames.length)];
 
@@ -661,6 +613,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         return _getBroccoli(fruit);
       case 'pink salmon':
         return _getPinkSalmon(fruit);
+      case 'chicken':
+        return _getChicken(fruit);
       default: // 'watermelon'
         return _getMelon(fruit);
     }
@@ -711,6 +665,11 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         assetName = fruitPart.isLeft
             ? 'assets/pink_salmon_cut_left.png'
             : 'assets/pink_salmon_cut_right.png';
+        break;
+      case 'chicken':
+        assetName = fruitPart.isLeft
+            ? 'assets/chicken_cut_left.png'
+            : 'assets/chicken_cut_right.png';
         break;
       default: // 'melon'
         assetName = fruitPart.isLeft
@@ -775,7 +734,14 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       fit: BoxFit.fitHeight,
     );
   }
-  
+
+  Widget _getChicken(Fruit fruit) {
+    return Image.asset(
+      'assets/chicken_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
 
   Widget _getGestureDetector() {
     return GestureDetector(
@@ -847,6 +813,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
             _broccoliCut++;
           } else if (fruit.name == 'pink salmon') {
             _pinkSalmonCut++;
+          } else if (fruit.name == 'chicken') {
+            _chickenCut++;
           }
           break;
         }
