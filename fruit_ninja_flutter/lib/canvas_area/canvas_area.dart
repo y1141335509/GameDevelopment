@@ -172,6 +172,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   int _pinkSalmonCut = 0;
   int _chickenCut = 0;
   int _beefCut = 0;
+  int _breadCut = 0;
 
   // Define the increase percentages for each time interval
   Map<int, double> increasePercentages = {
@@ -278,6 +279,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       'pink salmon',
       'chicken',
       'beef',
+      'bread',
     ];
     String name = foodNames[random.nextInt(foodNames.length)];
 
@@ -618,6 +620,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         return _getChicken(fruit);
       case 'beef':
         return _getBeef(fruit);
+      case 'bread':
+        return _getBread(fruit);
       default: // 'watermelon'
         return _getMelon(fruit);
     }
@@ -674,10 +678,15 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
             ? 'assets/chicken_cut_left.png'
             : 'assets/chicken_cut_right.png';
         break;
-      case 'beek':
+      case 'beef':
         assetName = fruitPart.isLeft
             ? 'assets/beef_cut_left.png'
             : 'assets/beef_cut_right.png';
+        break;
+      case 'bread':
+        assetName = fruitPart.isLeft
+            ? 'assets/bread_cut_left.png'
+            : 'assets/bread_cut_right.png';
         break;
       default: // 'melon'
         assetName = fruitPart.isLeft
@@ -759,6 +768,14 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     );
   }
 
+  Widget _getBread(Fruit fruit) {
+    return Image.asset(
+      'assets/bread_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
   Widget _getGestureDetector() {
     return GestureDetector(
       onScaleStart: (ScaleStartDetails details) {
@@ -833,6 +850,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
             _chickenCut++;
           } else if (fruit.name == 'beef') {
             _beefCut++;
+          } else if (fruit.name == 'bread') {
+            _breadCut++;
           }
           break;
         }
