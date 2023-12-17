@@ -176,7 +176,9 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   int _eggCut = 0;
   int _cornCut = 0;
   int _beerCut = 0;
-  
+  int _vodkaCut = 0;
+  int _coffeeCut = 0;
+  int _noodlesCut = 0;
 
   // Define the increase percentages for each time interval
   Map<int, double> increasePercentages = {
@@ -287,6 +289,9 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       'egg',
       'corn',
       'beer',
+      'vodka',
+      'coffee',
+      'noodles',
     ];
     String name = foodNames[random.nextInt(foodNames.length)];
 
@@ -635,6 +640,12 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         return _getCorn(fruit);
       case 'beer':
         return _getBeer(fruit);
+      case 'vodka':
+        return _getVodka(fruit);
+      case 'coffee':
+        return _getCoffee(fruit);
+      case 'noodles':
+        return _getCoffee(fruit);
       default: // 'watermelon'
         return _getMelon(fruit);
     }
@@ -715,6 +726,21 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         assetName = fruitPart.isLeft
             ? 'assets/beer_cut_left.png'
             : 'assets/beer_cut_right.png';
+        break;
+      case 'vodka':
+        assetName = fruitPart.isLeft
+            ? 'assets/vodka_cut_left.png'
+            : 'assets/vodka_cut_right.png';
+        break;
+      case 'coffee':
+        assetName = fruitPart.isLeft
+            ? 'assets/coffee_cut_left.png'
+            : 'assets/coffee_cut_right.png';
+        break;
+      case 'noodles':
+        assetName = fruitPart.isLeft
+            ? 'assets/noodles_cut_left.png'
+            : 'assets/noodles_cut_right.png';
         break;
       default: // 'melon'
         assetName = fruitPart.isLeft
@@ -828,6 +854,30 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     );
   }
 
+  Widget _getVodka(Fruit fruit) {
+    return Image.asset(
+      'assets/vodka_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getCoffee(Fruit fruit) {
+    return Image.asset(
+      'assets/coffee_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getNoodles(Fruit fruit) {
+    return Image.asset(
+      'assets/noodles_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
   Widget _getGestureDetector() {
     return GestureDetector(
       onScaleStart: (ScaleStartDetails details) {
@@ -910,6 +960,12 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
             _cornCut++;
           } else if (fruit.name == 'beer') {
             _beerCut++;
+          } else if (fruit.name == 'vodka') {
+            _vodkaCut++;
+          } else if (fruit.name == 'coffee') {
+            _coffeeCut++;
+          } else if (fruit.name == 'noodles') {
+            _noodlesCut++;
           }
           break;
         }
