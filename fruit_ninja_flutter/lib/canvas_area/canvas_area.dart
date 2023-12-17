@@ -13,125 +13,128 @@ import 'models/touch_slice.dart';
 import 'package:audioplayers/audioplayers.dart';
 // import 'package:assets_audio_player/assets_audio_player.dart';
 import 'slice_painter.dart';
+import '../db_initializer.dart';
 
-
-
-List<String> fruitNames = ['melon', 'apple', 'banana', 'avocado'];
+////////////////////////////////////////////
+///                                      ///
+///                                      ///
+// var db_initializer = DBInitializer();
+// var db = db_initializer.database;
+Future<List<String>> names = DBInitializer().queryAllFoodNames();
+// 尝试将该代码放到_CanvasAreaState类里
+///                                      ///
+///                                      ///
+////////////////////////////////////////////
 
 // fruitsCut defines the number of each fruit type is cut after game play.
-Map<String, int> foodSpawnCount = {
-  'melon': 0,
-  'apple': 0,
-  'banana': 0,
-  'avocado': 0
-};
+Map<String, int> foodSpawnCount = {};
 
-Map<String, Map<String, double>> foodNutritions = {
-  "melon": {
-    "water": 4130.0,
-    "energy": 1360.0,
-    "protein": 27.6,
-    "fat": 6.78,
-    "carb": 341,
-    "fiber": 18.1,
-    "sugar": 280,
-    "calcium": 316,
-    "iron": 10.8,
-    "magnesium": 452,
-    "phosphorus": 497,
-    "potassium": 5060,
-    "sodium": 45.2,
-    "zinc": 4.52,
-    "copper": 1.9,
-    "manganese": 1.72,
-    "selenium": 18.1,
-    "vc": 366,
-    "vb": 2.03,
-    "va": 1270,
-    "vd": 0,
-    "vk": 4.52,
-    "caffeine": 0,
-    "alcohol": 0
-  },
-  "apple": {
-    "water": 83.6,
-    "energy": 65,
-    "protein": 0.15,
-    "fat": 0.16,
-    "carb": 15.6,
-    "fiber": 2.1,
-    "sugar": 13.3,
-    "calcium": 6,
-    "iron": 0.02,
-    "magnesium": 4.7,
-    "phosphorus": 10,
-    "potassium": 104,
-    "sodium": 1,
-    "zinc": 0.02,
-    "copper": 0.033,
-    "manganese": 0.033,
-    "selenium": 0,
-    "vc": 5.7,
-    "vb": 0.045,
-    "va": 2,
-    "vd": 0,
-    "vk": 1,
-    "caffeine": 0,
-    "alcohol": 0
-  },
-  "banana": {
-    "water": 75.3,
-    "energy": 98,
-    "protein": 0.74,
-    "fat": 0.29,
-    "carb": 23,
-    "fiber": 1.7,
-    "sugar": 15.8,
-    "calcium": 5,
-    "iron": 0.4,
-    "magnesium": 28,
-    "phosphorus": 22,
-    "potassium": 326,
-    "sodium": 4,
-    "zinc": 0.16,
-    "copper": 0.101,
-    "manganese": 0.258,
-    "selenium": 2.5,
-    "vc": 12.3,
-    "vb": 0.209,
-    "va": 1,
-    "vd": 0,
-    "vk": 0.1,
-    "caffeine": 0,
-    "alcohol": 0
-  },
-  "avocado": {
-    "water": 73.2,
-    "energy": 160,
-    "protein": 670,
-    "fat": 14.7,
-    "carb": 8.53,
-    "fiber": 6.7,
-    "sugar": 0.66,
-    "calcium": 12,
-    "iron": 0.55,
-    "magnesium": 29,
-    "phosphorus": 52,
-    "potassium": 485,
-    "sodium": 7,
-    "zinc": 0.64,
-    "copper": 0.19,
-    "manganese": 0.142,
-    "selenium": 0.4,
-    "vc": 10,
-    "vb": 0.257,
-    "va": 7,
-    "vd": 0,
-    "vk": 21,
-    "caffeine": 0,
-    "alcohol": 0
-  }
-};
+// Map<String, Map<String, double>> foodNutritions = {
+//   "melon": {
+//     "water": 4130.0,
+//     "energy": 1360.0,
+//     "protein": 27.6,
+//     "fat": 6.78,
+//     "carb": 341,
+//     "fiber": 18.1,
+//     "sugar": 280,
+//     "calcium": 316,
+//     "iron": 10.8,
+//     "magnesium": 452,
+//     "phosphorus": 497,
+//     "potassium": 5060,
+//     "sodium": 45.2,
+//     "zinc": 4.52,
+//     "copper": 1.9,
+//     "manganese": 1.72,
+//     "selenium": 18.1,
+//     "vc": 366,
+//     "vb": 2.03,
+//     "va": 1270,
+//     "vd": 0,
+//     "vk": 4.52,
+//     "caffeine": 0,
+//     "alcohol": 0
+//   },
+//   "apple": {
+//     "water": 83.6,
+//     "energy": 65,
+//     "protein": 0.15,
+//     "fat": 0.16,
+//     "carb": 15.6,
+//     "fiber": 2.1,
+//     "sugar": 13.3,
+//     "calcium": 6,
+//     "iron": 0.02,
+//     "magnesium": 4.7,
+//     "phosphorus": 10,
+//     "potassium": 104,
+//     "sodium": 1,
+//     "zinc": 0.02,
+//     "copper": 0.033,
+//     "manganese": 0.033,
+//     "selenium": 0,
+//     "vc": 5.7,
+//     "vb": 0.045,
+//     "va": 2,
+//     "vd": 0,
+//     "vk": 1,
+//     "caffeine": 0,
+//     "alcohol": 0
+//   },
+//   "banana": {
+//     "water": 75.3,
+//     "energy": 98,
+//     "protein": 0.74,
+//     "fat": 0.29,
+//     "carb": 23,
+//     "fiber": 1.7,
+//     "sugar": 15.8,
+//     "calcium": 5,
+//     "iron": 0.4,
+//     "magnesium": 28,
+//     "phosphorus": 22,
+//     "potassium": 326,
+//     "sodium": 4,
+//     "zinc": 0.16,
+//     "copper": 0.101,
+//     "manganese": 0.258,
+//     "selenium": 2.5,
+//     "vc": 12.3,
+//     "vb": 0.209,
+//     "va": 1,
+//     "vd": 0,
+//     "vk": 0.1,
+//     "caffeine": 0,
+//     "alcohol": 0
+//   },
+//   "avocado": {
+//     "water": 73.2,
+//     "energy": 160,
+//     "protein": 670,
+//     "fat": 14.7,
+//     "carb": 8.53,
+//     "fiber": 6.7,
+//     "sugar": 0.66,
+//     "calcium": 12,
+//     "iron": 0.55,
+//     "magnesium": 29,
+//     "phosphorus": 52,
+//     "potassium": 485,
+//     "sodium": 7,
+//     "zinc": 0.64,
+//     "copper": 0.19,
+//     "manganese": 0.142,
+//     "selenium": 0.4,
+//     "vc": 10,
+//     "vb": 0.257,
+//     "va": 7,
+//     "vd": 0,
+//     "vk": 21,
+//     "caffeine": 0,
+//     "alcohol": 0
+//   }
+// };
 
 late Body player; // Instance to hold player's state
 
@@ -192,7 +195,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   double maxCaffeine = 8000;
   double maxAlcohol = 600000;
 
-// Initial minimium values
+  // Initial minimium values
   double minWater = 10000;
   double minEnergy = 24000;
   double minProtein = 960;
@@ -244,9 +247,6 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     //   showNotification: true,
     // );
     //// Audios
-    
-
-
 
     // Initialize the countdown controller
     _countdownController = AnimationController(
@@ -315,9 +315,10 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
 ////////////////////////////////////
 
-  void _spawnRandomFruit() {
+  void _spawnRandomFruit() async {
     final random = Random();
-    String name = fruitNames[random.nextInt(fruitNames.length)];
+    List<String> foodNames = ['watermelon', 'apple', 'banana', 'avocado'];
+    String name = foodNames[random.nextInt(foodNames.length)];
 
     // Calculate center area bounds
     double screenWidth = MediaQuery.of(context).size.width;
@@ -341,6 +342,9 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     );
 
     // Update the count for the spawned food
+    for (String foodName in foodNames) {
+      foodSpawnCount[foodName] = 0;
+    }
     foodSpawnCount[name] = (foodSpawnCount[name] ?? 0) + 1;
     // Print the count of each type of food spawned
     print("Food Spawn Count: $foodSpawnCount");
@@ -869,93 +873,110 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     _touchSlice!.pointsList.add(details.localFocalPoint);
   }
 
-  void _updatePlayerNutrition(String fruitName) {
-    final nutrition = foodNutritions[fruitName];
-    if (nutrition != null) {
-      player.water += nutrition['water'] ?? 0;
-      player.energy += nutrition['energy'] ?? 0;
-      player.protein += nutrition['protein'] ?? 0;
-      player.fat += nutrition['fat'] ?? 0;
-      player.carb += nutrition['carb'] ?? 0;
-      player.fiber += nutrition['fiber'] ?? 0;
-      player.sugar += nutrition['sugar'] ?? 0;
-      player.calcium += nutrition['calcium'] ?? 0;
-      player.iron += nutrition['iron'] ?? 0;
-      player.magnesium += nutrition['magnesium'] ?? 0;
-      player.phosphorus += nutrition['phosphorus'] ?? 0;
-      player.potassium += nutrition['potassium'] ?? 0;
-      player.sodium += nutrition['sodium'] ?? 0;
-      player.zinc += nutrition['zinc'] ?? 0;
-      player.copper += nutrition['copper'] ?? 0;
-      player.manganese += nutrition['manganese'] ?? 0;
-      player.selenium += nutrition['selenium'] ?? 0;
-      player.vc += nutrition['vc'] ?? 0;
-      player.vb += nutrition['vb'] ?? 0;
-      player.va += nutrition['va'] ?? 0;
-      player.vd += nutrition['vd'] ?? 0;
-      player.vk += nutrition['vk'] ?? 0;
-      player.caffeine += nutrition['caffeine'] ?? 0;
-      player.alcohol += nutrition['alcohol'] ?? 0;
+  void _updatePlayerNutrition(String fruitName) async {
+    ////////////////////////////////////
+    ///           TESTING            ///
+    List<Map<dynamic, dynamic>> m = await DBInitializer().queryFoodNutritions();
+    // m looks like:
+    // [{}]
+    for (int i = 0; i < m.length; i++) {
+      print('mapp: ' + m[i].toString());
+      for (String key in m[i].keys) {
+        print('key: ' + key.toString() + " ---> " + m[i][key].toString());
+      }
+    }
 
-      // print('updated nutritions: ' + nutrition.toString());
+    ///           TESTING            ///
+    ////////////////////////////////////
+
+    // final nutrition = foodNutritions[fruitName];
+    final nutrition = await DBInitializer().queryFoodNutritionByName(fruitName);
+    if (nutrition != null) {
+      player.water += nutrition[0]['WATER'] ?? 0;
+      player.energy += nutrition[0]['ENERGY'] ?? 0;
+      player.protein += nutrition[0]['PROTEIN'] ?? 0;
+      player.fat += nutrition[0]['FAT'] ?? 0;
+      player.carb += nutrition[0]['CARB'] ?? 0;
+      player.fiber += nutrition[0]['FIBER'] ?? 0;
+      player.sugar += nutrition[0]['SUGAR'] ?? 0;
+      player.calcium += nutrition[0]['CALCIUM'] ?? 0;
+      player.iron += nutrition[0]['IRON'] ?? 0;
+      player.magnesium += nutrition[0]['MAGNESIUM'] ?? 0;
+      player.phosphorus += nutrition[0]['PHOSPHORUS'] ?? 0;
+      player.potassium += nutrition[0]['POTASSIUM'] ?? 0;
+      player.sodium += nutrition[0]['SODIUM'] ?? 0;
+      player.zinc += nutrition[0]['ZINC'] ?? 0;
+      player.copper += nutrition[0]['COPPER'] ?? 0;
+      player.manganese += nutrition[0]['MANGANESE'] ?? 0;
+      player.selenium += nutrition[0]['SELENIUM'] ?? 0;
+      player.vc += nutrition[0]['VC'] ?? 0;
+      player.vb += nutrition[0]['VB'] ?? 0;
+      player.va += nutrition[0]['VA'] ?? 0;
+      player.vd += nutrition[0]['VD'] ?? 0;
+      player.vk += nutrition[0]['VK'] ?? 0;
+      player.caffeine += nutrition[0]['CAFFEINE'] ?? 0;
+      player.alcohol += nutrition[0]['ALCOHOL'] ?? 0;
     }
     // Print updated nutrition values
-    print("Updated Player Nutrition:");
-    print("Water: ${player.water}");
-    print("Energy: ${player.energy}");
-    print("Protein: ${player.protein}");
+    // print("Updated Player Nutrition:");
+    // print("Water: ${player.water}");
+    // print("Energy: ${player.energy}");
+    // print("Protein: ${player.protein}");
   }
 
-  void _checkPlayerHealth() {
-    if (player.water > maxWater ||
-        player.energy > maxEnergy ||
-        player.protein > maxProtein ||
-        player.fat > maxFat ||
-        player.carb > maxCarb ||
-        player.fiber > maxFiber ||
-        player.sugar > maxSugar ||
-        player.calcium > maxCalcium ||
-        player.iron > maxIron ||
-        player.magnesium > maxMagnesium ||
-        player.phosphorus > maxPhosphorus ||
-        player.potassium > maxPotassium ||
-        player.sodium > maxSodium ||
-        player.zinc > maxZinc ||
-        player.copper > maxCopper ||
-        player.manganese > maxManganese ||
-        player.selenium > maxSelenium ||
-        player.vc > maxVc ||
-        player.vb > maxVb ||
-        player.va > maxVa ||
-        player.vd > maxVd ||
-        player.vk > maxVk ||
-        player.caffeine > maxCaffeine ||
-        player.alcohol > maxAlcohol) {
+  void _checkPlayerHealth() async {
+    final upper = await DBInitializer().queryFoodNutritionByName('upper');
+    final lower = await DBInitializer().queryFoodNutritionByName('lower');
+    if (
+        player.water > upper[0]['WATER'] ||
+        player.energy > upper[0]['ENERGY'] ||
+        player.protein > upper[0]['PROTEIN'] ||
+        player.fat > upper[0]['FAT'] ||
+        player.carb > upper[0]['CARB'] ||
+        player.fiber > upper[0]['FIBER'] ||
+        player.sugar > upper[0]['SUGAR'] ||
+        player.calcium > upper[0]['CALCIUM'] ||
+        player.iron > upper[0]['IRON'] ||
+        player.magnesium > upper[0]['MAGNESIUM'] ||
+        player.phosphorus > upper[0]['PHOSPHORUS'] ||
+        player.potassium > upper[0]['POTASSIUM'] ||
+        player.sodium > upper[0]['SODIUM'] ||
+        player.zinc > upper[0]['ZINC'] ||
+        player.copper > upper[0]['COPPER'] ||
+        player.manganese > upper[0]['MANGANESE'] ||
+        player.selenium > upper[0]['SELENIUM'] ||
+        player.vc > upper[0]['VC'] ||
+        player.vb > upper[0]['VB'] ||
+        player.va > upper[0]['VA'] ||
+        player.vd > upper[0]['VD'] ||
+        player.vk > upper[0]['VK'] ||
+        player.caffeine > upper[0]['CAFFEINE'] ||
+        player.alcohol > upper[0]['ALCOHOL']) {
       _endGame("You died due to over-nutrition!");
-    } else if (player.water < minWater ||
-        player.energy < minEnergy ||
-        player.protein < minProtein ||
-        player.fat < minFat ||
-        player.carb < minCarb ||
-        player.fiber < minFiber ||
-        player.sugar < minSugar ||
-        player.calcium < minCalcium ||
-        player.iron < minIron ||
-        player.magnesium < minMagnesium ||
-        player.phosphorus < minPhosphorus ||
-        player.potassium < minPotassium ||
-        player.sodium < minSodium ||
-        player.zinc < minZinc ||
-        player.copper < minCopper ||
-        player.manganese < minManganese ||
-        player.selenium < minSelenium ||
-        player.vc < minVc ||
-        player.vb < minVb ||
-        player.va < minVa ||
-        player.vd < minVd ||
-        player.vk < minVk ||
-        player.caffeine < minCaffeine ||
-        player.alcohol < minAlcohol) {
+    } else if (player.water > lower[0]['WATER'] ||
+        player.energy > lower[0]['ENERGY'] ||
+        player.protein > lower[0]['PROTEIN'] ||
+        player.fat > lower[0]['FAT'] ||
+        player.carb > lower[0]['CARB'] ||
+        player.fiber > lower[0]['FIBER'] ||
+        player.sugar > lower[0]['SUGAR'] ||
+        player.calcium > lower[0]['CALCIUM'] ||
+        player.iron > lower[0]['IRON'] ||
+        player.magnesium > lower[0]['MAGNESIUM'] ||
+        player.phosphorus > lower[0]['PHOSPHORUS'] ||
+        player.potassium > lower[0]['POTASSIUM'] ||
+        player.sodium > lower[0]['SODIUM'] ||
+        player.zinc > lower[0]['ZINC'] ||
+        player.copper > lower[0]['COPPER'] ||
+        player.manganese > lower[0]['MANGANESE'] ||
+        player.selenium > lower[0]['SELENIUM'] ||
+        player.vc > lower[0]['VC'] ||
+        player.vb > lower[0]['VB'] ||
+        player.va > lower[0]['VA'] ||
+        player.vd > lower[0]['VD'] ||
+        player.vk > lower[0]['VK'] ||
+        player.caffeine > lower[0]['CAFFEINE'] ||
+        player.alcohol > lower[0]['ALCOHOL']) {
       _endGame("You died due to under-nutrition!");
     }
   }

@@ -8,7 +8,6 @@ import './db_initializer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  print('initializing...');
   Database db = await DBInitializer.initializeDB(); // 数据库初始化函数
   await DBInitializer.importCSVToSQLite(db); // 导入CSV数据到SQLite
   // runApp(InitialScreen());

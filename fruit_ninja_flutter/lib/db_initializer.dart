@@ -2,15 +2,30 @@ import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as path;
-import 'package:csv/csv.dart';
 
 class DBInitializer {
+  static final DBInitializer _instance = DBInitializer._internal();
+  static Database? _database;
+
   ////////////////////////////////////////////
   ///                                      ///
   ///                                      ///
+  // 私有的命名构造函数
+  DBInitializer._internal();
+
+  // 工厂构造函数
+  factory DBInitializer() {
+    return _instance;
+  }
+
+  Future<Database> get database async {
+    if (_database != null) return _database!;
+    _database = await initializeDB();
+    return _database!;
+  }
+
   static Future<Database> initializeDB() async {
     String dbPath = await getDatabasesPath();
-    String fullPath = path.join(dbPath, 'food_nutrition.db');
     print('your database path is:' + dbPath.toString() + ' initialize your db');
 
     return openDatabase(path.join(dbPath, 'food_nutrition.db'),
@@ -60,7 +75,6 @@ class DBInitializer {
           .rawDelete("DELETE FROM sqlite_sequence WHERE name='food_nutrition'");
     }
 
-    //////
     final data = await rootBundle.loadString('assets/data/food_nutrition.csv');
 
     // second way to read csv:
@@ -103,6 +117,36 @@ class DBInitializer {
     }
   }
 
+  Future<List<String>> queryAllFoodNames() async {
+    String dbPath = await getDatabasesPath();
+    final db = await openDatabase(path.join(dbPath, 'food_nutrition.db'));
+
+    final List<Map<String, dynamic>> maps =
+        await db.query('food_nutrition', columns: ['NAME']);
+    return List.generate(maps.length, (i) {
+      return maps[i]['NAME'];
+    });
+  }
+
+  Future<List<Map>> queryFoodNutritions() async {
+    String dbPath = await getDatabasesPath();
+    final db = await openDatabase(path.join(dbPath, 'food_nutrition.db'));
+    final List<Map<String, dynamic>> maps = await db.rawQuery("""
+        SELECT * FROM food_nutrition
+        WHERE NAME NOT IN ('lower', 'upper')
+      """);
+    return maps;
+  }
+
+  Future<List<Map>> queryFoodNutritionByName(String name) async {
+    String dbPath = await getDatabasesPath();
+    final db = await openDatabase(path.join(dbPath, 'food_nutrition.db'));
+    final List<Map<String, dynamic>> maps = await db.rawQuery("""
+        SELECT * FROM food_nutrition
+        WHERE NAME = ?
+      """, [name]);
+    return maps;
+  }
   ///                                      ///
   ///                                      ///
   ////////////////////////////////////////////
