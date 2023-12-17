@@ -173,6 +173,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   int _chickenCut = 0;
   int _beefCut = 0;
   int _breadCut = 0;
+  int _eggCut = 0;
 
   // Define the increase percentages for each time interval
   Map<int, double> increasePercentages = {
@@ -280,6 +281,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       'chicken',
       'beef',
       'bread',
+      'egg',
     ];
     String name = foodNames[random.nextInt(foodNames.length)];
 
@@ -622,6 +624,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         return _getBeef(fruit);
       case 'bread':
         return _getBread(fruit);
+      case 'egg':
+        return _getEgg(fruit);
       default: // 'watermelon'
         return _getMelon(fruit);
     }
@@ -687,6 +691,11 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         assetName = fruitPart.isLeft
             ? 'assets/bread_cut_left.png'
             : 'assets/bread_cut_right.png';
+        break;
+      case 'egg':
+        assetName = fruitPart.isLeft
+            ? 'assets/egg_cut_left.png'
+            : 'assets/egg_cut_right.png';
         break;
       default: // 'melon'
         assetName = fruitPart.isLeft
@@ -776,6 +785,14 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     );
   }
 
+  Widget _getEgg(Fruit fruit) {
+    return Image.asset(
+      'assets/egg_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
   Widget _getGestureDetector() {
     return GestureDetector(
       onScaleStart: (ScaleStartDetails details) {
@@ -852,6 +869,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
             _beefCut++;
           } else if (fruit.name == 'bread') {
             _breadCut++;
+          } else if (fruit.name == 'egg') {
+            _eggCut++;
           }
           break;
         }
