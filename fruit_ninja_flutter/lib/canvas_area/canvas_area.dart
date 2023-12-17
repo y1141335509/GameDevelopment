@@ -174,6 +174,9 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
   int _beefCut = 0;
   int _breadCut = 0;
   int _eggCut = 0;
+  int _cornCut = 0;
+  int _beerCut = 0;
+  
 
   // Define the increase percentages for each time interval
   Map<int, double> increasePercentages = {
@@ -282,6 +285,8 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       'beef',
       'bread',
       'egg',
+      'corn',
+      'beer',
     ];
     String name = foodNames[random.nextInt(foodNames.length)];
 
@@ -626,6 +631,10 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         return _getBread(fruit);
       case 'egg':
         return _getEgg(fruit);
+      case 'corn':
+        return _getCorn(fruit);
+      case 'beer':
+        return _getBeer(fruit);
       default: // 'watermelon'
         return _getMelon(fruit);
     }
@@ -696,6 +705,16 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         assetName = fruitPart.isLeft
             ? 'assets/egg_cut_left.png'
             : 'assets/egg_cut_right.png';
+        break;
+      case 'corn':
+        assetName = fruitPart.isLeft
+            ? 'assets/corn_cut_left.png'
+            : 'assets/corn_cut_right.png';
+        break;
+      case 'beer':
+        assetName = fruitPart.isLeft
+            ? 'assets/beer_cut_left.png'
+            : 'assets/beer_cut_right.png';
         break;
       default: // 'melon'
         assetName = fruitPart.isLeft
@@ -793,6 +812,22 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
     );
   }
 
+  Widget _getCorn(Fruit fruit) {
+    return Image.asset(
+      'assets/corn_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
+  Widget _getBeer(Fruit fruit) {
+    return Image.asset(
+      'assets/beer_uncut.png',
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
+  }
+
   Widget _getGestureDetector() {
     return GestureDetector(
       onScaleStart: (ScaleStartDetails details) {
@@ -871,6 +906,10 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
             _breadCut++;
           } else if (fruit.name == 'egg') {
             _eggCut++;
+          } else if (fruit.name == 'corn') {
+            _cornCut++;
+          } else if (fruit.name == 'beer') {
+            _beerCut++;
           }
           break;
         }
