@@ -1,0 +1,37 @@
+---
+triple:          'x86_64-apple-darwin'
+binary-path:     '/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/build/macos/Build/Products/Release/path_provider_foundation/path_provider_foundation.framework/Versions/A/path_provider_foundation'
+relocations:
+  - { offsetInCU: 0x34, offset: 0xC91B3, size: 0x8, addend: 0x0, symName: _path_provider_foundationVersionString, symObjAddr: 0x0, symBinAddr: 0x7010, symSize: 0x0 }
+  - { offsetInCU: 0x69, offset: 0xC91E8, size: 0x8, addend: 0x0, symName: _path_provider_foundationVersionNumber, symObjAddr: 0x38, symBinAddr: 0x7048, symSize: 0x0 }
+  - { offsetInCU: 0x4F, offset: 0xC924D, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation13DirectoryTypeOSYAASY8rawValue03RawG0QzvgTW', symObjAddr: 0x0, symBinAddr: 0x33E0, symSize: 0x10 }
+  - { offsetInCU: 0x139, offset: 0xC9337, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation20PathProviderApiSetupC5setUp15binaryMessenger3apiySo013FlutterBinaryK0_p_AA0deF0_pSgtFZyypSg_yAJctcfU_', symObjAddr: 0x10, symBinAddr: 0x33F0, symSize: 0x1A0 }
+  - { offsetInCU: 0x2F9, offset: 0xC94F7, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation20PathProviderApiSetupC5setUp15binaryMessenger3apiySo013FlutterBinaryK0_p_AA0deF0_pSgtFZyypSg_yAJctcfU0_', symObjAddr: 0x320, symBinAddr: 0x3700, symSize: 0x1B0 }
+  - { offsetInCU: 0x492, offset: 0xC9690, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation20PathProviderApiSetupCfD', symObjAddr: 0x4D0, symBinAddr: 0x38B0, symSize: 0x20 }
+  - { offsetInCU: 0x4BF, offset: 0xC96BD, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation20PathProviderApiSetupC5setUp15binaryMessenger3apiySo013FlutterBinaryK0_p_AA0deF0_pSgtFZTf4nnd_n', symObjAddr: 0x510, symBinAddr: 0x38F0, symSize: 0x330 }
+  - { offsetInCU: 0x585, offset: 0xC9783, size: 0x8, addend: 0x0, symName: '_$sypSgAAIegn_Iegng_yXlSgABIeyBy_IeyByy_TR', symObjAddr: 0x1B0, symBinAddr: 0x3590, symSize: 0xC0 }
+  - { offsetInCU: 0x59D, offset: 0xC979B, size: 0x8, addend: 0x0, symName: '_$syXlSgIeyBy_ypSgIegn_TR', symObjAddr: 0x270, symBinAddr: 0x3650, symSize: 0xB0 }
+  - { offsetInCU: 0x5B5, offset: 0xC97B3, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation20PathProviderApiSetupCMa', symObjAddr: 0x4F0, symBinAddr: 0x38D0, symSize: 0x20 }
+  - { offsetInCU: 0x5C9, offset: 0xC97C7, size: 0x8, addend: 0x0, symName: ___swift_instantiateConcreteTypeFromMangledName, symObjAddr: 0x840, symBinAddr: 0x3C20, symSize: 0x40 }
+  - { offsetInCU: 0x5DD, offset: 0xC97DB, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation15PathProviderApi_pWOb', symObjAddr: 0x880, symBinAddr: 0x3C60, symSize: 0x20 }
+  - { offsetInCU: 0x5F1, offset: 0xC97EF, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation15PathProviderApi_pWOc', symObjAddr: 0x8A0, symBinAddr: 0x3C80, symSize: 0x30 }
+  - { offsetInCU: 0x605, offset: 0xC9803, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation20PathProviderApiSetupC5setUp15binaryMessenger3apiySo013FlutterBinaryK0_p_AA0deF0_pSgtFZyypSg_yAJctcfU0_TA', symObjAddr: 0x8F0, symBinAddr: 0x3CD0, symSize: 0x10 }
+  - { offsetInCU: 0x619, offset: 0xC9817, size: 0x8, addend: 0x0, symName: _block_copy_helper, symObjAddr: 0x900, symBinAddr: 0x3CE0, symSize: 0x20 }
+  - { offsetInCU: 0x62D, offset: 0xC982B, size: 0x8, addend: 0x0, symName: _block_destroy_helper, symObjAddr: 0x920, symBinAddr: 0x3D00, symSize: 0x10 }
+  - { offsetInCU: 0x641, offset: 0xC983F, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation20PathProviderApiSetupC5setUp15binaryMessenger3apiySo013FlutterBinaryK0_p_AA0deF0_pSgtFZyypSg_yAJctcfU_TA', symObjAddr: 0x930, symBinAddr: 0x3D10, symSize: 0x10 }
+  - { offsetInCU: 0x655, offset: 0xC9853, size: 0x8, addend: 0x0, symName: '_$sypWOb', symObjAddr: 0x970, symBinAddr: 0x3D50, symSize: 0x20 }
+  - { offsetInCU: 0x669, offset: 0xC9867, size: 0x8, addend: 0x0, symName: '_$sypSgWOb', symObjAddr: 0x990, symBinAddr: 0x3D70, symSize: 0x40 }
+  - { offsetInCU: 0x67D, offset: 0xC987B, size: 0x8, addend: 0x0, symName: '_$syXlSgIeyBy_ypSgIegn_TRTA', symObjAddr: 0xA20, symBinAddr: 0x3E00, symSize: 0x10 }
+  - { offsetInCU: 0x691, offset: 0xC988F, size: 0x8, addend: 0x0, symName: ___swift_project_boxed_opaque_existential_0, symObjAddr: 0xA30, symBinAddr: 0x3E10, symSize: 0x30 }
+  - { offsetInCU: 0x2B, offset: 0xC9ADD, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation18PathProviderPluginC8register4withySo07FlutterF9Registrar_p_tFZ', symObjAddr: 0x0, symBinAddr: 0x3EA0, symSize: 0xB0 }
+  - { offsetInCU: 0x60, offset: 0xC9B12, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation18PathProviderPluginC8register4withySo07FlutterF9Registrar_p_tFZ', symObjAddr: 0x0, symBinAddr: 0x3EA0, symSize: 0xB0 }
+  - { offsetInCU: 0xD1, offset: 0xC9B83, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation18PathProviderPluginCACycfC', symObjAddr: 0xB0, symBinAddr: 0x3F50, symSize: 0x20 }
+  - { offsetInCU: 0x14B, offset: 0xC9BFD, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation18PathProviderPluginC8register4withySo07FlutterF9Registrar_p_tFZTo', symObjAddr: 0xF0, symBinAddr: 0x3F90, symSize: 0xC0 }
+  - { offsetInCU: 0x1C0, offset: 0xC9C72, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation18PathProviderPluginCACycfc', symObjAddr: 0x1B0, symBinAddr: 0x4050, symSize: 0x30 }
+  - { offsetInCU: 0x1FB, offset: 0xC9CAD, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation18PathProviderPluginCACycfcTo', symObjAddr: 0x1E0, symBinAddr: 0x4080, symSize: 0x30 }
+  - { offsetInCU: 0x236, offset: 0xC9CE8, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation18PathProviderPluginCfD', symObjAddr: 0x210, symBinAddr: 0x40B0, symSize: 0x30 }
+  - { offsetInCU: 0x263, offset: 0xC9D15, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation18PathProviderPluginC012getDirectoryD04typeSSSgAA0H4TypeO_tFTf4nd_n', symObjAddr: 0x280, symBinAddr: 0x40E0, symSize: 0x1D0 }
+  - { offsetInCU: 0x3C4, offset: 0xC9E76, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation18PathProviderPluginC012getContainerD018appGroupIdentifierSSSgSS_tFTf4nd_n', symObjAddr: 0x450, symBinAddr: 0x42B0, symSize: 0x1A0 }
+  - { offsetInCU: 0x40B, offset: 0xC9EBD, size: 0x8, addend: 0x0, symName: '_$s24path_provider_foundation18PathProviderPluginCMa', symObjAddr: 0xD0, symBinAddr: 0x3F70, symSize: 0x20 }
+  - { offsetInCU: 0x4A1, offset: 0xC9F53, size: 0x8, addend: 0x0, symName: '_$s10Foundation3URLVSgWOb', symObjAddr: 0x5F0, symBinAddr: 0x4450, symSize: 0x40 }
+...

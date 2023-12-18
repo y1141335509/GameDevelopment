@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vege_vs_zombie/canvas_area/canvas_area.dart';
-import 'initial_screen.dart';
-import 'game_main_menu.dart';
 import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
+
+import 'initial_screen.dart';
+import 'game_main_menu.dart';
 import './db_initializer.dart';
 
 void main() async {
@@ -12,7 +12,7 @@ void main() async {
   await DBInitializer.importCSVToSQLite(db); // 导入CSV数据到SQLite
   // runApp(InitialScreen());
   runApp(MaterialApp(
-    home: GameMenuScreen(),
+    home: GameMenuScreen(),   // from the `game_main_menu.dart`
   ));
 }
 
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: InitialScreen(),
+      home: InitialScreen(),    // from the `initial_screen.dart`
     );
   }
 }

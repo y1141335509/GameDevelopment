@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'canvas_area/canvas_area.dart';
-import 'canvas_area/high_score_page.dart';
 import 'dart:io';
 
+import './game_main_menu_components/select_level.dart';
+import './game_main_menu_components/high_score_page.dart';
 
 class GameMenuScreen extends StatelessWidget {
   @override
@@ -17,9 +17,11 @@ class GameMenuScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CanvasArea())),
-              child: Text("Start"),
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LevelSelectionScreen())),
+              child: Text("Select Level"),
             ),
             // In your GameMenuScreen class
 

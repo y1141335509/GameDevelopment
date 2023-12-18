@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'canvas_area/canvas_area.dart';
+import './game_main_menu_components/select_level.dart';
 
+// THE INITIAL SCREEN WHEN LAUNCHING THE GAME
 class InitialScreen extends StatefulWidget {
   @override
   _InitialScreenState createState() => _InitialScreenState();
@@ -28,7 +29,7 @@ class _InitialScreenState extends State<InitialScreen> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.black54,
-        body: CanvasArea(),
+        body: LevelSelectionScreen(),
       ),
     );
   }

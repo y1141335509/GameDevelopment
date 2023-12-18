@@ -1,0 +1,23 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/build/macos/Build/Products/Release/audioplayers_darwin/audioplayers_darwin.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/build/macos/Build/Intermediates.noindex/Pods.build/Release/audioplayers_darwin.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    'type': 'directory',
+    'name': "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/build/macos/Build/Products/Release/audioplayers_darwin/audioplayers_darwin.framework/Headers"
+    'contents': [{
+      'type': 'file',
+      'name': "audioplayers_darwin-Swift.h",
+      'external-contents': "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/build/macos/Build/Intermediates.noindex/Pods.build/Release/audioplayers_darwin.build/unextended-interface-header.h",
+    }]
+    }]
+}

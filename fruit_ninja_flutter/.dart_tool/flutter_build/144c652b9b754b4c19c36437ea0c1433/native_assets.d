@@ -1,0 +1,1 @@
+ /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/.dart_tool/flutter_build/144c652b9b754b4c19c36437ea0c1433/native_assets.yaml: 

@@ -1,0 +1,78 @@
+{
+  "main_library": {
+    "exported_symbols": [
+      {
+        "data": {
+          "global": [
+            "_$s19audioplayers_darwin29SwiftAudioplayersDarwinPluginC8register4withySo07FlutterF9Registrar_p_tFZ",
+            "_$s19audioplayers_darwin29SwiftAudioplayersDarwinPluginCfD",
+            "_$s19audioplayers_darwin29SwiftAudioplayersDarwinPluginC7playersSDySSAA18WrappedMediaPlayerCGvpfi",
+            "_$s19audioplayers_darwin29SwiftAudioplayersDarwinPluginCMn",
+            "_$s19audioplayers_darwin29SwiftAudioplayersDarwinPluginC6handle_6resultySo17FlutterMethodCallC_yypSgctFTq",
+            "_audioplayers_darwinVersionNumber",
+            "_$s19audioplayers_darwin29SwiftAudioplayersDarwinPluginC6handle_6resultySo17FlutterMethodCallC_yypSgctF",
+            "_$s19audioplayers_darwin29SwiftAudioplayersDarwinPluginC16detachFromEngine3forySo07FlutterF9Registrar_p_tF",
+            "_$s19audioplayers_darwin29SwiftAudioplayersDarwinPluginCACycfC",
+            "_$s19audioplayers_darwin29SwiftAudioplayersDarwinPluginC13globalContextAA05AudioH0Vvpfi",
+            "_audioplayers_darwinVersionString",
+            "_$s19audioplayers_darwin29SwiftAudioplayersDarwinPluginCMa",
+            "_$s19audioplayers_darwin29SwiftAudioplayersDarwinPluginCN",
+            "_$s19audioplayers_darwin29SwiftAudioplayersDarwinPluginCACycfc",
+            "_$s19audioplayers_darwin29SwiftAudioplayersDarwinPluginC16detachFromEngine3forySo07FlutterF9Registrar_p_tFTq"
+          ],
+          "objc_class": [
+            "_TtC19audioplayers_darwin29SwiftAudioplayersDarwinPlugin",
+            "PodsDummy_audioplayers_darwin",
+            "AudioplayersDarwinPlugin"
+          ]
+        }
+      },
+      {
+        "data": {
+          "global": [
+            "_Swift50Overrides",
+            "_Swift51Overrides"
+          ]
+        },
+        "targets": [
+          "x86_64-macos"
+        ],
+        "text": {
+          "global": [
+            "__ZN5swift34swift50override_conformsToProtocolEPKNS_14TargetMetadataINS_9InProcessEEEPKNS_24TargetProtocolDescriptorIS1_EEPFPKNS_18TargetWitnessTableIS1_EES4_S8_E",
+            "__Z34_swiftoverride_class_getSuperclassPKN5swift14TargetMetadataINS_9InProcessEEE",
+            "__ZN5swift39swift51override_conformsToSwiftProtocolEPKNS_14TargetMetadataINS_9InProcessEEEPKNS_24TargetProtocolDescriptorIS1_EEN7__swift9__runtime4llvm9StringRefEPFPKNS_35TargetProtocolConformanceDescriptorIS1_EES4_S8_SC_E"
+          ]
+        }
+      }
+    ],
+    "flags": [
+      {
+        "attributes": [
+          "not_app_extension_safe"
+        ]
+      }
+    ],
+    "install_names": [
+      {
+        "name": "@rpath/audioplayers_darwin.framework/Versions/A/audioplayers_darwin"
+      }
+    ],
+    "swift_abi": [
+      {
+        "abi": 7
+      }
+    ],
+    "target_info": [
+      {
+        "min_deployment": "10.14",
+        "target": "x86_64-macos"
+      },
+      {
+        "min_deployment": "11",
+        "target": "arm64-macos"
+      }
+    ]
+  },
+  "tapi_tbd_version": 5
+}
