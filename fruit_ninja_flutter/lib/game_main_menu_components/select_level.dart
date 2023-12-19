@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './levels/level_01.dart';
+import './levels/level_02.dart';
 
 class LevelSelectionScreen extends StatelessWidget {
   const LevelSelectionScreen({Key? key})
@@ -18,7 +19,7 @@ class LevelSelectionScreen extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => CanvasArea(level: 1)));
+                      builder: (context) => CanvasAreaLevel_01(level: 1)));
             },
           ),
           ListTile(
@@ -27,7 +28,7 @@ class LevelSelectionScreen extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => CanvasArea(level: 2)));
+                      builder: (context) => CanvasAreaLevel_02(level: 2)));
             },
           ),
           // Add more levels as needed

@@ -110,6 +110,18 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "flame",
+      "rootUri": "file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/flame-1.12.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "flame_audio",
+      "rootUri": "file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/flame_audio-2.1.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///Users/yinghaiyu/Main/DesktopMain/STUDY/LANGUAGES/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -162,6 +174,12 @@
       "rootUri": "file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/meta-1.10.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "ordered_set",
+      "rootUri": "file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/ordered_set-5.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
     },
     {
       "name": "path",
@@ -362,7 +380,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-12-17T00:42:13.076110Z",
+  "generated": "2023-12-18T23:42:14.342447Z",
   "generator": "pub",
   "generatorVersion": "3.2.2"
 }

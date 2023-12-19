@@ -22,17 +22,17 @@ Map<String, int> foodSpawnCount = {};
 
 late Body player; // Instance to hold player's state
 
-class CanvasArea extends StatefulWidget {
+class CanvasAreaLevel_01 extends StatefulWidget {
   final int level;
 
-  const CanvasArea({Key? key, required this.level}) : super(key: key); // Added required for level
+  const CanvasAreaLevel_01({Key? key, required this.level}) : super(key: key); // Added required for level
 
   @override
   _CanvasAreaState createState() => _CanvasAreaState();
 }
 
 
-class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
+class _CanvasAreaState extends State<CanvasAreaLevel_01> with TickerProviderStateMixin {
   int _score = 0;
   TouchSlice? _touchSlice;
   final List<Fruit> _fruits = <Fruit>[];
@@ -542,7 +542,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       case 'potato':
         return _getPotato(fruit);
       default: // 'watermelon'
-        return _getMelon(fruit);
+        return _getWatermelon(fruit);
     }
   }
 
@@ -554,7 +554,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         Positioned(
           top: fruitPart.position.dy,
           left: fruitPart.position.dx,
-          // child: _getMelonCut(fruitPart),
+          // child: _getWatermelonCut(fruitPart),
           child: _getCutFruit(fruitPart),
         ),
       );
@@ -569,148 +569,148 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
       // Assuming fruitType is a property of FruitPart
       case 'apple':
         assetName = fruitPart.isLeft
-            ? 'assets/apple_cut_left.png'
-            : 'assets/apple_cut_right.png';
+            ? 'assets/images//apple_cut_left.png'
+            : 'assets/images//apple_cut_right.png';
         break;
       case 'banana':
         assetName = fruitPart.isLeft
-            ? 'assets/banana_cut_left.png'
-            : 'assets/banana_cut_right.png';
+            ? 'assets/images/banana_cut_left.png'
+            : 'assets/images/banana_cut_right.png';
         break;
       case 'avocado':
         assetName = fruitPart.isLeft
-            ? 'assets/avocado_cut_left.png'
-            : 'assets/avocado_cut_right.png';
+            ? 'assets/images/avocado_cut_left.png'
+            : 'assets/images/avocado_cut_right.png';
         break;
       case 'broccoli':
         assetName = fruitPart.isLeft
-            ? 'assets/broccoli_cut_left.png'
-            : 'assets/broccoli_cut_right.png';
+            ? 'assets/images/broccoli_cut_left.png'
+            : 'assets/images/broccoli_cut_right.png';
         break;
       case 'pink salmon':
         assetName = fruitPart.isLeft
-            ? 'assets/pink_salmon_cut_left.png'
-            : 'assets/pink_salmon_cut_right.png';
+            ? 'assets/images/pink_salmon_cut_left.png'
+            : 'assets/images/pink_salmon_cut_right.png';
         break;
       case 'chicken':
         assetName = fruitPart.isLeft
-            ? 'assets/chicken_cut_left.png'
-            : 'assets/chicken_cut_right.png';
+            ? 'assets/images/chicken_cut_left.png'
+            : 'assets/images/chicken_cut_right.png';
         break;
       case 'beef':
         assetName = fruitPart.isLeft
-            ? 'assets/beef_cut_left.png'
-            : 'assets/beef_cut_right.png';
+            ? 'assets/images/beef_cut_left.png'
+            : 'assets/images/beef_cut_right.png';
         break;
       case 'arugula':
         assetName = fruitPart.isLeft
-            ? 'assets/arugula_cut_left.png'
-            : 'assets/arugula_cut_right.png';
+            ? 'assets/images/arugula_cut_left.png'
+            : 'assets/images/arugula_cut_right.png';
         break;
       case 'bread':
         assetName = fruitPart.isLeft
-            ? 'assets/bread_cut_left.png'
-            : 'assets/bread_cut_right.png';
+            ? 'assets/images/bread_cut_left.png'
+            : 'assets/images/bread_cut_right.png';
         break;
       case 'egg':
         assetName = fruitPart.isLeft
-            ? 'assets/egg_cut_left.png'
-            : 'assets/egg_cut_right.png';
+            ? 'assets/images/egg_cut_left.png'
+            : 'assets/images/egg_cut_right.png';
         break;
       case 'corn':
         assetName = fruitPart.isLeft
-            ? 'assets/corn_cut_left.png'
-            : 'assets/corn_cut_right.png';
+            ? 'assets/images/corn_cut_left.png'
+            : 'assets/images/corn_cut_right.png';
         break;
       case 'beer':
         assetName = fruitPart.isLeft
-            ? 'assets/beer_cut_left.png'
-            : 'assets/beer_cut_right.png';
+            ? 'assets/images/beer_cut_left.png'
+            : 'assets/images/beer_cut_right.png';
         break;
       case 'vodka':
         assetName = fruitPart.isLeft
-            ? 'assets/vodka_cut_left.png'
-            : 'assets/vodka_cut_right.png';
+            ? 'assets/images/vodka_cut_left.png'
+            : 'assets/images/vodka_cut_right.png';
         break;
       case 'coffee':
         assetName = fruitPart.isLeft
-            ? 'assets/coffee_cut_left.png'
-            : 'assets/coffee_cut_right.png';
+            ? 'assets/images/coffee_cut_left.png'
+            : 'assets/images/coffee_cut_right.png';
         break;
       case 'noodles':
         assetName = fruitPart.isLeft
-            ? 'assets/noodles_cut_left.png'
-            : 'assets/noodles_cut_right.png';
+            ? 'assets/images/noodles_cut_left.png'
+            : 'assets/images/noodles_cut_right.png';
         break;
       case 'rice':
         assetName = fruitPart.isLeft
-            ? 'assets/rice_cut_left.png'
-            : 'assets/rice_cut_right.png';
+            ? 'assets/images/rice_cut_left.png'
+            : 'assets/images/rice_cut_right.png';
         break;
       case 'milk':
         assetName = fruitPart.isLeft
-            ? 'assets/milk_cut_left.png'
-            : 'assets/milk_cut_right.png';
+            ? 'assets/images/milk_cut_left.png'
+            : 'assets/images/milk_cut_right.png';
         break;
       case 'yogurt':
         assetName = fruitPart.isLeft
-            ? 'assets/yogurt_cut_left.png'
-            : 'assets/yogurt_cut_right.png';
+            ? 'assets/images/yogurt_cut_left.png'
+            : 'assets/images/yogurt_cut_right.png';
         break;
       case 'tofu':
         assetName = fruitPart.isLeft
-            ? 'assets/tofu_cut_left.png'
-            : 'assets/tofu_cut_right.png';
+            ? 'assets/images/tofu_cut_left.png'
+            : 'assets/images/tofu_cut_right.png';
         break;
       case 'muffin':
         assetName = fruitPart.isLeft
-            ? 'assets/muffin_cut_left.png'
-            : 'assets/muffin_cut_right.png';
+            ? 'assets/images/muffin_cut_left.png'
+            : 'assets/images/muffin_cut_right.png';
         break;
       case 'corn oil':
         assetName = fruitPart.isLeft
-            ? 'assets/corn_oil_cut_left.png'
-            : 'assets/corn_oil_cut_right.png';
+            ? 'assets/images/corn_oil_cut_left.png'
+            : 'assets/images/corn_oil_cut_right.png';
         break;
       case 'mango':
         assetName = fruitPart.isLeft
-            ? 'assets/mango_cut_left.png'
-            : 'assets/mango_cut_right.png';
+            ? 'assets/images/mango_cut_left.png'
+            : 'assets/images/mango_cut_right.png';
         break;
       case 'cilantro':
         assetName = fruitPart.isLeft
-            ? 'assets/cilantro_cut_left.png'
-            : 'assets/cilantro_cut_right.png';
+            ? 'assets/images/cilantro_cut_left.png'
+            : 'assets/images/cilantro_cut_right.png';
         break;
       case 'sugar':
         assetName = fruitPart.isLeft
-            ? 'assets/sugar_cut_left.png'
-            : 'assets/sugar_cut_right.png';
+            ? 'assets/images/sugar_cut_left.png'
+            : 'assets/images/sugar_cut_right.png';
         break;
       case 'soy milk':
         assetName = fruitPart.isLeft
-            ? 'assets/soy_milk_cut_left.png'
-            : 'assets/soy_milk_cut_right.png';
+            ? 'assets/images/soy_milk_cut_left.png'
+            : 'assets/images/soy_milk_cut_right.png';
         break;
       case 'carrot':
         assetName = fruitPart.isLeft
-            ? 'assets/carrot_cut_left.png'
-            : 'assets/carrot_cut_right.png';
+            ? 'assets/images/carrot_cut_left.png'
+            : 'assets/images/carrot_cut_right.png';
         break;
       case 'pumpkin':
         assetName = fruitPart.isLeft
-            ? 'assets/pumpkin_cut_left.png'
-            : 'assets/pumpkin_cut_right.png';
+            ? 'assets/images/pumpkin_cut_left.png'
+            : 'assets/images/pumpkin_cut_right.png';
         break;
       case 'potato':
         assetName = fruitPart.isLeft
-            ? 'assets/potato_cut_left.png'
-            : 'assets/potato_cut_right.png';
+            ? 'assets/images/potato_cut_left.png'
+            : 'assets/images/potato_cut_right.png';
         break;
       default: // 'melon'
         assetName = fruitPart.isLeft
-            ? 'assets/melon_cut_left.png'
-            : 'assets/melon_cut_right.png';
+            ? 'assets/images/watermelon_cut_left.png'
+            : 'assets/images/watermelon_cut_right.png';
         break;
     }
 
@@ -723,9 +723,9 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
         ));
   }
 
-  Widget _getMelon(Fruit fruit) {
+  Widget _getWatermelon(Fruit fruit) {
     return Image.asset(
-      'assets/melon_uncut.png',
+      'assets/images/watermelon_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -733,7 +733,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getBanana(Fruit fruit) {
     return Image.asset(
-      'assets/banana_uncut.png',
+      'assets/images/banana_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -741,7 +741,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getApple(Fruit fruit) {
     return Image.asset(
-      'assets/apple_uncut.png',
+      'assets/images/apple_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -749,7 +749,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getAvocado(Fruit fruit) {
     return Image.asset(
-      'assets/avocado_uncut.png',
+      'assets/images/avocado_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -757,7 +757,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getBroccoli(Fruit fruit) {
     return Image.asset(
-      'assets/broccoli_uncut.png',
+      'assets/images/broccoli_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -765,7 +765,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getPinkSalmon(Fruit fruit) {
     return Image.asset(
-      'assets/pink_salmon_uncut.png',
+      'assets/images/pink_salmon_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -773,7 +773,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getChicken(Fruit fruit) {
     return Image.asset(
-      'assets/chicken_uncut.png',
+      'assets/images/chicken_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -781,7 +781,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getBeef(Fruit fruit) {
     return Image.asset(
-      'assets/beef_uncut.png',
+      'assets/images/beef_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -789,7 +789,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getArugula(Fruit fruit) {
     return Image.asset(
-      'assets/arugula_uncut.png',
+      'assets/images/arugula_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -797,7 +797,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getBread(Fruit fruit) {
     return Image.asset(
-      'assets/bread_uncut.png',
+      'assets/images/bread_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -805,7 +805,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getEgg(Fruit fruit) {
     return Image.asset(
-      'assets/egg_uncut.png',
+      'assets/images/egg_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -813,7 +813,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getCorn(Fruit fruit) {
     return Image.asset(
-      'assets/corn_uncut.png',
+      'assets/images/corn_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -821,7 +821,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getBeer(Fruit fruit) {
     return Image.asset(
-      'assets/beer_uncut.png',
+      'assets/images/beer_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -829,7 +829,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getVodka(Fruit fruit) {
     return Image.asset(
-      'assets/vodka_uncut.png',
+      'assets/images/vodka_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -837,7 +837,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getCoffee(Fruit fruit) {
     return Image.asset(
-      'assets/coffee_uncut.png',
+      'assets/images/coffee_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -845,7 +845,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getNoodles(Fruit fruit) {
     return Image.asset(
-      'assets/noodles_uncut.png',
+      'assets/images/noodles_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -853,7 +853,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getRice(Fruit fruit) {
     return Image.asset(
-      'assets/rice_uncut.png',
+      'assets/images/rice_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -861,7 +861,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getMilk(Fruit fruit) {
     return Image.asset(
-      'assets/milk_uncut.png',
+      'assets/images/milk_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -869,7 +869,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getYogurt(Fruit fruit) {
     return Image.asset(
-      'assets/yogurt_uncut.png',
+      'assets/images/yogurt_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -877,7 +877,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getTofu(Fruit fruit) {
     return Image.asset(
-      'assets/tofu_uncut.png',
+      'assets/images/tofu_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -885,7 +885,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getMuffin(Fruit fruit) {
     return Image.asset(
-      'assets/muffin_uncut.png',
+      'assets/images/muffin_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -893,7 +893,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getCornOil(Fruit fruit) {
     return Image.asset(
-      'assets/corn_oil_uncut.png',
+      'assets/images/corn_oil_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -901,7 +901,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getMango(Fruit fruit) {
     return Image.asset(
-      'assets/mango_uncut.png',
+      'assets/images/mango_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -909,7 +909,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getCilantro(Fruit fruit) {
     return Image.asset(
-      'assets/cilantro_uncut.png',
+      'assets/images/cilantro_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -917,7 +917,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getSugar(Fruit fruit) {
     return Image.asset(
-      'assets/sugar_uncut.png',
+      'assets/images/sugar_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -925,7 +925,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getSoyMilk(Fruit fruit) {
     return Image.asset(
-      'assets/soy_milk_uncut.png',
+      'assets/images/soy_milk_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -933,7 +933,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getCarrot(Fruit fruit) {
     return Image.asset(
-      'assets/carrot_uncut.png',
+      'assets/images/carrot_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -941,7 +941,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getPumpkin(Fruit fruit) {
     return Image.asset(
-      'assets/pumpkin_uncut.png',
+      'assets/images/pumpkin_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
@@ -949,7 +949,7 @@ class _CanvasAreaState extends State<CanvasArea> with TickerProviderStateMixin {
 
   Widget _getPotato(Fruit fruit) {
     return Image.asset(
-      'assets/potato_uncut.png',
+      'assets/images/potato_uncut.png',
       height: 80,
       fit: BoxFit.fitHeight,
     );
