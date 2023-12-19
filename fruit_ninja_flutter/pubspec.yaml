@@ -55,7 +55,6 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/data/nutritions.csv
     - assets/data/food_nutrition.csv
     - assets/audios/
   #   - images/a_dot_ham.jpeg

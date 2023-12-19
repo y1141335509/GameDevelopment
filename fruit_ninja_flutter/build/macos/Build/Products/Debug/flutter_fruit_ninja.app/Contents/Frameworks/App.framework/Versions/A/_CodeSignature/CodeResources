@@ -10,11 +10,11 @@
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.bin</key>
 		<data>
-		9zPViqEFBApzMTx5urk6V5jqeRY=
+		KTFxxpBMvBzaHks6VLySMR6aiwc=
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<data>
-		r8VnZTmOEscbb15iRV0jCC5mAnc=
+		bCwFHEeVs5jLTgm3m/qroYU1ets=
 		</data>
 		<key>Resources/flutter_assets/FontManifest.json</key>
 		<data>
@@ -30,11 +30,7 @@
 		</data>
 		<key>Resources/flutter_assets/assets/data/food_nutrition.csv</key>
 		<data>
-		DM3WP2VyK4ArgQYJMwaHF0WexCw=
-		</data>
-		<key>Resources/flutter_assets/assets/data/nutritions.csv</key>
-		<data>
-		lNdhDazm4owGiZKtshm92vA0UQo=
+		JmbQNZUedWZuKXHfk8kn3y2MgWk=
 		</data>
 		<key>Resources/flutter_assets/assets/images/apple_cut_left.png</key>
 		<data>
@@ -398,7 +394,7 @@
 		</data>
 		<key>Resources/flutter_assets/kernel_blob.bin</key>
 		<data>
-		uAcqBWrQvirG/7ZuXM4imNtmqZI=
+		ffYIBSQx+3JFuSizArHYU9d8eng=
 		</data>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -426,14 +422,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8ixiNxnNOU3jOAus/n795ox8Kuyq1nqMSds5bNUeptg=
+			Wx/LDujwWFbREqNhHG2OM8SuI+Gzb8y4TdwfNO8Zp/8=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			i01+oS95uGAI5+1m9w2UcWyif+VKyAfqA0/XOWvvH6M=
+			WSkO1ddgU5OGJMhHpZzm/+9CLMKaUI2C/343jOZh3Z0=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/FontManifest.json</key>
@@ -461,14 +457,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			eIfs90N+5WGYgKDFmNX2z1yIoiqW7VWiCpDlOw85OTw=
-			</data>
-		</dict>
-		<key>Resources/flutter_assets/assets/data/nutritions.csv</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			hdhGz2EN81+u3MXK0L2DPxXuLTpKi3M/Fx8mjtY3Kk0=
+			IZVY+fMH/rIFdm1gGgMqwaQHmbG9SfURNshPxaGGZCI=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/assets/images/apple_cut_left.png</key>
@@ -1105,7 +1094,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			yd0Uk/58+MXLxNo1PYpQT3MDzUtpNl4PvsoroWx/AdY=
+			4esmXsDtqSfwxqwYr/g7YrSEID032bqEqAS8xNMDsO0=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>

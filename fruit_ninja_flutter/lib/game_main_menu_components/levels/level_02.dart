@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as path;
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flame_audio/flame_audio.dart';
 
 import 'models/fruit.dart';
@@ -126,14 +125,13 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
   void _spawnRandomFood() {
     String randomFood = _getRandomFoodName();
     _spawnSingleFood(randomFood);
-    int elapsedTime = (120 -
+    int elapsedTime = (30 -
             (_countdownController.duration?.inSeconds ?? 0) *
                 _countdownController.value)
         .round();
     int spawnInterval = 20; // Interval for checking spawn configuration
 
-    if (elapsedTime % spawnInterval == 0 && elapsedTime <= 120) {
-      // Only do this in the first 60 seconds
+    if (elapsedTime % spawnInterval == 0 && elapsedTime <= 30) {
       int totalSpawnCountFor20Secs =
           _calculateTotalSpawnForNext20Secs(elapsedTime);
       int spawnsPerSecond = totalSpawnCountFor20Secs ~/ 20;
@@ -145,7 +143,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
         }
 
         // Stop the timer after 20 seconds
-        if (timer.tick >= 20) {
+        if (timer.tick >= 30) {
           timer.cancel();
         }
       });
@@ -155,7 +153,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
   int _calculateTotalSpawnForNext20Secs(int elapsedTime) {
     int total = 0;
     foodSpawnConfig.forEach((name, count) {
-      total += (count ~/ 6); // Divide by 3 to get count for 20 seconds
+      total += (count ~/ 1.5); // Divide by 1.5 to get count for 20 seconds
     });
     return total;
   }
@@ -217,12 +215,12 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
         }
       });
 
-      int currentTime = (120 -
+      int currentTime = (30 -
               (_countdownController.duration?.inSeconds ?? 0) *
                   _countdownController.value)
           .round();
 
-      if (currentTime >= 120) {
+      if (currentTime >= 30) {
         List<String> win = [];
         win.add("Congrats!");
         _endGame(win);
@@ -302,6 +300,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
     widgetsOnStack.addAll(_getFruitParts());
     widgetsOnStack.addAll(_getFruits());
     widgetsOnStack.add(_getGestureDetector());
+
     const IconData not_started = IconData(0xe448, fontFamily: 'MaterialIcons');
     const IconData motion_photos_pause =
         IconData(0xe408, fontFamily: 'MaterialIcons');
@@ -433,7 +432,6 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
       fit: BoxFit.fitHeight,
     );
   }
-
 
   List<Widget> _getFruitParts() {
     List<Widget> list = <Widget>[];

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'levels/level_00.dart';
 import './levels/level_01.dart';
 import './levels/level_02.dart';
 
@@ -13,6 +14,15 @@ class LevelSelectionScreen extends StatelessWidget {
       appBar: AppBar(title: Text('Select Level')),
       body: ListView(
         children: <Widget>[
+          ListTile(
+            title: Text('Level 0'),     // THE MOST ORIGINAL LEVEL
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CanvasAreaLevel_00(level: 0)));
+            },
+          ),
           ListTile(
             title: Text('Level 1'),
             onTap: () {
