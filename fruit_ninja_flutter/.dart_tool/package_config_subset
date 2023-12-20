@@ -70,6 +70,14 @@ file
 3.0
 file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/file-7.0.0/
 file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/file-7.0.0/lib/
+flame
+3.0
+file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/flame-1.12.0/
+file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/flame-1.12.0/lib/
+flame_audio
+3.0
+file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/flame_audio-2.1.5/
+file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/flame_audio-2.1.5/lib/
 http
 3.2
 file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/http-1.1.2/
@@ -94,6 +102,10 @@ meta
 2.12
 file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/meta-1.10.0/
 file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/meta-1.10.0/lib/
+ordered_set
+2.14
+file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/ordered_set-5.0.2/
+file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/ordered_set-5.0.2/lib/
 path
 2.12
 file:///Users/yinghaiyu/.pub-cache/hosted/pub.dev/path-1.8.3/
