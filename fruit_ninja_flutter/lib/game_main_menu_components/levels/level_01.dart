@@ -14,6 +14,7 @@ import 'models/fruit_part.dart';
 import 'models/touch_slice.dart';
 import 'slice_painter.dart';
 import '../../db_initializer.dart';
+import './db_helper_levels/db_helper_level_01.dart';
 
 Future<List<String>> names = DBInitializer().queryAllFoodNames();
 
@@ -132,6 +133,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
 
 ////////////////////////////////////
 
+
   void _spawnRandomFood() {
     int elapsedTime = (gameDuration -
             (_countdownController.duration?.inSeconds ?? 0) *
@@ -199,7 +201,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
   }
 
   void _tick() {
-    if (!_isGamePaused) {
+    if (!_isGamePaused && mounted) {
       setState(() {
         // 为每个食物添加重力
         for (Fruit fruit in _fruits) {
@@ -283,7 +285,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
         );
       }
     });
-  _saveHighScore(_score); // 保存当前关卡的最高分
+    _saveHighScore(_score); // 保存当前关卡的最高分
   }
 
   Future<void> _saveHighScore(int score) async {
@@ -297,6 +299,19 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
   }
 
   void _getHighScore() async {
+    ////////////////////// TESTING ///////////////////////////
+    // 加载数据库：
+    Database db = await DBHelperLevel_01.initializeDB(); // 数据库初始化函数
+    await DBHelperLevel_01.importCSVToSQLite(db); // 导入CSV数据到SQLite
+
+    List<Map<dynamic, dynamic>> counts = await DBHelperLevel_01().queryAll();
+    counts.forEach((element) {
+      print('debugging...' + element.values.toString());
+      print('debugging...' + element.keys.toString());
+    });
+    ////////////////////// TESTING ///////////////////////////
+
+
     // 获取该用户的历史最高分
     final prefs = await SharedPreferences.getInstance();
     String highScoreKey = 'highScore_level_${widget.level}'; // 每个关卡的唯一键
