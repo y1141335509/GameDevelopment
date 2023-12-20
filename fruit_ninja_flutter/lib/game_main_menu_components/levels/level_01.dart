@@ -16,7 +16,7 @@ import 'slice_painter.dart';
 import '../../db_initializer.dart';
 
 Future<List<String>> names = DBInitializer().queryAllFoodNames();
-int gameDuration = 30; // 游戏时长
+final int gameDuration = 30; // 游戏时长
 
 // fruitsCut defines the number of each fruit type is cut after game play.
 Map<String, int> foodSpawnCount = {};
@@ -37,60 +37,14 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
     with TickerProviderStateMixin {
   int _score = 0;
   TouchSlice? _touchSlice;
-  final List<Fruit> _fruits = <Fruit>[];
-  final List<FruitPart> _fruitParts = <FruitPart>[];
+
+  final List<Fruit> _fruits = <Fruit>[]; // 要生成的食物
+
+  final List<FruitPart> _fruitParts = <FruitPart>[]; // 要生成的食物的切片
+
   // 倒计时；同时也可以用来计算游戏开始了多少时间
   late AnimationController _countdownController;
   bool _isGamePaused = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Initialize the countdown controller
-    _countdownController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 30),
-    )..addListener(() {
-        setState(() {});
-      });
-
-    // Add status listener
-    _countdownController.addStatusListener((status) async {
-      if (status == AnimationStatus.dismissed) {
-        final diseases = await _getNutrientRelatedDiseases();
-        _endGame(diseases);
-      }
-    });
-    _countdownController.reverse(from: 1.0);
-
-    // Initialize the player with default nutritional values
-    player = Player(id: 0);
-
-    // _spawnSingleFood()里面使用了MediaQuery，使用它的前提是
-    // initState已经被call。所以要加上这个if(mounted)来确保
-    Future.delayed(Duration.zero, () {
-      if (mounted) {
-        _spawnRandomFood();
-      }
-    });
-
-    _tick();
-  }
-
-  @override
-  void dispose() {
-    _countdownController.dispose();
-    super.dispose();
-  }
-
-  String get countdownText {
-    Duration duration =
-        _countdownController.duration! * _countdownController.value;
-    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
-  }
-
-////////////////////////////////////
 
   Map<String, int> foodSpawnConfig = {
     'watermelon': 0,
@@ -124,7 +78,57 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
     'potato': 0,
   };
 
-  late Timer _spawnTimer;
+  final int totalFoodCount = 47; // 计算所有食物一共有多少个
+  int remainingFoodCount = 47; // 还剩下多少食物需要生成
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize the countdown controller
+    _countdownController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 30),
+    )..addListener(() {
+        setState(() {});
+      });
+
+    // Add status listener
+    _countdownController.addStatusListener((status) async {
+      if (status == AnimationStatus.dismissed) {
+        final diseases = await _getNutrientRelatedDiseases();
+        _endGame(diseases);
+      }
+    });
+    _countdownController.reverse(from: 1.0);
+
+    // Initialize the player with default nutritional values
+    player = Player(id: 0);
+
+    // _spawnSingleFood()里面使用了MediaQuery，使用它的前提是
+    // initState已经被call。所以要加上这个if(mounted)来确保
+    // Future.delayed(Duration.zero, () {
+    //   if (mounted) {
+    //     _spawnRandomFood();
+    //   }
+    // });
+
+    _tick();
+  }
+
+  @override
+  void dispose() {
+    _countdownController.dispose();
+    super.dispose();
+  }
+
+  String get countdownText {
+    Duration duration =
+        _countdownController.duration! * _countdownController.value;
+    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+  }
+
+////////////////////////////////////
 
   void _spawnRandomFood() {
     int elapsedTime = (gameDuration -
@@ -132,50 +136,57 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
                 _countdownController.value)
         .round(); // 游戏开始了多长时间
 
-    // 计算所有食物一共有多少个
-    int total = 0;
-    foodSpawnConfig.forEach((key, value) {
-      total += value;
-    });
-
     if (elapsedTime <= gameDuration) {
-      // 计算即将到来的这20秒内，需要生成每种食物各多少个：
-      var foodSpawnConfigHeap = PriorityQueue<FoodItem>(
-          (p0, p1) => p1.remainingCount.compareTo(p0.remainingCount));
-      foodSpawnConfig.forEach((key, value) {
-        foodSpawnConfigHeap.add(FoodItem(key, value));
-      });
+      // 建议转换成毫秒级
+      int intervalMilliseconds =
+          ((totalFoodCount / gameDuration) * 1000).round();
+      print('time interval is: ' + intervalMilliseconds.toString());
 
-      // 然后定义每秒需要生成多少个食物
-      _spawnTimer =
-          Timer.periodic(Duration(seconds: total ~/ gameDuration), (timer) {
-        // print('Time interval: ' + (total ~/ gameDuration).toString());   // DEBUG
-
-        // 每 total / gameDuration 秒生成一个食物：
-        if (foodSpawnConfigHeap.isEmpty) {
-          timer.cancel();
-          print('All foods popped...');
-          return;
-        }
-        var item = foodSpawnConfigHeap.first;
-        // print('Popped: ${item.name}');
-        item.pop();
-
-        if (item.isDepleted) {
-          foodSpawnConfigHeap.removeFirst();
-        } else {
-          foodSpawnConfigHeap.removeFirst();
-          foodSpawnConfigHeap.add(item);
+      // 如果超过游戏时长，则停止生成食物
+      if (_isGamePaused || foodSpawnConfig.isEmpty || remainingFoodCount <= 0) {
+        return;
+      } else {
+        // 生成随机食物名
+        Random random = Random();
+        List<String> foodNames = foodSpawnConfig.keys.toList();
+        String randomFoodName = foodNames[random.nextInt(foodNames.length)];
+        while (foodSpawnConfig[randomFoodName] == 0) {
+          print('i doubted here...');
+          foodSpawnConfig.removeWhere((key, value) => value == 0);
+          randomFoodName = foodNames[random.nextInt(foodNames.length)];
         }
 
-        _spawnSingleFood(item.name);
-        print('current total: ' + (total - 1).toString());
+        // 生成当前随机到的食物
+        _spawnSingleFood(randomFoodName);
+        remainingFoodCount--;
+        print('remaining food count: ' + remainingFoodCount.toString());
+      }
 
-        // 如果超过游戏时长，则停止生成食物
-        if (timer.tick >= gameDuration) {
-          timer.cancel();
-        }
-      });
+      // // 每 total / gameDuration 秒生成一个食物
+      // Timer.periodic(Duration(milliseconds: intervalMilliseconds), (timer) {
+      //   // 如果超过游戏时长，则停止生成食物
+      //   if (timer.tick >= totalFoodCount ||
+      //       _isGamePaused ||
+      //       foodSpawnConfig.isEmpty ||
+      //       remainingFoodCount <= 0) {
+      //     timer.cancel();
+      //   } else {
+      //     // 生成随机食物名
+      //     Random random = Random();
+      //     List<String> foodNames = foodSpawnConfig.keys.toList();
+      //     String randomFoodName = foodNames[random.nextInt(foodNames.length)];
+      //     while (foodSpawnConfig[randomFoodName] == 0) {
+      //       print('i doubted here...');
+      //       foodSpawnConfig.removeWhere((key, value) => value == 0);
+      //       randomFoodName = foodNames[random.nextInt(foodNames.length)];
+      //     }
+
+      //     // 生成当前随机到的食物
+      //     _spawnSingleFood(randomFoodName);
+      //     remainingFoodCount--;
+      //     print('remaining food count: ' + remainingFoodCount.toString());
+      //   }
+      // });
     }
   }
 
@@ -227,8 +238,10 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
           fruitPart.applyGravity();
         }
 
-        // 如果
-        if (Random().nextDouble() > 0.97) {
+        // 0.97意味着，每次调用_tick()方法时，调用_spawnRandomFood()的概率是 1 - 0.97
+        if (Random().nextDouble() > 0.94) {
+          // 假设_spawnRandomFood()每秒生成一个食物，那么生成食物的频率就是：
+          // (1 - 0.97) * (1000 / 30) ~= 1.00次/秒
           _spawnRandomFood();
         }
       });
@@ -246,7 +259,11 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
         _checkPlayerHealth(currentTime);
       }
 
-      // 递归，只要游戏不暂停就一直运行
+      // 递归，只要游戏不暂停就一直运行。
+      // 其中的Duration控制着_tick()方法被调用的频率，也就是每30毫秒1次
+      // 所以每秒调用_tick()方法的次数为： 1000毫秒每秒 / (30毫秒每次) = 33.33次/秒
+      // 更通俗的理解，这里的33.33次/秒 就是“帧率”。
+      // 但要注意，该游戏中这里的30并不是通俗意义上的 帧率，而是 游戏速度
       Future<void>.delayed(Duration(milliseconds: 30), _tick);
     }
   }
@@ -323,8 +340,8 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
 
     widgetsOnStack.add(_getBackground());
     widgetsOnStack.add(_getSlice());
-    widgetsOnStack.addAll(_getFruitParts());
-    widgetsOnStack.addAll(_getFruits());
+    widgetsOnStack.addAll(_getFruitParts()); // 将所有食物切片添加到Widget上显示
+    widgetsOnStack.addAll(_getFruits()); // 将所有食物添加到Widget上显示
     widgetsOnStack.add(_getGestureDetector());
 
     const IconData not_started = IconData(0xe448, fontFamily: 'MaterialIcons');
@@ -461,13 +478,11 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
 
   List<Widget> _getFruitParts() {
     List<Widget> list = <Widget>[];
-
     for (FruitPart fruitPart in _fruitParts) {
       list.add(
         Positioned(
           top: fruitPart.position.dy,
           left: fruitPart.position.dx,
-          // child: _getWatermelonCut(fruitPart),
           child: _getCutFruit(fruitPart),
         ),
       );
@@ -620,7 +635,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
             ? 'assets/images/potato_cut_left.png'
             : 'assets/images/potato_cut_right.png';
         break;
-      default: // 'melon'
+      default: // 'watermelon'
         assetName = fruitPart.isLeft
             ? 'assets/images/watermelon_cut_left.png'
             : 'assets/images/watermelon_cut_right.png';
@@ -675,7 +690,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
           secondPointInside = true;
           continue;
         }
-
+        // 如果切到了食物
         if (secondPointInside && !fruit.isPointInside(point)) {
           _fruits.remove(fruit);
           _turnFruitIntoParts(fruit);
@@ -683,10 +698,6 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
 
           // update player's nutrition
           _updatePlayerNutrition(fruit.name);
-
-          // play cut food audio:
-          // FlameAudio.bgm.initialize();
-          // FlameAudio.bgm.play('lemonjuicysqueezefruit-77998.mp3');
 
           break;
         }
@@ -762,7 +773,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
 
   void _updatePlayerNutrition(String fruitName) async {
     final nutrition = await DBInitializer().queryFoodNutritionByName(fruitName);
-    if (nutrition != null) {
+    if (nutrition != null && nutrition.isNotEmpty) {
       player.water += nutrition[0]['WATER'] ?? 0;
       player.energy += nutrition[0]['ENERGY'] ?? 0;
       player.protein += nutrition[0]['PROTEIN'] ?? 0;
