@@ -83,7 +83,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
   @override
   void initState() {
     super.initState();
-    
+
     // 加载当前玩家的历史最高分：
     _getHighScore();
 
@@ -283,21 +283,25 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
         );
       }
     });
+  _saveHighScore(_score); // 保存当前关卡的最高分
   }
 
   Future<void> _saveHighScore(int score) async {
     final prefs = await SharedPreferences.getInstance();
-    int highScore = prefs.getInt('highScore') ?? 0;
-    if (score > highScore) {
-      await prefs.setInt('highScore', score);
+    String highScoreKey = 'highScore_level_${widget.level}'; // 每个关卡的唯一键
+    int currentHighScore = prefs.getInt(highScoreKey) ?? 0;
+
+    if (score > currentHighScore) {
+      await prefs.setInt(highScoreKey, score);
     }
   }
 
   void _getHighScore() async {
     // 获取该用户的历史最高分
     final prefs = await SharedPreferences.getInstance();
+    String highScoreKey = 'highScore_level_${widget.level}'; // 每个关卡的唯一键
     setState(() {
-      _highScore = prefs.getInt('highScore') ?? 0;
+      _highScore = prefs.getInt(highScoreKey) ?? 0;
     });
   }
 
