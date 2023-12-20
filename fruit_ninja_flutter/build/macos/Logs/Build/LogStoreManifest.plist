@@ -6,7 +6,7 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
-		<key>68614949-84B8-43DD-8C3C-3E68977BACCC</key>
+		<key>4CF0C7C3-48ED-4545-9CC0-C2CA3703D335</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>68614949-84B8-43DD-8C3C-3E68977BACCC.xcactivitylog</string>
+			<string>4CF0C7C3-48ED-4545-9CC0-C2CA3703D335.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -40,15 +40,15 @@
 			<key>signature</key>
 			<string>Building workspace Runner with scheme Runner and configuration Debug</string>
 			<key>timeStartedRecording</key>
-			<real>724730386.84459102</real>
+			<real>724731079.04765499</real>
 			<key>timeStoppedRecording</key>
-			<real>724730396.93817198</real>
+			<real>724731088.87875104</real>
 			<key>title</key>
 			<string>Building workspace Runner with scheme Runner and configuration Debug</string>
 			<key>uniqueIdentifier</key>
-			<string>68614949-84B8-43DD-8C3C-3E68977BACCC</string>
+			<string>4CF0C7C3-48ED-4545-9CC0-C2CA3703D335</string>
 		</dict>
-		<key>FCB9BB2F-D3B3-47A6-B140-54009C2754D6</key>
+		<key>E4D9B5A3-C887-45B9-B1E3-AD4079C44490</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -57,7 +57,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>FCB9BB2F-D3B3-47A6-B140-54009C2754D6.xcactivitylog</string>
+			<string>E4D9B5A3-C887-45B9-B1E3-AD4079C44490.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -82,13 +82,13 @@
 			<key>signature</key>
 			<string>Building workspace Runner with scheme Runner and configuration Debug</string>
 			<key>timeStartedRecording</key>
-			<real>724730260.13187003</real>
+			<real>724730727.44885397</real>
 			<key>timeStoppedRecording</key>
-			<real>724730269.715855</real>
+			<real>724730736.92056096</real>
 			<key>title</key>
 			<string>Building workspace Runner with scheme Runner and configuration Debug</string>
 			<key>uniqueIdentifier</key>
-			<string>FCB9BB2F-D3B3-47A6-B140-54009C2754D6</string>
+			<string>E4D9B5A3-C887-45B9-B1E3-AD4079C44490</string>
 		</dict>
 	</dict>
 </dict>

@@ -136,13 +136,9 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
                 _countdownController.value)
         .round(); // 游戏开始了多长时间
 
+    // 如果还有剩余游戏时长
     if (elapsedTime <= gameDuration) {
-      // 建议转换成毫秒级
-      int intervalMilliseconds =
-          ((totalFoodCount / gameDuration) * 1000).round();
-      print('time interval is: ' + intervalMilliseconds.toString());
-
-      // 如果超过游戏时长，则停止生成食物
+      // 如果没有食物需要生成 或者游戏被暂停 则停止生成食物
       if (_isGamePaused || foodSpawnConfig.isEmpty || remainingFoodCount <= 0) {
         return;
       } else {
@@ -151,7 +147,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
         List<String> foodNames = foodSpawnConfig.keys.toList();
         String randomFoodName = foodNames[random.nextInt(foodNames.length)];
         while (foodSpawnConfig[randomFoodName] == 0) {
-          print('i doubted here...');
+          // 弹出已经是 0 的 食物，节省时间
           foodSpawnConfig.removeWhere((key, value) => value == 0);
           randomFoodName = foodNames[random.nextInt(foodNames.length)];
         }
@@ -161,32 +157,6 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
         remainingFoodCount--;
         print('remaining food count: ' + remainingFoodCount.toString());
       }
-
-      // // 每 total / gameDuration 秒生成一个食物
-      // Timer.periodic(Duration(milliseconds: intervalMilliseconds), (timer) {
-      //   // 如果超过游戏时长，则停止生成食物
-      //   if (timer.tick >= totalFoodCount ||
-      //       _isGamePaused ||
-      //       foodSpawnConfig.isEmpty ||
-      //       remainingFoodCount <= 0) {
-      //     timer.cancel();
-      //   } else {
-      //     // 生成随机食物名
-      //     Random random = Random();
-      //     List<String> foodNames = foodSpawnConfig.keys.toList();
-      //     String randomFoodName = foodNames[random.nextInt(foodNames.length)];
-      //     while (foodSpawnConfig[randomFoodName] == 0) {
-      //       print('i doubted here...');
-      //       foodSpawnConfig.removeWhere((key, value) => value == 0);
-      //       randomFoodName = foodNames[random.nextInt(foodNames.length)];
-      //     }
-
-      //     // 生成当前随机到的食物
-      //     _spawnSingleFood(randomFoodName);
-      //     remainingFoodCount--;
-      //     print('remaining food count: ' + remainingFoodCount.toString());
-      //   }
-      // });
     }
   }
 
@@ -493,154 +463,10 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
 
   Widget _getCutFruit(FruitPart fruitPart) {
     String assetName;
-    switch (fruitPart.fruitName) {
-      // Assuming fruitType is a property of FruitPart
-      case 'apple':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/apple_cut_left.png'
-            : 'assets/images/apple_cut_right.png';
-        break;
-      case 'banana':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/banana_cut_left.png'
-            : 'assets/images/banana_cut_right.png';
-        break;
-      case 'avocado':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/avocado_cut_left.png'
-            : 'assets/images/avocado_cut_right.png';
-        break;
-      case 'broccoli':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/broccoli_cut_left.png'
-            : 'assets/images/broccoli_cut_right.png';
-        break;
-      case 'pink salmon':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/pink_salmon_cut_left.png'
-            : 'assets/images/pink_salmon_cut_right.png';
-        break;
-      case 'chicken':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/chicken_cut_left.png'
-            : 'assets/images/chicken_cut_right.png';
-        break;
-      case 'beef':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/beef_cut_left.png'
-            : 'assets/images/beef_cut_right.png';
-        break;
-      case 'arugula':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/arugula_cut_left.png'
-            : 'assets/images/arugula_cut_right.png';
-        break;
-      case 'bread':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/bread_cut_left.png'
-            : 'assets/images/bread_cut_right.png';
-        break;
-      case 'egg':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/egg_cut_left.png'
-            : 'assets/images/egg_cut_right.png';
-        break;
-      case 'corn':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/corn_cut_left.png'
-            : 'assets/images/corn_cut_right.png';
-        break;
-      case 'beer':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/beer_cut_left.png'
-            : 'assets/images/beer_cut_right.png';
-        break;
-      case 'vodka':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/vodka_cut_left.png'
-            : 'assets/images/vodka_cut_right.png';
-        break;
-      case 'coffee':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/coffee_cut_left.png'
-            : 'assets/images/coffee_cut_right.png';
-        break;
-      case 'noodles':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/noodles_cut_left.png'
-            : 'assets/images/noodles_cut_right.png';
-        break;
-      case 'rice':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/rice_cut_left.png'
-            : 'assets/images/rice_cut_right.png';
-        break;
-      case 'milk':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/milk_cut_left.png'
-            : 'assets/images/milk_cut_right.png';
-        break;
-      case 'yogurt':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/yogurt_cut_left.png'
-            : 'assets/images/yogurt_cut_right.png';
-        break;
-      case 'tofu':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/tofu_cut_left.png'
-            : 'assets/images/tofu_cut_right.png';
-        break;
-      case 'muffin':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/muffin_cut_left.png'
-            : 'assets/images/muffin_cut_right.png';
-        break;
-      case 'corn oil':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/corn_oil_cut_left.png'
-            : 'assets/images/corn_oil_cut_right.png';
-        break;
-      case 'mango':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/mango_cut_left.png'
-            : 'assets/images/mango_cut_right.png';
-        break;
-      case 'cilantro':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/cilantro_cut_left.png'
-            : 'assets/images/cilantro_cut_right.png';
-        break;
-      case 'sugar':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/sugar_cut_left.png'
-            : 'assets/images/sugar_cut_right.png';
-        break;
-      case 'soy milk':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/soy_milk_cut_left.png'
-            : 'assets/images/soy_milk_cut_right.png';
-        break;
-      case 'carrot':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/carrot_cut_left.png'
-            : 'assets/images/carrot_cut_right.png';
-        break;
-      case 'pumpkin':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/pumpkin_cut_left.png'
-            : 'assets/images/pumpkin_cut_right.png';
-        break;
-      case 'potato':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/potato_cut_left.png'
-            : 'assets/images/potato_cut_right.png';
-        break;
-      default: // 'watermelon'
-        assetName = fruitPart.isLeft
-            ? 'assets/images/watermelon_cut_left.png'
-            : 'assets/images/watermelon_cut_right.png';
-        break;
-    }
+    String fruitName = fruitPart.fruitName.replaceAll(RegExp(' '), '_');
+    fruitPart.isLeft
+        ? assetName = 'assets/images/' + fruitName + '_cut_left.png'
+        : assetName = 'assets/images/' + fruitName + '_cut_right.png';
 
     return Transform.rotate(
         angle: fruitPart.rotation * pi * 2,
