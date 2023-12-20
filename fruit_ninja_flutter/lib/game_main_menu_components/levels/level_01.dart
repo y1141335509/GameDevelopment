@@ -227,7 +227,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
         List<String> win = [];
         win.add("Congrats!");
         _endGame(win);
-      } else if (currentTime % 20 == 0 && currentTime > 0) {
+      } else if (currentTime % 2 == 0 && currentTime > 0) {
         _checkPlayerHealth(currentTime);
       }
 
