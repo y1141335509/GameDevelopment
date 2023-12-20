@@ -16,10 +16,8 @@ import 'slice_painter.dart';
 import '../../db_initializer.dart';
 
 Future<List<String>> names = DBInitializer().queryAllFoodNames();
-final int gameDuration = 30; // 游戏时长
 
-// fruitsCut defines the number of each fruit type is cut after game play.
-Map<String, int> foodSpawnCount = {};
+final int gameDuration = 30; // 游戏时长
 
 late Player player; // Instance to hold player's state
 
@@ -36,6 +34,7 @@ class CanvasAreaLevel_01 extends StatefulWidget {
 class _CanvasAreaState extends State<CanvasAreaLevel_01>
     with TickerProviderStateMixin {
   int _score = 0;
+  int _highScore = 0; // 当前玩家的历史最高分
   TouchSlice? _touchSlice;
 
   final List<Fruit> _fruits = <Fruit>[]; // 要生成的食物
@@ -84,6 +83,9 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
   @override
   void initState() {
     super.initState();
+    
+    // 加载当前玩家的历史最高分：
+    _getHighScore();
 
     // Initialize the countdown controller
     _countdownController = AnimationController(
@@ -291,6 +293,14 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
     }
   }
 
+  void _getHighScore() async {
+    // 获取该用户的历史最高分
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _highScore = prefs.getInt('highScore') ?? 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenW = MediaQuery.of(context).size.width;
@@ -385,6 +395,22 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
             onPressed: () => _pauseGame(),
             child: Icon(_isGamePaused ? not_started : motion_photos_pause),
           ),
+        ),
+      ),
+    );
+
+    // 添加最高分：
+    widgetsOnStack.add(
+      Positioned(
+        top: screenHeight * 0.1, // 2% of screen height from the top
+        right: screenWidth * 0.05, // 5% of screen width from the right
+
+        child: Text(
+          'Highest Score: $_highScore',
+          style: TextStyle(
+            fontSize: scoreFontSize,
+            color: Colors.green,
+          ), // 根据需要调整字体大小
         ),
       ),
     );

@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as path;
 import 'package:flame_audio/flame_audio.dart';
+import 'package:collection/collection.dart';
 
 import 'models/fruit.dart';
 import './player.dart';
@@ -16,8 +17,7 @@ import '../../db_initializer.dart';
 
 Future<List<String>> names = DBInitializer().queryAllFoodNames();
 
-// fruitsCut defines the number of each fruit type is cut after game play.
-Map<String, int> foodSpawnCount = {};
+final int gameDuration = 30; // 游戏时长
 
 late Player player; // Instance to hold player's state
 
@@ -35,10 +35,49 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
     with TickerProviderStateMixin {
   int _score = 0;
   TouchSlice? _touchSlice;
-  final List<Fruit> _fruits = <Fruit>[];
-  final List<FruitPart> _fruitParts = <FruitPart>[];
+
+  final List<Fruit> _fruits = <Fruit>[]; // 要生成的食物
+
+  final List<FruitPart> _fruitParts = <FruitPart>[]; // 要生成的食物的切片
+
+  // 倒计时；同时也可以用来计算游戏开始了多少时间
   late AnimationController _countdownController;
   bool _isGamePaused = false;
+
+  Map<String, int> foodSpawnConfig = {
+    'watermelon': 0,
+    'apple': 0,
+    'banana': 1,
+    'avocado': 0,
+    'broccoli': 2,
+    'pink_salmon': 0,
+    'chicken': 1,
+    'beef': 2,
+    'arugula': 2,
+    'bread': 0,
+    'egg': 9,
+    'corn': 2,
+    'beer': 1,
+    'vodka': 0,
+    'coffee': 1,
+    'noodles': 0,
+    'rice': 1,
+    'milk': 0,
+    'yogurt': 0,
+    'tofu': 2,
+    'muffin': 3,
+    'corn_oil': 4,
+    'mango': 0,
+    'cilantro': 0,
+    'sugar': 0,
+    'soy_milk': 0,
+    'carrot': 16,
+    'pumpkin': 0,
+    'potato': 0,
+  };
+
+  final int totalFoodCount = 47; // 计算所有食物一共有多少个
+  int remainingFoodCount = 47; // 还剩下多少食物需要生成
 
   @override
   void initState() {
@@ -55,21 +94,22 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
     // Add status listener
     _countdownController.addStatusListener((status) async {
       if (status == AnimationStatus.dismissed) {
-        // _endGame("Time's up!");
         final diseases = await _getNutrientRelatedDiseases();
         _endGame(diseases);
       }
     });
-
-    // Start the countdown
     _countdownController.reverse(from: 1.0);
 
     // Initialize the player with default nutritional values
     player = Player(id: 0);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _spawnRandomFood();
-    });
+    // _spawnSingleFood()里面使用了MediaQuery，使用它的前提是
+    // initState已经被call。所以要加上这个if(mounted)来确保
+    // Future.delayed(Duration.zero, () {
+    //   if (mounted) {
+    //     _spawnRandomFood();
+    //   }
+    // });
 
     _tick();
   }
@@ -88,80 +128,34 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
 
 ////////////////////////////////////
 
-  Map<String, int> foodSpawnConfig = {
-    'watermelon': 0,
-    'apple': 0,
-    'banana': 30,
-    'avocado': 0,
-    'broccoli': 2,
-    'pink salmon': 2,
-    'chicken': 0,
-    'beef': 5,
-    'arugula': 4,
-    'bread': 2,
-    'egg': 30,
-    'corn': 29,
-    'beer': 1,
-    'vodka': 0,
-    'coffee': 1,
-    'noodles': 0,
-    'rice': 0,
-    'milk': 0,
-    'yogurt': 0,
-    'tofu': 16,
-    'muffin': 0,
-    'corn oil': 18,
-    'mango': 0,
-    'cilantro': 5,
-    'sugar': 0,
-    'soy milk': 0,
-    'carrot': 30,
-    'pumpkin': 8,
-    'potato': 1,
-  };
-
-  late Timer _spawnTimer;
-
   void _spawnRandomFood() {
-    String randomFood = _getRandomFoodName();
-    _spawnSingleFood(randomFood);
-    int elapsedTime = (30 -
+    int elapsedTime = (gameDuration -
             (_countdownController.duration?.inSeconds ?? 0) *
                 _countdownController.value)
-        .round();
-    int spawnInterval = 20; // Interval for checking spawn configuration
+        .round(); // 游戏开始了多长时间
 
-    if (elapsedTime % spawnInterval == 0 && elapsedTime <= 30) {
-      int totalSpawnCountFor20Secs =
-          _calculateTotalSpawnForNext20Secs(elapsedTime);
-      int spawnsPerSecond = totalSpawnCountFor20Secs ~/ 20;
-
-      _spawnTimer = Timer.periodic(Duration(seconds: 1), (timer) {
-        for (int i = 0; i < spawnsPerSecond; i++) {
-          String randomFood = _getRandomFoodName();
-          _spawnSingleFood(randomFood);
+    // 如果还有剩余游戏时长
+    if (elapsedTime <= gameDuration) {
+      // 如果没有食物需要生成 或者游戏被暂停 则停止生成食物
+      if (_isGamePaused || foodSpawnConfig.isEmpty || remainingFoodCount <= 0) {
+        return;
+      } else {
+        // 生成随机食物名
+        Random random = Random();
+        List<String> foodNames = foodSpawnConfig.keys.toList();
+        String randomFoodName = foodNames[random.nextInt(foodNames.length)];
+        while (foodSpawnConfig[randomFoodName] == 0) {
+          // 弹出已经是 0 的 食物，节省时间
+          foodSpawnConfig.removeWhere((key, value) => value == 0);
+          randomFoodName = foodNames[random.nextInt(foodNames.length)];
         }
 
-        // Stop the timer after 20 seconds
-        if (timer.tick >= 30) {
-          timer.cancel();
-        }
-      });
+        // 生成当前随机到的食物
+        _spawnSingleFood(randomFoodName);
+        remainingFoodCount--;
+        print('remaining food count: ' + remainingFoodCount.toString());
+      }
     }
-  }
-
-  int _calculateTotalSpawnForNext20Secs(int elapsedTime) {
-    int total = 0;
-    foodSpawnConfig.forEach((name, count) {
-      total += (count ~/ 1.5); // Divide by 1.5 to get count for 20 seconds
-    });
-    return total;
-  }
-
-  String _getRandomFoodName() {
-    Random random = Random();
-    List<String> foodNames = foodSpawnConfig.keys.toList();
-    return foodNames[random.nextInt(foodNames.length)];
   }
 
   void _spawnSingleFood(String name) {
@@ -203,24 +197,29 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
   void _tick() {
     if (!_isGamePaused) {
       setState(() {
+        // 为每个食物添加重力
         for (Fruit fruit in _fruits) {
           fruit.applyGravity();
         }
+        // 为每个被切开的食物添加重力
         for (FruitPart fruitPart in _fruitParts) {
           fruitPart.applyGravity();
         }
 
-        if (Random().nextDouble() > 0.97) {
+        // 0.97意味着，每次调用_tick()方法时，调用_spawnRandomFood()的概率是 1 - 0.97
+        if (Random().nextDouble() > 0.94) {
+          // 假设_spawnRandomFood()每秒生成一个食物，那么生成食物的频率就是：
+          // (1 - 0.97) * (1000 / 30) ~= 1.00次/秒
           _spawnRandomFood();
         }
       });
 
-      int currentTime = (30 -
+      int currentTime = (gameDuration -
               (_countdownController.duration?.inSeconds ?? 0) *
                   _countdownController.value)
           .round();
 
-      if (currentTime >= 30) {
+      if (currentTime >= gameDuration) {
         List<String> win = [];
         win.add("Congrats!");
         _endGame(win);
@@ -228,6 +227,11 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
         _checkPlayerHealth(currentTime);
       }
 
+      // 递归，只要游戏不暂停就一直运行。
+      // 其中的Duration控制着_tick()方法被调用的频率，也就是每30毫秒1次
+      // 所以每秒调用_tick()方法的次数为： 1000毫秒每秒 / (30毫秒每次) = 33.33次/秒
+      // 更通俗的理解，这里的33.33次/秒 就是“帧率”。
+      // 但要注意，该游戏中这里的30并不是通俗意义上的 帧率，而是 游戏速度
       Future<void>.delayed(Duration(milliseconds: 30), _tick);
     }
   }
@@ -250,24 +254,31 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
   void _endGame(List<String> diseases) {
     _pauseGame(); // Pause the game
     String message = diseases.join(", ");
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text("Game Over"),
-          content: Text("You died due to: $message"),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () async {
-                await _saveHighScore(_score);
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              },
-              child: Text("OK"),
-            ),
-          ],
+
+    // 确保showDialog()能获得它所将要使用的信息：
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        // 确保被initState() mount上
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text("Game Over"),
+              content: Text("You died due to: $message"),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () async {
+                    await _saveHighScore(_score);
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                  },
+                  child: Text("OK"),
+                ),
+              ],
+            );
+          },
         );
-      },
-    );
+      }
+    });
   }
 
   Future<void> _saveHighScore(int score) async {
@@ -297,8 +308,8 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
 
     widgetsOnStack.add(_getBackground());
     widgetsOnStack.add(_getSlice());
-    widgetsOnStack.addAll(_getFruitParts());
-    widgetsOnStack.addAll(_getFruits());
+    widgetsOnStack.addAll(_getFruitParts()); // 将所有食物切片添加到Widget上显示
+    widgetsOnStack.addAll(_getFruits()); // 将所有食物添加到Widget上显示
     widgetsOnStack.add(_getGestureDetector());
 
     const IconData not_started = IconData(0xe448, fontFamily: 'MaterialIcons');
@@ -435,13 +446,11 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
 
   List<Widget> _getFruitParts() {
     List<Widget> list = <Widget>[];
-
     for (FruitPart fruitPart in _fruitParts) {
       list.add(
         Positioned(
           top: fruitPart.position.dy,
           left: fruitPart.position.dx,
-          // child: _getWatermelonCut(fruitPart),
           child: _getCutFruit(fruitPart),
         ),
       );
@@ -452,154 +461,10 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
 
   Widget _getCutFruit(FruitPart fruitPart) {
     String assetName;
-    switch (fruitPart.fruitName) {
-      // Assuming fruitType is a property of FruitPart
-      case 'apple':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/apple_cut_left.png'
-            : 'assets/images/apple_cut_right.png';
-        break;
-      case 'banana':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/banana_cut_left.png'
-            : 'assets/images/banana_cut_right.png';
-        break;
-      case 'avocado':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/avocado_cut_left.png'
-            : 'assets/images/avocado_cut_right.png';
-        break;
-      case 'broccoli':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/broccoli_cut_left.png'
-            : 'assets/images/broccoli_cut_right.png';
-        break;
-      case 'pink salmon':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/pink_salmon_cut_left.png'
-            : 'assets/images/pink_salmon_cut_right.png';
-        break;
-      case 'chicken':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/chicken_cut_left.png'
-            : 'assets/images/chicken_cut_right.png';
-        break;
-      case 'beef':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/beef_cut_left.png'
-            : 'assets/images/beef_cut_right.png';
-        break;
-      case 'arugula':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/arugula_cut_left.png'
-            : 'assets/images/arugula_cut_right.png';
-        break;
-      case 'bread':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/bread_cut_left.png'
-            : 'assets/images/bread_cut_right.png';
-        break;
-      case 'egg':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/egg_cut_left.png'
-            : 'assets/images/egg_cut_right.png';
-        break;
-      case 'corn':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/corn_cut_left.png'
-            : 'assets/images/corn_cut_right.png';
-        break;
-      case 'beer':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/beer_cut_left.png'
-            : 'assets/images/beer_cut_right.png';
-        break;
-      case 'vodka':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/vodka_cut_left.png'
-            : 'assets/images/vodka_cut_right.png';
-        break;
-      case 'coffee':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/coffee_cut_left.png'
-            : 'assets/images/coffee_cut_right.png';
-        break;
-      case 'noodles':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/noodles_cut_left.png'
-            : 'assets/images/noodles_cut_right.png';
-        break;
-      case 'rice':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/rice_cut_left.png'
-            : 'assets/images/rice_cut_right.png';
-        break;
-      case 'milk':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/milk_cut_left.png'
-            : 'assets/images/milk_cut_right.png';
-        break;
-      case 'yogurt':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/yogurt_cut_left.png'
-            : 'assets/images/yogurt_cut_right.png';
-        break;
-      case 'tofu':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/tofu_cut_left.png'
-            : 'assets/images/tofu_cut_right.png';
-        break;
-      case 'muffin':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/muffin_cut_left.png'
-            : 'assets/images/muffin_cut_right.png';
-        break;
-      case 'corn oil':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/corn_oil_cut_left.png'
-            : 'assets/images/corn_oil_cut_right.png';
-        break;
-      case 'mango':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/mango_cut_left.png'
-            : 'assets/images/mango_cut_right.png';
-        break;
-      case 'cilantro':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/cilantro_cut_left.png'
-            : 'assets/images/cilantro_cut_right.png';
-        break;
-      case 'sugar':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/sugar_cut_left.png'
-            : 'assets/images/sugar_cut_right.png';
-        break;
-      case 'soy milk':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/soy_milk_cut_left.png'
-            : 'assets/images/soy_milk_cut_right.png';
-        break;
-      case 'carrot':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/carrot_cut_left.png'
-            : 'assets/images/carrot_cut_right.png';
-        break;
-      case 'pumpkin':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/pumpkin_cut_left.png'
-            : 'assets/images/pumpkin_cut_right.png';
-        break;
-      case 'potato':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/potato_cut_left.png'
-            : 'assets/images/potato_cut_right.png';
-        break;
-      default: // 'melon'
-        assetName = fruitPart.isLeft
-            ? 'assets/images/watermelon_cut_left.png'
-            : 'assets/images/watermelon_cut_right.png';
-        break;
-    }
+    String fruitName = fruitPart.fruitName.replaceAll(RegExp(' '), '_');
+    fruitPart.isLeft
+        ? assetName = 'assets/images/' + fruitName + '_cut_left.png'
+        : assetName = 'assets/images/' + fruitName + '_cut_right.png';
 
     return Transform.rotate(
         angle: fruitPart.rotation * pi * 2,
@@ -649,7 +514,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
           secondPointInside = true;
           continue;
         }
-
+        // 如果切到了食物
         if (secondPointInside && !fruit.isPointInside(point)) {
           _fruits.remove(fruit);
           _turnFruitIntoParts(fruit);
@@ -657,10 +522,6 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
 
           // update player's nutrition
           _updatePlayerNutrition(fruit.name);
-
-          // play cut food audio:
-          FlameAudio.bgm.initialize();
-          FlameAudio.bgm.play('lemonjuicysqueezefruit-77998.mp3');
 
           break;
         }
@@ -736,7 +597,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
 
   void _updatePlayerNutrition(String fruitName) async {
     final nutrition = await DBInitializer().queryFoodNutritionByName(fruitName);
-    if (nutrition != null) {
+    if (nutrition != null && nutrition.isNotEmpty) {
       player.water += nutrition[0]['WATER'] ?? 0;
       player.energy += nutrition[0]['ENERGY'] ?? 0;
       player.protein += nutrition[0]['PROTEIN'] ?? 0;
@@ -915,4 +776,21 @@ class _CanvasAreaState extends State<CanvasAreaLevel_02>
 
     return diseases;
   }
+}
+
+// For creating a PriorityQueue
+class FoodItem {
+  String name;
+  int initialCount;
+  int remainingCount;
+
+  FoodItem(this.name, this.initialCount) : remainingCount = initialCount;
+
+  void pop() {
+    if (remainingCount > 0) {
+      remainingCount--;
+    }
+  }
+
+  bool get isDepleted => remainingCount <= 0;
 }
