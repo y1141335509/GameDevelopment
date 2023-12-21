@@ -267,7 +267,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
           fruitPart.applyGravity();
         }
 
-        totalFoodCount = 0;   // 每次tick的时候强制totalFoodCount为0
+        totalFoodCount = 0; // 每次tick的时候强制totalFoodCount为0
         foodSpawnConfig.forEach((key, value) {
           totalFoodCount += value;
         });
@@ -288,6 +288,8 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
               nextPeriodDuration.toString() +
               " | " +
               totalFoodCount.toString());
+
+          print('current health condition: ' + player.water.toString());
           _spawnRandomFood();
         }
       });
@@ -372,17 +374,9 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
   }
 
   void _loadDatabase() async {
-    ////////////////////// TESTING ///////////////////////////
     // 加载数据库：
     Database db = await DBHelperLevel_01.initializeDB(); // 数据库初始化函数
     await DBHelperLevel_01.importCSVToSQLite(db); // 导入CSV数据到SQLite
-
-    // List<Map<dynamic, dynamic>> counts = await DBHelperLevel_01().queryAll();   // works!!
-    // counts.forEach((element) {
-    //   print('debugging...' + element.values.toString());
-    //   print('debugging...' + element.keys.toString());
-    // });
-    ////////////////////// TESTING ///////////////////////////
   }
 
   void _getHighScore() async {
@@ -767,11 +761,11 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
     double upperScalar = 1.1, lowerScalar = 0.75;
 
     // 计算最后的缩放倍数
-    double upScalar =
-        dayPerYear * hundredGramEach * upperScalar * currentTimeEpoch;
-    double loScalar =
-        dayPerYear * hundredGramEach * lowerScalar * currentTimeEpoch;
+    double upScalar = upperScalar / hundredGramEach * currentTimeEpoch;
+    double loScalar = lowerScalar / hundredGramEach * currentTimeEpoch;
 
+    print('current upper: ' + (upper[0]['WATER'] * upScalar).toString());
+    print('current lower: ' + (lower[0]['WATER'] * loScalar).toString());
     if (player.water > upScalar * upper[0]['WATER'])
       diseases.add("Hyponatremia");
     if (player.energy > upper[0]['ENERGY'] * upScalar) diseases.add("Obesity");
@@ -797,7 +791,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
     if (player.zinc > upper[0]['ZINC'] * upScalar)
       diseases.add("Zinc toxicity");
     if (player.copper > upper[0]['COPPER'] * upScalar)
-      diseases.add("Wilson’s disease");
+      diseases.add("Wilson's disease");
     if (player.manganese > upper[0]['MANGANESE'] * upScalar)
       diseases.add("Manganese toxicity");
     if (player.selenium > upper[0]['SELENIUM'] * upScalar)
