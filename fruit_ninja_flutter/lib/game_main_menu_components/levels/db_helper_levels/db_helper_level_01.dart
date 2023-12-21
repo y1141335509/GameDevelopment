@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:csv/csv.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as path;
@@ -41,23 +40,20 @@ class DBHelperLevel_01 {
         onCreate: (database, version) async {
       await database.execute(
         """
-        CREATE TABLE LEVEL_01
-        ('FOOD_ID' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        '15' VARCHAR(30) NOT NULL,
-        '20' VARCHAR(30) NOT NULL,
-        '25' VARCHAR(30) NOT NULL,
-        '30' VARCHAR(30) NOT NULL
-        )""",
+        CREATE TABLE LEVEL_01 (
+          'FOOD_ID' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+          'FOOD_NAME' VARCHAR(100) NOT NULL,
+          'YEAR_15' INTEGER NOT NULL,
+          'YEAR_20' INTEGER NOT NULL,
+          'YEAR_25' INTEGER NOT NULL,
+          'YEAR_30' INTEGER NOT NULL)
+        """,
       );
-      // 导入 CSV 数据
-      await importCSVToSQLite(database);
     }, version: 1);
     return db;
   }
 
   static Future<void> importCSVToSQLite(Database db) async {
-    final data = await rootBundle
-        .loadString('assets/data/' + TABLE_NAME + '.csv'); // 检查数据表是否已经含有数据
     List<Map> list = await db.rawQuery(
       'SELECT * FROM LEVEL_01',
     );
@@ -65,33 +61,39 @@ class DBHelperLevel_01 {
       // 如果已经含有数据，则清空数据表
       await db.delete(TABLE_NAME);
       // 重置自增 ID：
-      await db.rawDelete("DELETE FROM sqlite_sequence WHERE name=LEVEL_01", []);
+      await db
+          .rawDelete("DELETE FROM sqlite_sequence WHERE name=?", [TABLE_NAME]);
     }
 
+    final data = await rootBundle
+        .loadString('assets/data/' + TABLE_NAME + '.csv'); // 检查数据表是否已经含有数据
     // 读取csv，以\t为行分界：
-    List<String> lines = data.split('\n');
-    print('Number of lines: ${lines.length}');
+    List<String> lines = data.trim().split('\n'); // trim是为了删掉最后的空行
+    // print('Number of lines: ${lines.length}');
     for (int i = 1; i < lines.length; i++) {
       // 跳过header
       var row = lines[i].split(',');
+      // 很有用的debug   print('row --> ' + row.toString());
       Map<String, dynamic> rowMap = {
-        '`15`': row[0], // 使用反引号包裹数字列名
-        '`20`': row[1],
-        '`25`': row[2],
-        '`30`': row[3]
+        // FOOD_ID 会被自动添加
+        'FOOD_NAME': row[0],
+        'YEAR_15': row[1], // 使用反引号包裹数字列名
+        'YEAR_20': row[2],
+        'YEAR_25': row[3],
+        'YEAR_30': row[4]
       };
       await db.insert(TABLE_NAME, rowMap);
     }
   }
 
-  // Future<List<String>> queryAllFoodNames() async {
-  //   String dbPath = await getDatabasesPath();
-  //   final db = await openDatabase(path.join(dbPath, TABLE_NAME + '.db'));
+  // Future<List<String>> queryFoodNamesByYear(String col) async {
+  //   Database db = await database;
+  //   List<Map> results = await db.query(TABLE_NAME,
+  //       columns: [col], where: '$col > ?', whereArgs: [0] // 只获取数量大于0的食物
+  //       );
 
-  //   final List<Map<String, dynamic>> maps =
-  //       await db.query(TABLE_NAME, columns: ['NAME']);
-  //   return List.generate(maps.length, (i) {
-  //     return maps[i]['NAME'];
+  //   return List.generate(results.length, (i) {
+  //     return results[i]['FOOD_NAME'].toString();
   //   });
   // }
 
@@ -106,17 +108,31 @@ class DBHelperLevel_01 {
     return maps;
   }
 
-  // Future<List<Map>> queryFoodNutritionByName(String name) async {
-  //   String dbPath = await getDatabasesPath();
-  //   final db = await openDatabase(path.join(dbPath, TABLE_NAME + '.db'));
-  //   final List<Map<String, dynamic>> maps = await db.rawQuery("""
-  //       SELECT * FROM food_nutrition
-  //       WHERE NAME = ?
-  //     """, [name]);
-  //   return maps;
-  // }
+  Future<List<Map<String, dynamic>>> queryFoodCountAtYear(String col) async {
+    // 该函数返回的是LEVEL_01.csv中的FOOD_NAME + YEAR_？两列
+    // 用于告诉程序 在给定的游戏时段内 总共应该生成多少种食物
 
-  ///                                      ///
-  ///                                      ///
-  ////////////////////////////////////////////
+    // 验证列名是否有效
+    if (!['YEAR_15', 'YEAR_20', 'YEAR_25', 'YEAR_30'].contains(col)) {
+      throw ArgumentError('Invalid column name');
+    }
+
+    String dbPath = await getDatabasesPath();
+    final db = await openDatabase(path.join(dbPath, TABLE_NAME + '.db'));
+
+    // 直接将列名插入到 SQL 语句中
+    final List<Map<String, dynamic>> maps = await db.rawQuery("""
+      SELECT FOOD_NAME, $col FROM LEVEL_01
+    """);
+    return maps;
+    //////////////////  返回的数据格式：//////////////////////
+    // [                                                 //
+    //   {'FOOD_NAME': 'watermelon', 'YEAR_20': '5'},    //
+    //   {'FOOD_NAME': 'apple', 'YEAR_20': '3'},         //
+    //   {'FOOD_NAME': 'banana', 'YEAR_20': '2'}         //
+    // ]                                                 //
+    //////////////////  返回的数据格式：//////////////////////
+  }
+
+
 }

@@ -18,7 +18,18 @@ import './db_helper_levels/db_helper_level_01.dart';
 
 Future<List<String>> names = DBInitializer().queryAllFoodNames();
 
+// 关卡参数设置:
 final int gameDuration = 30; // 游戏时长
+final int interval = 5; // 每多少秒检查一次健康状况
+final int startYear = 15; // 从游戏开始的第几秒 开始第一次检查健康状况（包含当前秒）
+// 需要检查健康状况的时间节点（第一个0除外）
+final List checkpoints = [
+  0,
+  startYear,
+  startYear + 5,
+  startYear + 10,
+  startYear + 15
+];
 
 late Player player; // Instance to hold player's state
 
@@ -52,7 +63,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
     'banana': 1,
     'avocado': 0,
     'broccoli': 2,
-    'pink_salmon': 0,
+    'pink salmon': 0,
     'chicken': 1,
     'beef': 2,
     'arugula': 2,
@@ -68,18 +79,19 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
     'yogurt': 0,
     'tofu': 2,
     'muffin': 3,
-    'corn_oil': 4,
+    'corn oil': 4,
     'mango': 0,
     'cilantro': 0,
     'sugar': 0,
-    'soy_milk': 0,
+    'soy milk': 0,
     'carrot': 16,
     'pumpkin': 0,
     'potato': 0,
   };
 
-  final int totalFoodCount = 47; // 计算所有食物一共有多少个
-  int remainingFoodCount = 47; // 还剩下多少食物需要生成
+  int totalFoodCount = 0; // 计算所有食物一共有多少个
+  int remainingFoodCount = 0; // 还剩下多少食物需要生成
+  int nextPeriodDuration = startYear; // 当前健康检查点距离下一个检查点有多少秒
 
   @override
   void initState() {
@@ -87,6 +99,9 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
 
     // 加载当前玩家的历史最高分：
     _getHighScore();
+
+    // 加载数据库
+    _loadDatabase();
 
     // Initialize the countdown controller
     _countdownController = AnimationController(
@@ -99,7 +114,12 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
     // Add status listener
     _countdownController.addStatusListener((status) async {
       if (status == AnimationStatus.dismissed) {
-        final diseases = await _getNutrientRelatedDiseases();
+        int elapsedTime = (gameDuration -
+                (_countdownController.duration?.inSeconds ?? 0) *
+                    _countdownController.value)
+            .round(); // 游戏开始了多长时间
+
+        final diseases = await _getNutrientRelatedDiseases(elapsedTime);
         _endGame(diseases);
       }
     });
@@ -133,12 +153,47 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
 
 ////////////////////////////////////
 
-
-  void _spawnRandomFood() {
+  void _spawnRandomFood() async {
     int elapsedTime = (gameDuration -
             (_countdownController.duration?.inSeconds ?? 0) *
                 _countdownController.value)
         .round(); // 游戏开始了多长时间
+
+    if (checkpoints.contains(elapsedTime)) {
+      // 从checkpoints弹出当前的检查点 （为了防止一秒内重复检查）
+      checkpoints.removeWhere((element) => element == elapsedTime);
+      // print('entered... ' + elapsedTime.toString());  // 确保每个检查点只检查一次
+
+      // 更新 foodSpawnConfig
+      List<Map<dynamic, dynamic>> atYearFoodCounts = [];
+      String yearColName = 'YEAR_';
+      if (elapsedTime == 0) {
+        yearColName += '15';
+        nextPeriodDuration = 15;
+      } else if (elapsedTime == startYear) {
+        yearColName += '20';
+        nextPeriodDuration = 5;
+      } else if (elapsedTime <= startYear + 5) {
+        yearColName += '25';
+        nextPeriodDuration = 5;
+      } else if (elapsedTime <= startYear + 10) {
+        yearColName += '30';
+        nextPeriodDuration = 5;
+      }
+      // 从数据库取数据：
+      atYearFoodCounts =
+          await DBHelperLevel_01().queryFoodCountAtYear(yearColName);
+      // 然后需要根据查询到的食物量 来更新foodSpawnConfig（确保两个检查点之间只更新一次）
+      for (int i = 0; i < atYearFoodCounts.length; i++) {
+        String foodName = atYearFoodCounts[i]['FOOD_NAME'];
+        int foodCount = atYearFoodCounts[i][yearColName];
+        remainingFoodCount = totalFoodCount;
+        foodSpawnConfig.update(
+            foodName, // key
+            ((value) => foodCount) // 更新value
+            );
+      }
+    }
 
     // 如果还有剩余游戏时长
     if (elapsedTime <= gameDuration) {
@@ -152,7 +207,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
         String randomFoodName = foodNames[random.nextInt(foodNames.length)];
         while (foodSpawnConfig[randomFoodName] == 0) {
           // 弹出已经是 0 的 食物，节省时间
-          foodSpawnConfig.removeWhere((key, value) => value == 0);
+          // foodSpawnConfig.removeWhere((key, value) => value == 0);
           randomFoodName = foodNames[random.nextInt(foodNames.length)];
         }
 
@@ -212,10 +267,27 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
           fruitPart.applyGravity();
         }
 
+        totalFoodCount = 0;   // 每次tick的时候强制totalFoodCount为0
+        foodSpawnConfig.forEach((key, value) {
+          totalFoodCount += value;
+        });
+        double spawnFrequency =
+            totalFoodCount / nextPeriodDuration; // 生成食物的频率（次/秒）
+        double notSpawnChance =
+            1 - spawnFrequency / (1000 / 30); // 每30毫秒,不生成食物的概率
         // 0.97意味着，每次调用_tick()方法时，调用_spawnRandomFood()的概率是 1 - 0.97
-        if (Random().nextDouble() > 0.94) {
+        // 0.97就是 if语句里 >号 右边的值
+        if (Random().nextDouble() > notSpawnChance) {
           // 假设_spawnRandomFood()每秒生成一个食物，那么生成食物的频率就是：
           // (1 - 0.97) * (1000 / 30) ~= 1.00次/秒
+          print('yyy -> ' +
+              spawnFrequency.toString() +
+              ' " ' +
+              notSpawnChance.toString() +
+              " | " +
+              nextPeriodDuration.toString() +
+              " | " +
+              totalFoodCount.toString());
           _spawnRandomFood();
         }
       });
@@ -225,11 +297,12 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
                   _countdownController.value)
           .round();
 
+      // 这里的 if-else 语句是用来确定什么时候检查玩家健康状态：
       if (currentTime >= gameDuration) {
         List<String> win = [];
         win.add("Congrats!");
         _endGame(win);
-      } else if (currentTime % 2 == 0 && currentTime > 0) {
+      } else if (currentTime % 5 == 0 && currentTime >= 15) {
         _checkPlayerHealth(currentTime);
       }
 
@@ -298,20 +371,21 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
     }
   }
 
-  void _getHighScore() async {
+  void _loadDatabase() async {
     ////////////////////// TESTING ///////////////////////////
     // 加载数据库：
     Database db = await DBHelperLevel_01.initializeDB(); // 数据库初始化函数
     await DBHelperLevel_01.importCSVToSQLite(db); // 导入CSV数据到SQLite
 
-    List<Map<dynamic, dynamic>> counts = await DBHelperLevel_01().queryAll();
-    counts.forEach((element) {
-      print('debugging...' + element.values.toString());
-      print('debugging...' + element.keys.toString());
-    });
+    // List<Map<dynamic, dynamic>> counts = await DBHelperLevel_01().queryAll();   // works!!
+    // counts.forEach((element) {
+    //   print('debugging...' + element.values.toString());
+    //   print('debugging...' + element.keys.toString());
+    // });
     ////////////////////// TESTING ///////////////////////////
+  }
 
-
+  void _getHighScore() async {
     // 获取该用户的历史最高分
     final prefs = await SharedPreferences.getInstance();
     String highScoreKey = 'highScore_level_${widget.level}'; // 每个关卡的唯一键
@@ -673,153 +747,118 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
   }
 
   void _checkPlayerHealth(int currentTimeEpoch) async {
-    final diseases = await _getNutrientRelatedDiseases();
+    final diseases = await _getNutrientRelatedDiseases(currentTimeEpoch);
     if (diseases.isNotEmpty) {
       _endGame(diseases);
     }
   }
 
   // This method returns a list of diseases based on the player's nutrient levels.
-  Future<List<String>> _getNutrientRelatedDiseases() async {
+  Future<List<String>> _getNutrientRelatedDiseases(int currentTimeEpoch) async {
+    // int currentTimeEpoch -> 是当前游戏进行了多少秒；进行了几秒就是过了几年。用作缩放
+
+    // diseases -> 用来存放“死亡”信息，也就是不健康时候的所有“疾病”名。
     List<String> diseases = [];
     final upper = await DBInitializer().queryFoodNutritionByName('upper');
     final lower = await DBInitializer().queryFoodNutritionByName('lower');
+
+    // 定义每年天数dayPerYear（通常是不需要变的）；和每100g食物的缩放倍数（常用 6倍）
     int dayPerYear = 365, hundredGramEach = 6;
     double upperScalar = 1.1, lowerScalar = 0.75;
-    if (player.water >
-        upper[0]['WATER'] * dayPerYear * hundredGramEach * upperScalar)
+
+    // 计算最后的缩放倍数
+    double upScalar =
+        dayPerYear * hundredGramEach * upperScalar * currentTimeEpoch;
+    double loScalar =
+        dayPerYear * hundredGramEach * lowerScalar * currentTimeEpoch;
+
+    if (player.water > upScalar * upper[0]['WATER'])
       diseases.add("Hyponatremia");
-    if (player.energy >
-        upper[0]['ENERGY'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("Obesity");
-    if (player.protein >
-        upper[0]['PROTEIN'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.energy > upper[0]['ENERGY'] * upScalar) diseases.add("Obesity");
+    if (player.protein > upper[0]['PROTEIN'] * upScalar)
       diseases.add("Aminoaciduria");
-    if (player.fat >
-        upper[0]['FAT'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("Heart diseases");
-    if (player.carb >
-        upper[0]['CARB'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("Diabetes");
-    if (player.fiber >
-        upper[0]['FIBER'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.fat > upper[0]['FAT'] * upScalar) diseases.add("Heart diseases");
+    if (player.carb > upper[0]['CARB'] * upScalar) diseases.add("Diabetes");
+    if (player.fiber > upper[0]['FIBER'] * upScalar)
       diseases.add("Bowel obstruction");
-    if (player.sugar >
-        upper[0]['SUGAR'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("Diabetes");
-    if (player.calcium >
-        upper[0]['CALCIUM'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.sugar > upper[0]['SUGAR'] * upScalar) diseases.add("Diabetes");
+    if (player.calcium > upper[0]['CALCIUM'] * upScalar)
       diseases.add("Hypercalcemia");
-    if (player.iron >
-        upper[0]['IRON'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.iron > upper[0]['IRON'] * upScalar)
       diseases.add("Hemochromatosis");
-    if (player.magnesium >
-        upper[0]['MAGNESIUM'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.magnesium > upper[0]['MAGNESIUM'] * upScalar)
       diseases.add("Hypermagnesemia");
-    if (player.phosphorus >
-        upper[0]['PHOSPHORUS'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.phosphorus > upper[0]['PHOSPHORUS'] * upScalar)
       diseases.add("Hyperphosphatemia");
-    if (player.potassium >
-        upper[0]['POTASSIUM'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.potassium > upper[0]['POTASSIUM'] * upScalar)
       diseases.add("Hyperkalemia");
-    if (player.sodium >
-        upper[0]['SODIUM'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.sodium > upper[0]['SODIUM'] * upScalar)
       diseases.add("Hypernatremia");
-    if (player.zinc >
-        upper[0]['ZINC'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.zinc > upper[0]['ZINC'] * upScalar)
       diseases.add("Zinc toxicity");
-    if (player.copper >
-        upper[0]['COPPER'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.copper > upper[0]['COPPER'] * upScalar)
       diseases.add("Wilson’s disease");
-    if (player.manganese >
-        upper[0]['MANGANESE'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.manganese > upper[0]['MANGANESE'] * upScalar)
       diseases.add("Manganese toxicity");
-    if (player.selenium >
-        upper[0]['SELENIUM'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.selenium > upper[0]['SELENIUM'] * upScalar)
       diseases.add("Selenosis");
-    if (player.vc > upper[0]['VC'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("Diarrhea");
-    if (player.vb > upper[0]['VB'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("");
-    if (player.va > upper[0]['VA'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.vc > upper[0]['VC'] * upScalar) diseases.add("Diarrhea");
+    if (player.vb > upper[0]['VB'] * upScalar) diseases.add("");
+    if (player.va > upper[0]['VA'] * upScalar)
       diseases.add("Hypervitaminosis A");
-    if (player.vd > upper[0]['VD'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.vd > upper[0]['VD'] * upScalar)
       diseases.add("Hypervitaminosis D");
-    if (player.vk > upper[0]['VK'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("Vitamin K excess");
-    if (player.caffeine >
-        upper[0]['CAFFEINE'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.vk > upper[0]['VK'] * upScalar) diseases.add("Vitamin K excess");
+    if (player.caffeine > upper[0]['CAFFEINE'] * upScalar)
       diseases.add("Anxiety & insomnia");
-    if (player.alcohol >
-        upper[0]['ALCOHOL'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.alcohol > upper[0]['ALCOHOL'] * upScalar)
       diseases.add("Alcohol disorder");
-    if (player.water >
-        lower[0]['WATER'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.water < lower[0]['WATER'] * loScalar)
       diseases.add("Dehydration");
-    if (player.energy >
-        lower[0]['ENERGY'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.energy < lower[0]['ENERGY'] * loScalar)
       diseases.add("Energy deficiency");
-    if (player.protein >
-        lower[0]['PROTEIN'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.protein < lower[0]['PROTEIN'] * loScalar)
       diseases.add("Kwashiorkor");
-    if (player.fat >
-        lower[0]['FAT'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.fat < lower[0]['FAT'] * loScalar)
       diseases.add("Essential fatty acids deficiency");
-    if (player.carb >
-        lower[0]['CARB'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.carb < lower[0]['CARB'] * loScalar)
       diseases.add("Energy deficiencyd");
-    if (player.fiber >
-        lower[0]['FIBER'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.fiber < lower[0]['FIBER'] * loScalar)
       diseases.add("Constipation, digestive issues");
-    if (player.sugar >
-        lower[0]['SUGAR'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.sugar < lower[0]['SUGAR'] * loScalar)
       diseases.add("Lack of sugar");
-    if (player.calcium >
-        lower[0]['CALCIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.calcium < lower[0]['CALCIUM'] * loScalar)
       diseases.add("Osteoporosis");
-    if (player.iron >
-        lower[0]['IRON'] * dayPerYear * hundredGramEach * lowerScalar)
-      diseases.add("Anemia");
-    if (player.magnesium >
-        lower[0]['MAGNESIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.iron < lower[0]['IRON'] * loScalar) diseases.add("Anemia");
+    if (player.magnesium < lower[0]['MAGNESIUM'] * loScalar)
       diseases.add("Muscle cramps");
-    if (player.phosphorus >
-        lower[0]['PHOSPHORUS'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.phosphorus < lower[0]['PHOSPHORUS'] * loScalar)
       diseases.add("Weak bones");
-    if (player.potassium >
-        lower[0]['POTASSIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.potassium < lower[0]['POTASSIUM'] * loScalar)
       diseases.add("Hypokalemia");
-    if (player.sodium >
-        lower[0]['SODIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.sodium < lower[0]['SODIUM'] * loScalar)
       diseases.add("Hyponatremia");
-    if (player.zinc >
-        lower[0]['ZINC'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.zinc < lower[0]['ZINC'] * loScalar)
       diseases.add("Growth retardation");
-    if (player.copper >
-        lower[0]['COPPER'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.copper < lower[0]['COPPER'] * loScalar)
       diseases.add("cardiovascular diseases");
-    if (player.manganese >
-        lower[0]['MANGANESE'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.manganese < lower[0]['MANGANESE'] * loScalar)
       diseases.add("Bone malformation");
-    if (player.selenium >
-        lower[0]['SELENIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.selenium < lower[0]['SELENIUM'] * loScalar)
       diseases.add("Keshan disease");
-    if (player.vc > lower[0]['VC'] * dayPerYear * hundredGramEach * lowerScalar)
-      diseases.add("Scurvy");
-    if (player.vb > lower[0]['VB'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.vc < lower[0]['VC'] * loScalar) diseases.add("Scurvy");
+    if (player.vb < lower[0]['VB'] * loScalar)
       diseases.add("Various deficiency diseases");
-    if (player.va > lower[0]['VA'] * dayPerYear * hundredGramEach * lowerScalar)
-      diseases.add("Night blindness");
-    if (player.vd > lower[0]['VD'] * dayPerYear * hundredGramEach * lowerScalar)
-      diseases.add("Rickets");
-    if (player.vk > lower[0]['VK'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.va < lower[0]['VA'] * loScalar) diseases.add("Night blindness");
+    if (player.vd < lower[0]['VD'] * loScalar) diseases.add("Rickets");
+    if (player.vk < lower[0]['VK'] * loScalar)
       diseases.add("Bleeding disorders");
-    if (player.caffeine >
-        lower[0]['CAFFEINE'] * dayPerYear * hundredGramEach * lowerScalar)
-      diseases.add("Sleep disorders");
-    if (player.alcohol >
-        lower[0]['ALCOHOL'] * dayPerYear * hundredGramEach * lowerScalar)
-      diseases.add("Alcohol withdrawal syndrome");
+    // if (player.caffeine <
+    //     lower[0]['CAFFEINE'] * loScalar)
+    //   diseases.add("Sleep disorders");
+    // if (player.alcohol <
+    //     lower[0]['ALCOHOL'] * loScalar)
+    //   diseases.add("Alcohol withdrawal syndrome");
 
     return diseases;
   }
