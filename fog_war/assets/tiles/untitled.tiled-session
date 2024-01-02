@@ -1,0 +1,96 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "level-01.tmx",
+    "expandedProjectPaths": [
+        ".",
+        "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/images"
+    ],
+    "fileStates": {
+        "Bridge_All.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "GoldMine_Active.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "House_Blue.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Shadows.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Terrain (16x16).tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilemap_Elevation.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilemap_Flat.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tree.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Water.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "level-01.tmx": {
+            "scale": 1.3775,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 320.508166969147,
+                "y": 184.39201451905626
+            }
+        },
+        "world-map.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 487.3333333333333,
+                "y": 664
+            }
+        }
+    },
+    "last.externalTilesetPath": "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/tiles",
+    "last.imagePath": "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fog_war/assets/images/FreeAssets/Terrain",
+    "map.height": 23,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 40,
+    "openFiles": [
+        "world-map.tmx",
+        "level-01.tmx"
+    ],
+    "project": "untitled.tiled-project",
+    "recentFiles": [
+        "world-map.tmx",
+        "level-01.tmx",
+        "Terrain (16x16).tsx",
+        "House_Blue.tsx",
+        "Tree.tsx",
+        "GoldMine_Active.tsx",
+        "Bridge_All.tsx",
+        "Tilemap_Flat.tsx",
+        "Tilemap_Elevation.tsx",
+        "Shadows.tsx",
+        "Water.tsx"
+    ],
+    "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 23,
+        "width": 40
+    }
+}
