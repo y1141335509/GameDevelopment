@@ -63,8 +63,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/Terrain_16by16.png
-    - assets/tiles01/level_01.tmx
-    - assets/tiles01/FreeAssets/Terrain/Terrain_16by16.png
+    - assets/tiles/level_01.tmx
+    - assets/tiles/Terrain_16by16.tsx
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
