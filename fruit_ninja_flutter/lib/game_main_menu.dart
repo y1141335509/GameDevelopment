@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
+import 'package:flame/game.dart';
 
-import './game_main_menu_components/select_level.dart';
+
+// import './game_main_menu_components/select_level.dart';
+import './game_main_menu_components/select_level_pixel.dart';
 import './game_main_menu_components/high_score_page.dart';
 
 class GameMenuScreen extends StatelessWidget {
@@ -20,8 +23,15 @@ class GameMenuScreen extends StatelessWidget {
               onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => LevelSelectionScreen())),
-              child: Text("Select Level"),
+                    builder: (context) =>
+                        GameWidget(game: LevelSelectionScreen()),
+                  )
+
+                  // MaterialPageRoute(
+                  //     builder: (context) => LevelSelectionScreen())
+
+                  ),
+              child: Text("Enter Game"),
             ),
             // In your GameMenuScreen class
 
