@@ -60,10 +60,12 @@ flutter:
     - assets/data/food_nutrition.csv
     - assets/data/LEVEL_01.csv
     - assets/audios/
-    - assets/TinySwords/Terrain/Water/Water.png
     - assets/tiles/world_map.tmx
+    - assets/TinySwords/Terrain/Water/Water.png
+    - assets/TinySwords/Terrain/Ground/Tilemap_Flat.png
     - assets/tiles/Water.tsx
-
+    - assets/tiles/Tilemap_Flat.tsx
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

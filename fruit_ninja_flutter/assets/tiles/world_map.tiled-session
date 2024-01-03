@@ -7,11 +7,15 @@
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "Tilemap_Flat.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "Water.tsx": {
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/TinySwords/Terrain/Water",
+    "last.imagePath": "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/TinySwords/Terrain/Ground",
     "map.height": 200,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
@@ -21,6 +25,7 @@
     ],
     "project": "world_map.tiled-project",
     "recentFiles": [
+        "Tilemap_Flat.tsx",
         "Water.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
