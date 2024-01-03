@@ -11,8 +11,6 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/input.dart';
 
-
-
 class LevelSelectionScreen extends FlameGame
     with ScrollDetector, ScaleDetector {
   static const String description = '''
@@ -38,7 +36,7 @@ class LevelSelectionScreen extends FlameGame
   Future<void> onLoad() async {
     await super.onLoad();
 
-    worldMap = await TiledComponent.load('world_map.tmx', Vector2.all(16.0));
+    worldMap = await TiledComponent.load('world_map.tmx', Vector2.all(4.0));
 
     world.add(worldMap..anchor = Anchor.center);
 
@@ -46,15 +44,19 @@ class LevelSelectionScreen extends FlameGame
   }
 
   void clampZoom() {
-    camera.viewfinder.zoom = camera.viewfinder.zoom.clamp(.05, 3.0);
+    // zoom.clamp函数就是用来设置地图能够被缩放的最大上下限的.
+    camera.viewfinder.zoom = camera.viewfinder.zoom.clamp(1, 4.0);
   }
 
-  static const zoomPerScrollUnit = 0.02;
+  // 每次所能够缩放的单位大小
+  static const zoomPerScrollUnit = 0.04;
 
   @override
   void onScroll(PointerScrollInfo info) {
     camera.viewfinder.zoom +=
         info.scrollDelta.global.y.sign * zoomPerScrollUnit;
+
+    // print('info.scrollDelta.global.y: ' + info.scrollDelta.global.y.toString());
     clampZoom();
   }
 
