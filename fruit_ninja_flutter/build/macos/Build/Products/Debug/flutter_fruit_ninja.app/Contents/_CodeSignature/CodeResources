@@ -23,33 +23,19 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-<<<<<<< HEAD
-			ZkGajgqAZzOVsrwvyql4qE+LPxQ=
+			RvJ8Bct3dzBL3RPHYhvZTGoWpoM=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"66419a8e0a80673395b2bc2fcaa978a84f8b3f14"</string>
-=======
-			2QQgX/UJ1RmqxlgSCJHOTIDsZhE=
-			</data>
-			<key>requirement</key>
-			<string>cdhash H"d904205ff509d519aac658120891ce4c80ec6611"</string>
->>>>>>> 31763c87 (looks okay)
+			<string>cdhash H"46f27c05cb7777304bdd13c7621bd94c6a16a683"</string>
 		</dict>
 		<key>Frameworks/FMDB.framework</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-<<<<<<< HEAD
 			odsUOCgan8zSN18r9vmK4l3yi18=
 			</data>
 			<key>requirement</key>
 			<string>cdhash H"a1db1438281a9fccd2375f2bf6f98ae25df28b5f"</string>
-=======
-			cGvRSIw7drkuKtFnRWwZGVnERyc=
-			</data>
-			<key>requirement</key>
-			<string>cdhash H"706bd1488c3b76b92e2ad167456c191959c44727"</string>
->>>>>>> 31763c87 (looks okay)
 		</dict>
 		<key>Frameworks/FlutterMacOS.framework</key>
 		<dict>
@@ -253,33 +239,19 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-<<<<<<< HEAD
 			frLs+byUtIvnn/XgLhRnT4Mlu18=
 			</data>
 			<key>requirement</key>
 			<string>cdhash H"7eb2ecf9bc94b48be79ff5e02e14674f8325bb5f"</string>
-=======
-			5Q9mq+6N2nRGuZvSnvnwT4+LYhk=
-			</data>
-			<key>requirement</key>
-			<string>cdhash H"e50f66abee8dda7446b99bd29ef9f04f8f8b6219"</string>
->>>>>>> 31763c87 (looks okay)
 		</dict>
 		<key>Frameworks/sqflite.framework</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-<<<<<<< HEAD
 			Srp2hgmXfcStP6fFrQnzqkXRlv0=
 			</data>
 			<key>requirement</key>
 			<string>cdhash H"4aba768609977dc4ad3fa7c5ad09f3aa45d196fd"</string>
-=======
-			bzYBDYEwQ3U12UO71aVxqAetDaU=
-			</data>
-			<key>requirement</key>
-			<string>cdhash H"6f36010d8130437535d943bbd5a571a807ad0da5"</string>
->>>>>>> 31763c87 (looks okay)
 		</dict>
 		<key>Resources/AppIcon.icns</key>
 		<dict>
