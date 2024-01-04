@@ -26,6 +26,7 @@
 
 //////////////////////////////////////////////////////////////////
 import 'package:flame/events.dart';
+import 'package:flame/parallax.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:flame/components.dart';
@@ -36,7 +37,21 @@ void main() {
 }
 
 // 定义Player类
-class Player extends SpriteComponent {
+class Player extends SpriteAnimationComponent
+    with HasGameReference<SpaceShooterGame> {
+  Player() : super(size: Vector2(100, 150), anchor: Anchor(-100, -100));
+
+  // override onload() function and define basic pixel image for initial sprite
+  @override
+  Future<void> onLoad() async {
+    await super.onLoad();
+    animation = await game.loadSpriteAnimation(
+        'sprite-basic.png',
+        SpriteAnimationData.sequenced(
+            amount: 4, stepTime: .2, textureSize: Vector2(32, 32)));
+  }
+
+  // movement
   void move(Vector2 delta) {
     position.add(delta);
   }
@@ -54,16 +69,21 @@ class SpaceShooterGame extends FlameGame with PanDetector {
   Future<void> onLoad() async {
     await super.onLoad();
 
-    // 创建player及其形象
-    final playerSprite = await loadSprite('sprite-basic.png');
+    // 创建player攻击动画：
+    final parallax = await loadParallaxComponent(
+      [
+        ParallaxImageData('sprite-attack-1.png'),
+        ParallaxImageData('sprite-attack-2.png'),
+        ParallaxImageData('sprite-attack-3.png'),
+      ],
+      baseVelocity: Vector2(0, -5),
+      repeat: ImageRepeat.repeat,
+      velocityMultiplierDelta: Vector2(0, 5),
+    );
+    add(parallax);  // 添加背景星空，让玩家感觉飞机在前进
 
-    player = Player()
-      ..sprite = playerSprite
-      ..x = size.x / 2
-      ..y = size.y / 2
-      ..width = 50
-      ..height = 100
-      ..anchor = Anchor.center;
+    // 添加基础的player形象
+    player = Player();
     add(player);
   }
 
