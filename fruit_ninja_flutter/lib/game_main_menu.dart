@@ -25,7 +25,7 @@ class GameMenuScreen extends StatelessWidget {
                     builder: (context) => GameWidget(
                         game: LevelSelectionScreen(
                             viewportResolution: Vector2(1280, 720),
-                            mapSize: Vector2(1300, 720),     // 假设的地图大小
+                            mapSize: Vector2(2000, 720),     // 假设的地图大小
                             worldBoundaries: Vector2(1000, 500), // 假设的地图边界
                             )),
                   )

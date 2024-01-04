@@ -84,8 +84,8 @@ class LevelSelectionScreen extends FlameGame
       Vector2 newPos = camera.viewfinder.position - delta;
       newPos.x = newPos.x.clamp(-worldBoundaries.x, worldBoundaries.x);
       newPos.y = newPos.y.clamp(-worldBoundaries.y, worldBoundaries.y);
+      print('摄像机边界： ' + newPos.x.toString() + ' ' + newPos.y.toString());
       camera.viewfinder.position = newPos;
     }
-
   }
 }
