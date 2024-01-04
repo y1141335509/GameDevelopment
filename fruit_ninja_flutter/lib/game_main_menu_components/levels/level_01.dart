@@ -29,7 +29,7 @@ final List checkpoints = [
   startYear + 5,
   startYear + 10,
   startYear + 15
-]; 
+];
 
 late Player player; // Instance to hold player's state
 
