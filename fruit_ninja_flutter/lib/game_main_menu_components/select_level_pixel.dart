@@ -39,15 +39,30 @@ class LevelSelectionScreen extends FlameGame
         );
 
   late final TiledComponent worldMap;
+  late final SpriteComponent fogOfWar;
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
     worldMap = await TiledComponent.load('world_map.tmx', Vector2.all(4.0));
-
     world.add(worldMap..anchor = Anchor.center);
+
+    // 加载战争迷雾
+    fogOfWar = SpriteComponent()
+      ..sprite = await loadSprite('fog_of_war.png')   // TODO -> create a map
+      ..size = mapSize // 设置迷雾层的尺寸与地图相同
+      ..anchor = Anchor.center
+      ..paint = Paint();
+    world.add(fogOfWar);
   }
+
+  // 透露迷雾的方法
+  void revealFog(Vector2 position, double radius) {
+    // 这里可以根据position和radius更新迷雾遮罩或透明度
+    // 具体实现取决于您的游戏逻辑和渲染技术
+  }
+  
 
   void clampZoom() {
     // zoom.clamp函数就是用来设置地图能够被缩放的最大上下限的.
@@ -84,8 +99,8 @@ class LevelSelectionScreen extends FlameGame
       Vector2 newPos = camera.viewfinder.position - delta;
       newPos.x = newPos.x.clamp(-worldBoundaries.x, worldBoundaries.x);
       newPos.y = newPos.y.clamp(-worldBoundaries.y, worldBoundaries.y);
+      print('摄像机边界： ' + newPos.x.toString() + ' ' + newPos.y.toString());
       camera.viewfinder.position = newPos;
     }
-
   }
 }

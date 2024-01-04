@@ -13,6 +13,14 @@
         },
         "Water.tsx": {
             "scaleInEditor": 1
+        },
+        "world_map.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1482,
+                "y": 1602
+            }
         }
     },
     "last.imagePath": "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/TinySwords/Terrain/Ground",
@@ -25,6 +33,7 @@
     ],
     "project": "world_map.tiled-project",
     "recentFiles": [
+        "world_map.tmx",
         "Tilemap_Flat.tsx",
         "Water.tsx"
     ],
