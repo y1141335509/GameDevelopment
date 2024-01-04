@@ -1,5 +1,5 @@
-name: vege_vs_zombie
-description: A basic clone of the popular game Fruit Ninja
+name: food_vs_death
+description: Pixel Food Death
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -35,6 +35,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   flame_audio: ^2.1.5
+  tiled: ^0.10.2
+  flame_tiled: ^1.18.2
 
 dev_dependencies:
   flutter_test:
@@ -56,8 +58,14 @@ flutter:
     - assets/
     - assets/images/
     - assets/data/food_nutrition.csv
+    - assets/data/LEVEL_01.csv
     - assets/audios/
-  #   - images/a_dot_ham.jpeg
+    - assets/tiles/world_map.tmx
+    - assets/TinySwords/Terrain/Water/Water.png
+    - assets/TinySwords/Terrain/Ground/Tilemap_Flat.png
+    - assets/tiles/Water.tsx
+    - assets/tiles/Tilemap_Flat.tsx
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
