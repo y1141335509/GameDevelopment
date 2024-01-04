@@ -40,7 +40,6 @@ class LevelSelectionScreen extends FlameGame
 
     world.add(worldMap..anchor = Anchor.center);
 
-    // add(worldMap);
   }
 
   void clampZoom() {
@@ -56,11 +55,11 @@ class LevelSelectionScreen extends FlameGame
     camera.viewfinder.zoom +=
         info.scrollDelta.global.y.sign * zoomPerScrollUnit;
 
-    // print('info.scrollDelta.global.y: ' + info.scrollDelta.global.y.toString());
     clampZoom();
   }
 
   late double startZoom;
+
 
   @override
   void onScaleStart(_) {
@@ -70,6 +69,7 @@ class LevelSelectionScreen extends FlameGame
   @override
   void onScaleUpdate(ScaleUpdateInfo info) {
     final currentScale = info.scale.global;
+
     if (!currentScale.isIdentity()) {
       camera.viewfinder.zoom = startZoom * currentScale.y;
       clampZoom();
