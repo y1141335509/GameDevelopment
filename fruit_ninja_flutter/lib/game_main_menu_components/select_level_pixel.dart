@@ -21,8 +21,16 @@ class LevelSelectionScreen extends FlameGame
     2. https://github.com/flame-engine/flame/blob/main/examples/lib/stories/camera_and_viewport/camera_and_viewport.dart
   ''';
 
+  // 添加两个新的属性来限制镜头的移动范围：
+  final Vector2 mapSize; // 地图尺寸
+  final Vector2 worldBoundaries; // 地图边界
+
   LevelSelectionScreen({
     required Vector2 viewportResolution,
+
+    // 添加下面两个新的属性来限制镜头的移动范围：
+    required this.mapSize,
+    required this.worldBoundaries,
   }) : super(
           camera: CameraComponent.withFixedResolution(
             width: viewportResolution.x,
@@ -39,7 +47,6 @@ class LevelSelectionScreen extends FlameGame
     worldMap = await TiledComponent.load('world_map.tmx', Vector2.all(4.0));
 
     world.add(worldMap..anchor = Anchor.center);
-
   }
 
   void clampZoom() {
@@ -60,7 +67,6 @@ class LevelSelectionScreen extends FlameGame
 
   late double startZoom;
 
-
   @override
   void onScaleStart(_) {
     startZoom = camera.viewfinder.zoom;
@@ -69,13 +75,17 @@ class LevelSelectionScreen extends FlameGame
   @override
   void onScaleUpdate(ScaleUpdateInfo info) {
     final currentScale = info.scale.global;
-
     if (!currentScale.isIdentity()) {
       camera.viewfinder.zoom = startZoom * currentScale.y;
       clampZoom();
     } else {
       final delta = info.delta.global;
-      camera.viewfinder.position.translate(-delta.x, -delta.y);
+      // 限制摄像机的移动范围
+      Vector2 newPos = camera.viewfinder.position - delta;
+      newPos.x = newPos.x.clamp(-worldBoundaries.x, worldBoundaries.x);
+      newPos.y = newPos.y.clamp(-worldBoundaries.y, worldBoundaries.y);
+      camera.viewfinder.position = newPos;
     }
+
   }
 }

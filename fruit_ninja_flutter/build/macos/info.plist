@@ -3,7 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>LastAccessedDate</key>
+<<<<<<< HEAD
 	<date>2024-01-04T01:30:17Z</date>
+=======
+	<date>2024-01-04T01:51:48Z</date>
+>>>>>>> testDB
 	<key>WorkspacePath</key>
 	<string>/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/macos/Runner.xcworkspace</string>
 </dict>
