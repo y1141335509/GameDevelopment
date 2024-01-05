@@ -23,10 +23,10 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			hJHc9aCbSgtIJ43tvKC1BN1MtdI=
+			kda56kZj+JZu2QzoR/nHhv8V4k0=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"8491dcf5a09b4a0b48278dedbca0b504dd4cb5d2"</string>
+			<string>cdhash H"91d6b9ea4663f8966ed90ce847f9c786ff15e24d"</string>
 		</dict>
 		<key>Frameworks/FMDB.framework</key>
 		<dict>

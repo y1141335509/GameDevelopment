@@ -63,8 +63,10 @@ flutter:
     - assets/tiles/world_map.tmx
     - assets/TinySwords/Terrain/Water/Water.png
     - assets/TinySwords/Terrain/Ground/Tilemap_Flat.png
+    - assets/tiles/
     - assets/tiles/Water.tsx
     - assets/tiles/Tilemap_Flat.tsx
+    - assets/tiles/fog_of_war_1.tsx
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

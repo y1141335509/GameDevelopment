@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'dart:io';
 import 'package:flame/game.dart';
 
-// import './game_main_menu_components/select_level.dart';
+import './game_main_menu_components/select_level.dart';
 import './game_main_menu_components/select_level_pixel.dart';
 import './game_main_menu_components/high_score_page.dart';
 
@@ -23,20 +23,22 @@ class GameMenuScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => GameWidget(
-                        game: LevelSelectionScreen(
+                        game: LevelSelectionScreenCopy(
                             viewportResolution: Vector2(1280, 720),
                             mapSize: Vector2(2000, 720),     // 假设的地图大小
                             worldBoundaries: Vector2(1000, 500), // 假设的地图边界
                             )),
                   )
 
-                  // MaterialPageRoute(
-                  //     builder: (context) => LevelSelectionScreen())
-
                   ),
               child: Text("Enter Game"),
             ),
             // In your GameMenuScreen class
+            ElevatedButton(onPressed: () => Navigator.push(context,
+            MaterialPageRoute(
+                      builder: (context) => LevelSelectionScreen())
+            ),
+            child: Text("Select Level")),
 
             ElevatedButton(
               onPressed: () {

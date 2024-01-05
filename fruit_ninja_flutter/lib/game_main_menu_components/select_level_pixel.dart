@@ -1,7 +1,7 @@
-// import './levels/level_00.dart';
-// import './levels/level_01.dart';
-// import './levels/level_02.dart';
-// import './levels/level_03.dart';
+import './levels/level_00.dart';
+import './levels/level_01.dart';
+import './levels/level_02.dart';
+import './levels/level_03.dart';
 
 import 'package:flame/game.dart';
 import 'package:flame_tiled/flame_tiled.dart';
@@ -11,7 +11,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/input.dart';
 
-class LevelSelectionScreen extends FlameGame
+class LevelSelectionScreenCopy extends FlameGame
     with ScrollDetector, ScaleDetector {
   static const String description = '''
     On web: use scroll to zoom in and out.\n
@@ -25,7 +25,10 @@ class LevelSelectionScreen extends FlameGame
   final Vector2 mapSize; // 地图尺寸
   final Vector2 worldBoundaries; // 地图边界
 
-  LevelSelectionScreen({
+  // 当前游戏阶段：
+  int currentStage = 1;
+
+  LevelSelectionScreenCopy({
     required Vector2 viewportResolution,
 
     // 添加下面两个新的属性来限制镜头的移动范围：
@@ -45,24 +48,47 @@ class LevelSelectionScreen extends FlameGame
   Future<void> onLoad() async {
     await super.onLoad();
 
-    worldMap = await TiledComponent.load('world_map.tmx', Vector2.all(4.0));
-    world.add(worldMap..anchor = Anchor.center);
+    // 加载地图
+    loadStageMap(currentStage);
 
-    // 加载战争迷雾
-    fogOfWar = SpriteComponent()
-      ..sprite = await loadSprite('fog_of_war.png')   // TODO -> create a map
-      ..size = mapSize // 设置迷雾层的尺寸与地图相同
-      ..anchor = Anchor.center
-      ..paint = Paint();
-    world.add(fogOfWar);
+    //////////////// 测试用 ////////////////
+    // 创建并添加按钮
+    var button = ButtonComponent(
+      button: SpriteComponent(
+        sprite: await loadSprite('play_button.png'),
+        size: Vector2(400, 400), // 增大按钮尺寸
+      ),
+      onPressed: () {
+        print('button clicked!!');
+        advanceStage();
+      },
+      anchor: Anchor.bottomLeft,
+    );
+
+    // 将按钮放置在屏幕中央，以便观察
+    // button.position = Vector2(10, 10);
+    // button.anchor = Anchor.center;
+
+    world.add(button);
+    //////////////// 测试用 ////////////////
+
+    // worldMap = await TiledComponent.load('world_map_stage$stage.tmx', Vector2.all(4.0));
+    // world.add(worldMap..anchor = Anchor.center);
   }
 
-  // 透露迷雾的方法
-  void revealFog(Vector2 position, double radius) {
-    // 这里可以根据position和radius更新迷雾遮罩或透明度
-    // 具体实现取决于您的游戏逻辑和渲染技术
+  Future<void> loadStageMap(int stage) async {
+    String mapName = 'world_map_stage$stage.tmx'; // 指定当前阶段的地图文件名
+    TiledComponent stageMap =
+        await TiledComponent.load(mapName, Vector2.all(4));
+    world.add(stageMap..anchor = Anchor.center);
   }
-  
+
+  void advanceStage() {
+    // 当玩家达到新阶段时调用此方法
+    currentStage++;
+    world.children.clear(); // 清除旧地图
+    loadStageMap(currentStage); // 加载新阶段的地图
+  }
 
   void clampZoom() {
     // zoom.clamp函数就是用来设置地图能够被缩放的最大上下限的.
