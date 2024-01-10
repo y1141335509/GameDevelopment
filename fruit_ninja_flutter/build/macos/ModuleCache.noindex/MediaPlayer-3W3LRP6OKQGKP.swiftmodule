@@ -1,7 +1,7 @@
 ---
 path:            '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/prebuilt-modules/14.2/MediaPlayer.swiftmodule/arm64e-apple-macos.swiftmodule'
 dependencies:
-  - mtime:           1699899000000000000
+  - mtime:           1701956205000000000
     path:            '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/prebuilt-modules/14.2/MediaPlayer.swiftmodule/arm64e-apple-macos.swiftmodule'
     size:            21928
   - mtime:           1699769759000000000
@@ -28,7 +28,7 @@ dependencies:
     path:            'System/Library/Frameworks/Combine.framework/Modules/Combine.swiftmodule/arm64e-apple-macos.swiftinterface'
     size:            169353
     sdk_relative:    true
-  - mtime:           1699776391000000000
+  - mtime:           1698525730000000000
     path:            'usr/include/objc/ObjectiveC.apinotes'
     size:            11147
     sdk_relative:    true
@@ -52,7 +52,7 @@ dependencies:
     path:            'System/Library/Frameworks/Security.framework/Headers/Security.apinotes'
     size:            162
     sdk_relative:    true
-  - mtime:           1699776994000000000
+  - mtime:           1699775315000000000
     path:            'System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes'
     size:            81098
     sdk_relative:    true
@@ -80,7 +80,7 @@ dependencies:
     path:            'System/Library/Frameworks/CoreAudioTypes.framework/Headers/CoreAudioTypes.apinotes'
     size:            1519
     sdk_relative:    true
-  - mtime:           1699776881000000000
+  - mtime:           1699777717000000000
     path:            'System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes'
     size:            51513
     sdk_relative:    true
@@ -96,7 +96,7 @@ dependencies:
     path:            'System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes'
     size:            76944
     sdk_relative:    true
-  - mtime:           1699774608000000000
+  - mtime:           1699775971000000000
     path:            'System/Library/Frameworks/CoreMedia.framework/Headers/CoreMedia.apinotes'
     size:            65704
     sdk_relative:    true
@@ -112,15 +112,15 @@ dependencies:
     path:            'System/Library/Frameworks/MediaToolbox.framework/Headers/MediaToolbox.apinotes'
     size:            215
     sdk_relative:    true
-  - mtime:           1699779024000000000
+  - mtime:           1699775956000000000
     path:            'System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes'
     size:            7428
     sdk_relative:    true
-  - mtime:           1699774957000000000
+  - mtime:           1698526901000000000
     path:            'System/Library/Frameworks/AVFAudio.framework/Headers/AVFAudio.apinotes'
     size:            8309
     sdk_relative:    true
-  - mtime:           1699781245000000000
+  - mtime:           1699783628000000000
     path:            'System/Library/Frameworks/AVFoundation.framework/Headers/AVFoundation.apinotes'
     size:            97757
     sdk_relative:    true

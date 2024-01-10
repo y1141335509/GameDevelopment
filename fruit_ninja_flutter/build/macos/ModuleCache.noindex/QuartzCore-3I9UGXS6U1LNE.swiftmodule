@@ -1,7 +1,7 @@
 ---
 path:            '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/prebuilt-modules/14.2/QuartzCore.swiftmodule/arm64e-apple-macos.swiftmodule'
 dependencies:
-  - mtime:           1699898946000000000
+  - mtime:           1701956124000000000
     path:            '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/prebuilt-modules/14.2/QuartzCore.swiftmodule/arm64e-apple-macos.swiftmodule'
     size:            24976
   - mtime:           1699769759000000000
@@ -28,7 +28,7 @@ dependencies:
     path:            'System/Library/Frameworks/Combine.framework/Modules/Combine.swiftmodule/arm64e-apple-macos.swiftinterface'
     size:            169353
     sdk_relative:    true
-  - mtime:           1699776391000000000
+  - mtime:           1698525730000000000
     path:            'usr/include/objc/ObjectiveC.apinotes'
     size:            11147
     sdk_relative:    true
@@ -52,7 +52,7 @@ dependencies:
     path:            'System/Library/Frameworks/Security.framework/Headers/Security.apinotes'
     size:            162
     sdk_relative:    true
-  - mtime:           1699776994000000000
+  - mtime:           1699775315000000000
     path:            'System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes'
     size:            81098
     sdk_relative:    true
@@ -72,7 +72,7 @@ dependencies:
     path:            'System/Library/Frameworks/Foundation.framework/Modules/Foundation.swiftmodule/arm64e-apple-macos.swiftinterface'
     size:            890191
     sdk_relative:    true
-  - mtime:           1699776881000000000
+  - mtime:           1699777717000000000
     path:            'System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes'
     size:            51513
     sdk_relative:    true
@@ -88,7 +88,7 @@ dependencies:
     path:            'System/Library/Frameworks/ApplicationServices.framework/Headers/ApplicationServices.apinotes'
     size:            2012
     sdk_relative:    true
-  - mtime:           1699779024000000000
+  - mtime:           1699775956000000000
     path:            'System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes'
     size:            7428
     sdk_relative:    true

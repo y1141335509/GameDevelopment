@@ -1,7 +1,7 @@
 ---
 path:            '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/prebuilt-modules/14.2/Combine.swiftmodule/arm64e-apple-macos.swiftmodule'
 dependencies:
-  - mtime:           1699898852000000000
+  - mtime:           1701956018000000000
     path:            '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/prebuilt-modules/14.2/Combine.swiftmodule/arm64e-apple-macos.swiftmodule'
     size:            440872
   - mtime:           1699769759000000000

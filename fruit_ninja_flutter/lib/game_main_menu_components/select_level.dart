@@ -4,6 +4,7 @@ import './levels/level_00.dart';
 import './levels/level_01.dart';
 import './levels/level_02.dart';
 import './levels/level_03.dart';
+import './levels/level_04.dart';
 
 class LevelSelectionScreen extends StatelessWidget {
   const LevelSelectionScreen({Key? key})
@@ -16,6 +17,7 @@ class LevelSelectionScreen extends StatelessWidget {
       CanvasAreaLevel_01(level: 1),
       CanvasAreaLevel_02(level: 2),
       CanvasAreaLevel_03(level: 3),
+      CanvasAreaLevel_04(level: 4),
       // Add more levels as needed
     ];
 

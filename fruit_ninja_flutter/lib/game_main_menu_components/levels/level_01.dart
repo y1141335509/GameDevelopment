@@ -22,6 +22,7 @@ Future<List<String>> names = DBInitializer().queryAllFoodNames();
 final int gameDuration = 30; // 游戏时长
 final int interval = 5; // 每多少秒检查一次健康状况
 final int startYear = 15; // 从游戏开始的第几秒 开始第一次检查健康状况（包含当前秒）
+
 // 需要检查健康状况的时间节点（第一个0除外）
 final List checkpoints = [
   0,
@@ -180,6 +181,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_01>
         yearColName += '30';
         nextPeriodDuration = 5;
       }
+
       // 从数据库取数据：
       atYearFoodCounts =
           await DBHelperLevel_01().queryFoodCountAtYear(yearColName);

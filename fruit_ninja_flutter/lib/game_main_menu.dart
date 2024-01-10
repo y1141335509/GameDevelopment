@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flame/game.dart';
 
 import './game_main_menu_components/select_level.dart';
-import './game_main_menu_components/select_level_pixel.dart';
+import 'game_main_menu_components/pixel_map.dart';
 import './game_main_menu_components/high_score_page.dart';
 
 class GameMenuScreen extends StatelessWidget {

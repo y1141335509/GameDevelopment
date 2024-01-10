@@ -1,7 +1,7 @@
 ---
 path:            '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/prebuilt-modules/14.2/_StringProcessing.swiftmodule/arm64e-apple-macos.swiftmodule'
 dependencies:
-  - mtime:           1699898842000000000
+  - mtime:           1701956005000000000
     path:            '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/prebuilt-modules/14.2/_StringProcessing.swiftmodule/arm64e-apple-macos.swiftmodule'
     size:            70504
   - mtime:           1699769759000000000
