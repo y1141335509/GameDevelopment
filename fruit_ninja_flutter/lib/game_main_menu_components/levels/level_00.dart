@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as path;
 import 'package:audioplayers/audioplayers.dart';
-// import 'package:assets_audio_player/assets_audio_player.dart';
 
 import 'models/fruit.dart';
 import 'models/body.dart';
@@ -313,13 +312,14 @@ class _CanvasAreaState extends State<CanvasAreaLevel_00>
 
   void _endGame(List<String> diseases) {
     _pauseGame(); // Pause the game
-    String message = diseases.join(", ");
+    // String message = diseases.join(", ");    // 获得相应的病症
+    String message = "香蕉🍌好吃也不能天天吃呀～";
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text("Game Over"),
-          content: Text("You died due to: $message"),
+          content: Text("You Dead. $message"),
           actions: <Widget>[
             TextButton(
               onPressed: () async {
