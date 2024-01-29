@@ -3,8 +3,9 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "world_map_stage3.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
         "Tilemap_Flat.tsx": {
@@ -12,9 +13,11 @@
             "scaleInEditor": 1
         },
         "Water.tsx": {
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "fog_of_war_1.tsx": {
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "war_of_fog_1.tsx": {
@@ -69,9 +72,11 @@
     "map.tileWidth": 16,
     "map.width": 300,
     "openFiles": [
+        "world_map_stage3.tmx"
     ],
     "project": "world_map.tiled-project",
     "recentFiles": [
+        "world_map_stage3.tmx",
         "world_map_stage4.tmx",
         "world_map_stage2.tmx",
         "world_map.tmx",

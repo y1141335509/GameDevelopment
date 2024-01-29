@@ -21,19 +21,22 @@ Future<List<String>> names = DBInitializer().queryAllFoodNames();
 Map<String, int> foodSpawnCount = {};
 
 late Body player; // Instance to hold player's state
+const int _gameDuration = 30; // 游戏时长
 
 class CanvasAreaLevel_00 extends StatefulWidget {
   final int level;
 
-  const CanvasAreaLevel_00({Key? key, required this.level}) : super(key: key); // Added required for level
+  const CanvasAreaLevel_00({Key? key, required this.level})
+      : super(key: key); // Added required for level
 
   @override
   _CanvasAreaState createState() => _CanvasAreaState();
 }
 
-
-class _CanvasAreaState extends State<CanvasAreaLevel_00> with TickerProviderStateMixin {
+class _CanvasAreaState extends State<CanvasAreaLevel_00>
+    with TickerProviderStateMixin {
   int _score = 0;
+  int _spawnInterval = 15;
   TouchSlice? _touchSlice;
   final List<Fruit> _fruits = <Fruit>[];
   final List<FruitPart> _fruitParts = <FruitPart>[];
@@ -70,7 +73,6 @@ class _CanvasAreaState extends State<CanvasAreaLevel_00> with TickerProviderStat
   int _pumpkinCut = 0;
   int _potatoCut = 0;
 
-
   @override
   void initState() {
     super.initState();
@@ -78,7 +80,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_00> with TickerProviderStat
     // Initialize the countdown controller
     _countdownController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 120),
+      duration: const Duration(seconds: _gameDuration),
     )..addListener(() {
         setState(() {});
       });
@@ -86,8 +88,12 @@ class _CanvasAreaState extends State<CanvasAreaLevel_00> with TickerProviderStat
     // Add status listener
     _countdownController.addStatusListener((status) async {
       if (status == AnimationStatus.dismissed) {
-        // _endGame("Time's up!");
-        final diseases = await _getNutrientRelatedDiseases();
+        int elapsedTime = (_gameDuration -
+                (_countdownController.duration?.inSeconds ?? 0) *
+                    _countdownController.value)
+            .round(); // 游戏开始了多长时间
+
+        final diseases = await _getNutrientRelatedDiseases(elapsedTime);
         _endGame(diseases);
       }
     });
@@ -145,35 +151,35 @@ class _CanvasAreaState extends State<CanvasAreaLevel_00> with TickerProviderStat
 ////////////////////////////////////
 
   Map<String, int> foodSpawnConfig = {
-    'watermelon': 0,
-    'apple': 0,
-    'banana': 30,
-    'avocado': 0,
-    'broccoli': 2,
-    'pink salmon': 2,
-    'chicken': 0,
-    'beef': 5,
-    'arugula': 4,
-    'bread': 2,
-    'egg': 30,
-    'corn': 29,
-    'beer': 1,
-    'vodka': 0,
-    'coffee': 1,
-    'noodles': 0,
-    'rice': 0,
-    'milk': 0,
-    'yogurt': 0,
-    'tofu': 16,
-    'muffin': 0,
-    'corn oil': 18,
-    'mango': 0,
-    'cilantro': 5,
-    'sugar': 0,
-    'soy milk': 0,
-    'carrot': 30,
-    'pumpkin': 8,
-    'potato': 1,
+    // 'watermelon': 0,
+    // 'apple': 0,
+    'banana': 20,
+    // 'avocado': 0,
+    // 'broccoli': 2,
+    // 'pink salmon': 2,
+    // 'chicken': 0,
+    // 'beef': 5,
+    // 'arugula': 4,
+    // 'bread': 2,
+    // 'egg': 30,
+    // 'corn': 29,
+    // 'beer': 1,
+    // 'vodka': 0,
+    // 'coffee': 1,
+    // 'noodles': 0,
+    // 'rice': 0,
+    // 'milk': 0,
+    // 'yogurt': 0,
+    // 'tofu': 16,
+    // 'muffin': 0,
+    // 'corn oil': 18,
+    // 'mango': 0,
+    // 'cilantro': 5,
+    // 'sugar': 0,
+    // 'soy milk': 0,
+    // 'carrot': 30,
+    // 'pumpkin': 8,
+    // 'potato': 1,
   };
 
   late Timer _spawnTimer;
@@ -181,17 +187,17 @@ class _CanvasAreaState extends State<CanvasAreaLevel_00> with TickerProviderStat
   void _spawnRandomFood() {
     String randomFood = _getRandomFoodName();
     _spawnSingleFood(randomFood);
-    int elapsedTime = (120 -
+    int elapsedTime = (_gameDuration -
             (_countdownController.duration?.inSeconds ?? 0) *
                 _countdownController.value)
         .round();
-    int spawnInterval = 20; // Interval for checking spawn configuration
+    // int spawnInterval = 15; // Interval for checking spawn configuration
 
-    if (elapsedTime % spawnInterval == 0 && elapsedTime <= 120) {
+    if (elapsedTime % _spawnInterval == 0 && elapsedTime <= _gameDuration) {
       // Only do this in the first 60 seconds
-      int totalSpawnCountFor20Secs =
-          _calculateTotalSpawnForNext20Secs(elapsedTime);
-      int spawnsPerSecond = totalSpawnCountFor20Secs ~/ 20;
+      int totalSpawnCountFor15Secs =
+          _calculateTotalSpawnForNext15Secs(elapsedTime);
+      int spawnsPerSecond = totalSpawnCountFor15Secs ~/ 15;
 
       _spawnTimer = Timer.periodic(Duration(seconds: 1), (timer) {
         for (int i = 0; i < spawnsPerSecond; i++) {
@@ -199,18 +205,18 @@ class _CanvasAreaState extends State<CanvasAreaLevel_00> with TickerProviderStat
           _spawnSingleFood(randomFood);
         }
 
-        // Stop the timer after 20 seconds
-        if (timer.tick >= 20) {
+        // Stop the timer after 15 seconds
+        if (timer.tick >= _gameDuration) {
           timer.cancel();
         }
       });
     }
   }
 
-  int _calculateTotalSpawnForNext20Secs(int elapsedTime) {
+  int _calculateTotalSpawnForNext15Secs(int elapsedTime) {
     int total = 0;
     foodSpawnConfig.forEach((name, count) {
-      total += (count ~/ 6); // Divide by 3 to get count for 20 seconds
+      total += (count ~/ 4); // Divide by 4 to get count for 15 seconds
     });
     return total;
   }
@@ -272,16 +278,17 @@ class _CanvasAreaState extends State<CanvasAreaLevel_00> with TickerProviderStat
         }
       });
 
-      int currentTime = (120 -
+      int currentTime = (_gameDuration -
               (_countdownController.duration?.inSeconds ?? 0) *
                   _countdownController.value)
           .round();
 
-      if (currentTime >= 120) {
+      if (currentTime >= _gameDuration) {
         List<String> win = [];
         win.add("Congrats!");
         _endGame(win);
-      } else if (currentTime % 20 == 0 && currentTime > 0) {
+      } else if (currentTime % _spawnInterval == 0 && currentTime > 0) {
+        print("cheking your health status here ... --> ");
         _checkPlayerHealth(currentTime);
       }
 
@@ -484,66 +491,14 @@ class _CanvasAreaState extends State<CanvasAreaLevel_00> with TickerProviderStat
   }
 
   Widget _getFruitWidget(Fruit fruit) {
-    switch (fruit.name) {
-      case 'apple':
-        return _getApple(fruit);
-      case 'banana':
-        return _getBanana(fruit);
-      case 'avocado':
-        return _getAvocado(fruit);
-      case 'broccoli':
-        return _getBroccoli(fruit);
-      case 'pink salmon':
-        return _getPinkSalmon(fruit);
-      case 'chicken':
-        return _getChicken(fruit);
-      case 'beef':
-        return _getBeef(fruit);
-      case 'arugula':
-        return _getArugula(fruit);
-      case 'bread':
-        return _getBread(fruit);
-      case 'egg':
-        return _getEgg(fruit);
-      case 'corn':
-        return _getCorn(fruit);
-      case 'beer':
-        return _getBeer(fruit);
-      case 'vodka':
-        return _getVodka(fruit);
-      case 'coffee':
-        return _getCoffee(fruit);
-      case 'noodles':
-        return _getNoodles(fruit);
-      case 'rice':
-        return _getRice(fruit);
-      case 'milk':
-        return _getMilk(fruit);
-      case 'yogurt':
-        return _getYogurt(fruit);
-      case 'tofu':
-        return _getTofu(fruit);
-      case 'muffin':
-        return _getMuffin(fruit);
-      case 'corn oil':
-        return _getCornOil(fruit);
-      case 'mango':
-        return _getMango(fruit);
-      case 'cilantro':
-        return _getCilantro(fruit);
-      case 'sugar':
-        return _getSugar(fruit);
-      case 'soy milk':
-        return _getSoyMilk(fruit);
-      case 'carrot':
-        return _getCarrot(fruit);
-      case 'pumpkin':
-        return _getPumpkin(fruit);
-      case 'potato':
-        return _getPotato(fruit);
-      default: // 'watermelon'
-        return _getWatermelon(fruit);
-    }
+    String imagePath = 'assets/images/' +
+        fruit.name.replaceAll(RegExp(' '), '_') +
+        '_uncut.png';
+    return Image.asset(
+      imagePath,
+      height: 80,
+      fit: BoxFit.fitHeight,
+    );
   }
 
   List<Widget> _getFruitParts() {
@@ -565,154 +520,10 @@ class _CanvasAreaState extends State<CanvasAreaLevel_00> with TickerProviderStat
 
   Widget _getCutFruit(FruitPart fruitPart) {
     String assetName;
-    switch (fruitPart.fruitName) {
-      // Assuming fruitType is a property of FruitPart
-      case 'apple':
-        assetName = fruitPart.isLeft
-            ? 'assets/images//apple_cut_left.png'
-            : 'assets/images//apple_cut_right.png';
-        break;
-      case 'banana':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/banana_cut_left.png'
-            : 'assets/images/banana_cut_right.png';
-        break;
-      case 'avocado':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/avocado_cut_left.png'
-            : 'assets/images/avocado_cut_right.png';
-        break;
-      case 'broccoli':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/broccoli_cut_left.png'
-            : 'assets/images/broccoli_cut_right.png';
-        break;
-      case 'pink salmon':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/pink_salmon_cut_left.png'
-            : 'assets/images/pink_salmon_cut_right.png';
-        break;
-      case 'chicken':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/chicken_cut_left.png'
-            : 'assets/images/chicken_cut_right.png';
-        break;
-      case 'beef':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/beef_cut_left.png'
-            : 'assets/images/beef_cut_right.png';
-        break;
-      case 'arugula':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/arugula_cut_left.png'
-            : 'assets/images/arugula_cut_right.png';
-        break;
-      case 'bread':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/bread_cut_left.png'
-            : 'assets/images/bread_cut_right.png';
-        break;
-      case 'egg':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/egg_cut_left.png'
-            : 'assets/images/egg_cut_right.png';
-        break;
-      case 'corn':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/corn_cut_left.png'
-            : 'assets/images/corn_cut_right.png';
-        break;
-      case 'beer':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/beer_cut_left.png'
-            : 'assets/images/beer_cut_right.png';
-        break;
-      case 'vodka':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/vodka_cut_left.png'
-            : 'assets/images/vodka_cut_right.png';
-        break;
-      case 'coffee':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/coffee_cut_left.png'
-            : 'assets/images/coffee_cut_right.png';
-        break;
-      case 'noodles':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/noodles_cut_left.png'
-            : 'assets/images/noodles_cut_right.png';
-        break;
-      case 'rice':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/rice_cut_left.png'
-            : 'assets/images/rice_cut_right.png';
-        break;
-      case 'milk':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/milk_cut_left.png'
-            : 'assets/images/milk_cut_right.png';
-        break;
-      case 'yogurt':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/yogurt_cut_left.png'
-            : 'assets/images/yogurt_cut_right.png';
-        break;
-      case 'tofu':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/tofu_cut_left.png'
-            : 'assets/images/tofu_cut_right.png';
-        break;
-      case 'muffin':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/muffin_cut_left.png'
-            : 'assets/images/muffin_cut_right.png';
-        break;
-      case 'corn oil':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/corn_oil_cut_left.png'
-            : 'assets/images/corn_oil_cut_right.png';
-        break;
-      case 'mango':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/mango_cut_left.png'
-            : 'assets/images/mango_cut_right.png';
-        break;
-      case 'cilantro':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/cilantro_cut_left.png'
-            : 'assets/images/cilantro_cut_right.png';
-        break;
-      case 'sugar':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/sugar_cut_left.png'
-            : 'assets/images/sugar_cut_right.png';
-        break;
-      case 'soy milk':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/soy_milk_cut_left.png'
-            : 'assets/images/soy_milk_cut_right.png';
-        break;
-      case 'carrot':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/carrot_cut_left.png'
-            : 'assets/images/carrot_cut_right.png';
-        break;
-      case 'pumpkin':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/pumpkin_cut_left.png'
-            : 'assets/images/pumpkin_cut_right.png';
-        break;
-      case 'potato':
-        assetName = fruitPart.isLeft
-            ? 'assets/images/potato_cut_left.png'
-            : 'assets/images/potato_cut_right.png';
-        break;
-      default: // 'melon'
-        assetName = fruitPart.isLeft
-            ? 'assets/images/watermelon_cut_left.png'
-            : 'assets/images/watermelon_cut_right.png';
-        break;
-    }
+    String fruitName = fruitPart.fruitName.replaceAll(RegExp(' '), '_');
+    fruitPart.isLeft
+        ? assetName = 'assets/images/' + fruitName + '_cut_left.png'
+        : assetName = 'assets/images/' + fruitName + '_cut_right.png';
 
     return Transform.rotate(
         angle: fruitPart.rotation * pi * 2,
@@ -721,238 +532,6 @@ class _CanvasAreaState extends State<CanvasAreaLevel_00> with TickerProviderStat
           height: 80,
           fit: BoxFit.fitHeight,
         ));
-  }
-
-  Widget _getWatermelon(Fruit fruit) {
-    return Image.asset(
-      'assets/images/watermelon_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getBanana(Fruit fruit) {
-    return Image.asset(
-      'assets/images/banana_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getApple(Fruit fruit) {
-    return Image.asset(
-      'assets/images/apple_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getAvocado(Fruit fruit) {
-    return Image.asset(
-      'assets/images/avocado_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getBroccoli(Fruit fruit) {
-    return Image.asset(
-      'assets/images/broccoli_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getPinkSalmon(Fruit fruit) {
-    return Image.asset(
-      'assets/images/pink_salmon_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getChicken(Fruit fruit) {
-    return Image.asset(
-      'assets/images/chicken_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getBeef(Fruit fruit) {
-    return Image.asset(
-      'assets/images/beef_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getArugula(Fruit fruit) {
-    return Image.asset(
-      'assets/images/arugula_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getBread(Fruit fruit) {
-    return Image.asset(
-      'assets/images/bread_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getEgg(Fruit fruit) {
-    return Image.asset(
-      'assets/images/egg_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getCorn(Fruit fruit) {
-    return Image.asset(
-      'assets/images/corn_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getBeer(Fruit fruit) {
-    return Image.asset(
-      'assets/images/beer_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getVodka(Fruit fruit) {
-    return Image.asset(
-      'assets/images/vodka_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getCoffee(Fruit fruit) {
-    return Image.asset(
-      'assets/images/coffee_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getNoodles(Fruit fruit) {
-    return Image.asset(
-      'assets/images/noodles_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getRice(Fruit fruit) {
-    return Image.asset(
-      'assets/images/rice_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getMilk(Fruit fruit) {
-    return Image.asset(
-      'assets/images/milk_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getYogurt(Fruit fruit) {
-    return Image.asset(
-      'assets/images/yogurt_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getTofu(Fruit fruit) {
-    return Image.asset(
-      'assets/images/tofu_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getMuffin(Fruit fruit) {
-    return Image.asset(
-      'assets/images/muffin_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getCornOil(Fruit fruit) {
-    return Image.asset(
-      'assets/images/corn_oil_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getMango(Fruit fruit) {
-    return Image.asset(
-      'assets/images/mango_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getCilantro(Fruit fruit) {
-    return Image.asset(
-      'assets/images/cilantro_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getSugar(Fruit fruit) {
-    return Image.asset(
-      'assets/images/sugar_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getSoyMilk(Fruit fruit) {
-    return Image.asset(
-      'assets/images/soy_milk_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getCarrot(Fruit fruit) {
-    return Image.asset(
-      'assets/images/carrot_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getPumpkin(Fruit fruit) {
-    return Image.asset(
-      'assets/images/pumpkin_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
-  }
-
-  Widget _getPotato(Fruit fruit) {
-    return Image.asset(
-      'assets/images/potato_uncut.png',
-      height: 80,
-      fit: BoxFit.fitHeight,
-    );
   }
 
   Widget _getGestureDetector() {
@@ -1002,7 +581,6 @@ class _CanvasAreaState extends State<CanvasAreaLevel_00> with TickerProviderStat
 
           // update player's nutrition
           _updatePlayerNutrition(fruit.name);
-
 
           // handle fruit cut:
           if (fruit.name == 'melon') {
@@ -1138,7 +716,7 @@ class _CanvasAreaState extends State<CanvasAreaLevel_00> with TickerProviderStat
 
   void _updatePlayerNutrition(String fruitName) async {
     final nutrition = await DBInitializer().queryFoodNutritionByName(fruitName);
-    if (nutrition != null) {
+    if (nutrition != null && nutrition.isNotEmpty) {
       player.water += nutrition[0]['WATER'] ?? 0;
       player.energy += nutrition[0]['ENERGY'] ?? 0;
       player.protein += nutrition[0]['PROTEIN'] ?? 0;
@@ -1167,153 +745,118 @@ class _CanvasAreaState extends State<CanvasAreaLevel_00> with TickerProviderStat
   }
 
   void _checkPlayerHealth(int currentTimeEpoch) async {
-    final diseases = await _getNutrientRelatedDiseases();
+    final diseases = await _getNutrientRelatedDiseases(currentTimeEpoch);
     if (diseases.isNotEmpty) {
       _endGame(diseases);
     }
   }
 
   // This method returns a list of diseases based on the player's nutrient levels.
-  Future<List<String>> _getNutrientRelatedDiseases() async {
+  Future<List<String>> _getNutrientRelatedDiseases(int currentTimeEpoch) async {
+    // int currentTimeEpoch -> 是当前游戏进行了多少秒；进行了几秒就是过了几年。用作缩放
+
+    // diseases -> 用来存放“死亡”信息，也就是不健康时候的所有“疾病”名。
     List<String> diseases = [];
     final upper = await DBInitializer().queryFoodNutritionByName('upper');
     final lower = await DBInitializer().queryFoodNutritionByName('lower');
+
+    // 定义每年天数dayPerYear（通常是不需要变的）；和每100g食物的缩放倍数（常用 6倍）
     int dayPerYear = 365, hundredGramEach = 6;
     double upperScalar = 1.1, lowerScalar = 0.75;
-    if (player.water >
-        upper[0]['WATER'] * dayPerYear * hundredGramEach * upperScalar)
+
+    // 计算最后的缩放倍数
+    double upScalar = upperScalar / hundredGramEach * currentTimeEpoch;
+    double loScalar = lowerScalar / hundredGramEach * currentTimeEpoch;
+
+    print('current upper: ' + (upper[0]['WATER'] * upScalar).toString());
+    print('current lower: ' + (lower[0]['WATER'] * loScalar).toString());
+    if (player.water > upScalar * upper[0]['WATER'])
       diseases.add("Hyponatremia");
-    if (player.energy >
-        upper[0]['ENERGY'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("Obesity");
-    if (player.protein >
-        upper[0]['PROTEIN'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.energy > upper[0]['ENERGY'] * upScalar) diseases.add("Obesity");
+    if (player.protein > upper[0]['PROTEIN'] * upScalar)
       diseases.add("Aminoaciduria");
-    if (player.fat >
-        upper[0]['FAT'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("Heart diseases");
-    if (player.carb >
-        upper[0]['CARB'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("Diabetes");
-    if (player.fiber >
-        upper[0]['FIBER'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.fat > upper[0]['FAT'] * upScalar) diseases.add("Heart diseases");
+    if (player.carb > upper[0]['CARB'] * upScalar) diseases.add("Diabetes");
+    if (player.fiber > upper[0]['FIBER'] * upScalar)
       diseases.add("Bowel obstruction");
-    if (player.sugar >
-        upper[0]['SUGAR'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("Diabetes");
-    if (player.calcium >
-        upper[0]['CALCIUM'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.sugar > upper[0]['SUGAR'] * upScalar) diseases.add("Diabetes");
+    if (player.calcium > upper[0]['CALCIUM'] * upScalar)
       diseases.add("Hypercalcemia");
-    if (player.iron >
-        upper[0]['IRON'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.iron > upper[0]['IRON'] * upScalar)
       diseases.add("Hemochromatosis");
-    if (player.magnesium >
-        upper[0]['MAGNESIUM'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.magnesium > upper[0]['MAGNESIUM'] * upScalar)
       diseases.add("Hypermagnesemia");
-    if (player.phosphorus >
-        upper[0]['PHOSPHORUS'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.phosphorus > upper[0]['PHOSPHORUS'] * upScalar)
       diseases.add("Hyperphosphatemia");
-    if (player.potassium >
-        upper[0]['POTASSIUM'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.potassium > upper[0]['POTASSIUM'] * upScalar)
       diseases.add("Hyperkalemia");
-    if (player.sodium >
-        upper[0]['SODIUM'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.sodium > upper[0]['SODIUM'] * upScalar)
       diseases.add("Hypernatremia");
-    if (player.zinc >
-        upper[0]['ZINC'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.zinc > upper[0]['ZINC'] * upScalar)
       diseases.add("Zinc toxicity");
-    if (player.copper >
-        upper[0]['COPPER'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("Wilson’s disease");
-    if (player.manganese >
-        upper[0]['MANGANESE'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.copper > upper[0]['COPPER'] * upScalar)
+      diseases.add("Wilson's disease");
+    if (player.manganese > upper[0]['MANGANESE'] * upScalar)
       diseases.add("Manganese toxicity");
-    if (player.selenium >
-        upper[0]['SELENIUM'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.selenium > upper[0]['SELENIUM'] * upScalar)
       diseases.add("Selenosis");
-    if (player.vc > upper[0]['VC'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("Diarrhea");
-    if (player.vb > upper[0]['VB'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("");
-    if (player.va > upper[0]['VA'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.vc > upper[0]['VC'] * upScalar) diseases.add("Diarrhea");
+    if (player.vb > upper[0]['VB'] * upScalar) diseases.add("");
+    if (player.va > upper[0]['VA'] * upScalar)
       diseases.add("Hypervitaminosis A");
-    if (player.vd > upper[0]['VD'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.vd > upper[0]['VD'] * upScalar)
       diseases.add("Hypervitaminosis D");
-    if (player.vk > upper[0]['VK'] * dayPerYear * hundredGramEach * upperScalar)
-      diseases.add("Vitamin K excess");
-    if (player.caffeine >
-        upper[0]['CAFFEINE'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.vk > upper[0]['VK'] * upScalar) diseases.add("Vitamin K excess");
+    if (player.caffeine > upper[0]['CAFFEINE'] * upScalar)
       diseases.add("Anxiety & insomnia");
-    if (player.alcohol >
-        upper[0]['ALCOHOL'] * dayPerYear * hundredGramEach * upperScalar)
+    if (player.alcohol > upper[0]['ALCOHOL'] * upScalar)
       diseases.add("Alcohol disorder");
-    if (player.water >
-        lower[0]['WATER'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.water < lower[0]['WATER'] * loScalar)
       diseases.add("Dehydration");
-    if (player.energy >
-        lower[0]['ENERGY'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.energy < lower[0]['ENERGY'] * loScalar)
       diseases.add("Energy deficiency");
-    if (player.protein >
-        lower[0]['PROTEIN'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.protein < lower[0]['PROTEIN'] * loScalar)
       diseases.add("Kwashiorkor");
-    if (player.fat >
-        lower[0]['FAT'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.fat < lower[0]['FAT'] * loScalar)
       diseases.add("Essential fatty acids deficiency");
-    if (player.carb >
-        lower[0]['CARB'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.carb < lower[0]['CARB'] * loScalar)
       diseases.add("Energy deficiencyd");
-    if (player.fiber >
-        lower[0]['FIBER'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.fiber < lower[0]['FIBER'] * loScalar)
       diseases.add("Constipation, digestive issues");
-    if (player.sugar >
-        lower[0]['SUGAR'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.sugar < lower[0]['SUGAR'] * loScalar)
       diseases.add("Lack of sugar");
-    if (player.calcium >
-        lower[0]['CALCIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.calcium < lower[0]['CALCIUM'] * loScalar)
       diseases.add("Osteoporosis");
-    if (player.iron >
-        lower[0]['IRON'] * dayPerYear * hundredGramEach * lowerScalar)
-      diseases.add("Anemia");
-    if (player.magnesium >
-        lower[0]['MAGNESIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.iron < lower[0]['IRON'] * loScalar) diseases.add("Anemia");
+    if (player.magnesium < lower[0]['MAGNESIUM'] * loScalar)
       diseases.add("Muscle cramps");
-    if (player.phosphorus >
-        lower[0]['PHOSPHORUS'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.phosphorus < lower[0]['PHOSPHORUS'] * loScalar)
       diseases.add("Weak bones");
-    if (player.potassium >
-        lower[0]['POTASSIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.potassium < lower[0]['POTASSIUM'] * loScalar)
       diseases.add("Hypokalemia");
-    if (player.sodium >
-        lower[0]['SODIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.sodium < lower[0]['SODIUM'] * loScalar)
       diseases.add("Hyponatremia");
-    if (player.zinc >
-        lower[0]['ZINC'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.zinc < lower[0]['ZINC'] * loScalar)
       diseases.add("Growth retardation");
-    if (player.copper >
-        lower[0]['COPPER'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.copper < lower[0]['COPPER'] * loScalar)
       diseases.add("cardiovascular diseases");
-    if (player.manganese >
-        lower[0]['MANGANESE'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.manganese < lower[0]['MANGANESE'] * loScalar)
       diseases.add("Bone malformation");
-    if (player.selenium >
-        lower[0]['SELENIUM'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.selenium < lower[0]['SELENIUM'] * loScalar)
       diseases.add("Keshan disease");
-    if (player.vc > lower[0]['VC'] * dayPerYear * hundredGramEach * lowerScalar)
-      diseases.add("Scurvy");
-    if (player.vb > lower[0]['VB'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.vc < lower[0]['VC'] * loScalar) diseases.add("Scurvy");
+    if (player.vb < lower[0]['VB'] * loScalar)
       diseases.add("Various deficiency diseases");
-    if (player.va > lower[0]['VA'] * dayPerYear * hundredGramEach * lowerScalar)
-      diseases.add("Night blindness");
-    if (player.vd > lower[0]['VD'] * dayPerYear * hundredGramEach * lowerScalar)
-      diseases.add("Rickets");
-    if (player.vk > lower[0]['VK'] * dayPerYear * hundredGramEach * lowerScalar)
+    if (player.va < lower[0]['VA'] * loScalar) diseases.add("Night blindness");
+    if (player.vd < lower[0]['VD'] * loScalar) diseases.add("Rickets");
+    if (player.vk < lower[0]['VK'] * loScalar)
       diseases.add("Bleeding disorders");
-    if (player.caffeine >
-        lower[0]['CAFFEINE'] * dayPerYear * hundredGramEach * lowerScalar)
-      diseases.add("Sleep disorders");
-    if (player.alcohol >
-        lower[0]['ALCOHOL'] * dayPerYear * hundredGramEach * lowerScalar)
-      diseases.add("Alcohol withdrawal syndrome");
+    // if (player.caffeine <
+    //     lower[0]['CAFFEINE'] * loScalar)
+    //   diseases.add("Sleep disorders");
+    // if (player.alcohol <
+    //     lower[0]['ALCOHOL'] * loScalar)
+    //   diseases.add("Alcohol withdrawal syndrome");
 
     return diseases;
   }
