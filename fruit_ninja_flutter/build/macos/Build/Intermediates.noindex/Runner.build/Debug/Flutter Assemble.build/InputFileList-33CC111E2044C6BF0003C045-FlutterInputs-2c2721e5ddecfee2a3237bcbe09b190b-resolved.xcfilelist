@@ -1460,15 +1460,21 @@
 /Users/yinghaiyu/.pub-cache/hosted/pub.dev/xml-6.5.0/lib/xml.dart
 /Users/yinghaiyu/.pub-cache/hosted/pub.dev/xml-6.5.0/lib/xml_events.dart
 <<<<<<< HEAD
+<<<<<<< HEAD
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/DOES_NOT_EXIST_RERUN_FOR_WILDCARD830334464
 =======
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/DOES_NOT_EXIST_RERUN_FOR_WILDCARD1060263044
+>>>>>>> testDB
+=======
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/DOES_NOT_EXIST_RERUN_FOR_WILDCARD866284918
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/.DS_Store
 >>>>>>> testDB
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/TinySwords/Terrain/Ground/Tilemap_Flat.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/TinySwords/Terrain/Water/Water.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/audios/lemonjuicysqueezefruit-77998.mp3
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/data/LEVEL_01.csv
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/data/food_nutrition.csv
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/.DS_Store
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/apple_cut_left.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/apple_cut_right.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/apple_uncut.png
@@ -1514,6 +1520,7 @@
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/egg_cut_left.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/egg_cut_right.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/egg_uncut.png
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/fog_of_war_1.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/mango_cut_left.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/mango_cut_right.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/mango_uncut.png
@@ -1529,6 +1536,7 @@
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/pink_salmon_cut_left.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/pink_salmon_cut_right.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/pink_salmon_uncut.png
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/play_button.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/potato_cut_left.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/potato_cut_right.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/potato_uncut.png
@@ -1559,15 +1567,25 @@
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images/yogurt_uncut.png
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/tiles/Tilemap_Flat.tsx
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/tiles/Water.tsx
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/tiles/fog_of_war_1.tsx
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/tiles/war_of_fog_1.tsx
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/tiles/world_map.tiled-project
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/tiles/world_map.tiled-session
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/tiles/world_map.tmx
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/tiles/world_map_stage1.tmx
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/tiles/world_map_stage2.tmx
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/tiles/world_map_stage3.tmx
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/tiles/world_map_stage4.tmx
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/db_initializer.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/high_score_page.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/levels/db_helper_levels/db_helper_level_01.dart
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/levels/db_helper_levels/db_helper_level_04.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/levels/level_00.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/levels/level_01.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/levels/level_02.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/levels/level_03.dart
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/levels/level_04.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/levels/models/body.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/levels/models/fruit.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/levels/models/fruit_part.dart
@@ -1575,8 +1593,8 @@
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/levels/models/touch_slice.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/levels/player.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/levels/slice_painter.dart
+/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/pixel_map.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/select_level.dart
-/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/game_main_menu_components/select_level_pixel.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/initial_screen.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/lib/main.dart
 /Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/pubspec.yaml

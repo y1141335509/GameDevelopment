@@ -24,6 +24,7 @@
 			<key>cdhash</key>
 			<data>
 <<<<<<< HEAD
+<<<<<<< HEAD
 			9tQpG+cSfQ0/zAXsYSkjsiudULg=
 			</data>
 			<key>requirement</key>
@@ -34,15 +35,21 @@
 			<key>requirement</key>
 			<string>cdhash H"8491dcf5a09b4a0b48278dedbca0b504dd4cb5d2"</string>
 >>>>>>> testDB
+=======
+			g2XpKjt15Eywj5aVYiojK/3ylMU=
+			</data>
+			<key>requirement</key>
+			<string>cdhash H"8365e92a3b75e44cb08f9695622a232bfdf294c5"</string>
+>>>>>>> testDB
 		</dict>
 		<key>Frameworks/FMDB.framework</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			odsUOCgan8zSN18r9vmK4l3yi18=
+			yw77Ma2t14+RMGXgmO9ze6BUdfM=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"a1db1438281a9fccd2375f2bf6f98ae25df28b5f"</string>
+			<string>cdhash H"cb0efb31adadd78f913065e098ef737ba05475f3"</string>
 		</dict>
 		<key>Frameworks/FlutterMacOS.framework</key>
 		<dict>
@@ -57,10 +64,10 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			sQUV31aAoztYDMjj+mG0wrDBHCA=
+			uhNKpWFaJC1kVx36ml6D/Ni0rYA=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"b10515df5680a33b580cc8e3fa61b4c2b0c11c20"</string>
+			<string>cdhash H"ba134aa5615a242d64571dfa9a5e83fcd8b4ad80"</string>
 		</dict>
 		<key>Frameworks/libswiftAVFoundation.dylib</key>
 		<dict>
@@ -237,28 +244,28 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			UIwv8eB7DKo0KQcCZCuxPVVXFRU=
+			k1T493JQ/4iFUjDgRCd0VkIRdOo=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"508c2ff1e07b0caa34290702642bb13d55571515"</string>
+			<string>cdhash H"9354f8f77250ff88855230e044277456421174ea"</string>
 		</dict>
 		<key>Frameworks/shared_preferences_foundation.framework</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			frLs+byUtIvnn/XgLhRnT4Mlu18=
+			jJm4Zz+maJOJJtsUl3vAspcqTko=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"7eb2ecf9bc94b48be79ff5e02e14674f8325bb5f"</string>
+			<string>cdhash H"8c99b8673fa668938926db14977bc0b2972a4e4a"</string>
 		</dict>
 		<key>Frameworks/sqflite.framework</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			Srp2hgmXfcStP6fFrQnzqkXRlv0=
+			lbgYD1MH3D/vGo2Ipt+lGSaD55k=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"4aba768609977dc4ad3fa7c5ad09f3aa45d196fd"</string>
+			<string>cdhash H"95b8180f5307dc3fef1a8d88a6dfa5192683e799"</string>
 		</dict>
 		<key>Resources/AppIcon.icns</key>
 		<dict>
