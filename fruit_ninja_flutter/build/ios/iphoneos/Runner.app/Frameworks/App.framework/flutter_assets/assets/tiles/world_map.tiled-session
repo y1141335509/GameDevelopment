@@ -1,0 +1,94 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "world_map_stage3.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "Tilemap_Flat.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Water.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "fog_of_war_1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "war_of_fog_1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "world_map.tmx": {
+            "scale": 0.06,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2858.333333333333,
+                "y": 4675
+            }
+        },
+        "world_map_stage1.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1976,
+                "y": 1640
+            }
+        },
+        "world_map_stage2.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2836,
+                "y": 1492
+            }
+        },
+        "world_map_stage3.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2740,
+                "y": 1908
+            }
+        },
+        "world_map_stage4.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1436,
+                "y": 2476
+            }
+        }
+    },
+    "last.imagePath": "/Users/yinghaiyu/Main/DesktopMain/STUDY/GameDevelopment/fruit_ninja_flutter/assets/images",
+    "map.height": 200,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 300,
+    "openFiles": [
+        "world_map_stage3.tmx"
+    ],
+    "project": "world_map.tiled-project",
+    "recentFiles": [
+        "world_map_stage3.tmx",
+        "world_map_stage4.tmx",
+        "world_map_stage2.tmx",
+        "world_map.tmx",
+        "world_map_stage1.tmx",
+        "fog_of_war_1.tsx",
+        "war_of_fog_1.tsx",
+        "Tilemap_Flat.tsx",
+        "Water.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
